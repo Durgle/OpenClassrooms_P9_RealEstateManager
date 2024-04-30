@@ -3,10 +3,10 @@ package com.openclassrooms.realestatemanager.data.models
 import java.sql.Timestamp
 
 data class Estate(
-    val id: Int,
+    val id: Long,
     val type: PropertyType,
     val price: Long,
-    val propertyArea: Int,
+    val propertyArea: Long,
     val numberOfBathrooms: Int,
     val numberOfBedrooms: Int,
     val description: String?,
@@ -21,7 +21,4 @@ data class Estate(
     val entryDate: Timestamp,
     val saleDate: Timestamp?,
     val realEstateAgent: RealEstateAgent
-) {
-    val numberOfRooms: Int
-        get() = numberOfBathrooms + numberOfBedrooms
-}
+)

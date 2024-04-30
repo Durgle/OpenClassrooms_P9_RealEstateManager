@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_margin">8dp</dimen>
+    <dimen name="large_text_margin">20dp</dimen>
     <dimen name="marge_text_margin">12dp</dimen>
     <dimen name="layout_margin">16dp</dimen>
+    <dimen name="small_layout_margin">8dp</dimen>
     <dimen name="small_text_margin">4dp</dimen>
     <dimen name="estate_detail_value_margin">40dp</dimen>
     <dimen name="estate_photo_max_size">84dp</dimen>

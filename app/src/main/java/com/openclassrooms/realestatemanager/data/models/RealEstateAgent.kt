@@ -1,3 +1,3 @@
 package com.openclassrooms.realestatemanager.data.models
 
-data class RealEstateAgent(val id: Int, val displayName: String)
+data class RealEstateAgent(val id: Long, val displayName: String)
