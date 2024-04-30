@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
+    <string name="estate_list_photo_desc">Estate Photo</string>
+    <string name="estate_type" translatable="false">Type</string>
+    <string name="estate_price">Price</string>
+    <string name="estate_property_area">Surface</string>
+    <string name="estate_number_rooms">Number of rooms</string>
+    <string name="estate_number_bathrooms">Number of bathrooms</string>
+    <string name="estate_number_bedrooms">Number of bedrooms</string>
+    <string name="estate_description" translatable="false">Description</string>
+    <string name="estate_location">Location</string>
+    <string name="estate_points_interest">Points of interest</string>
+    <string name="estate_create_button">Create Estate</string>
+    <string name="estate_edit_button">Edit Estate</string>
+    <string name="estate_media">Media</string>
+    <string name="estate_room_picture">Estate room picture</string>
+    <string name="app_bar_add">Add estate</string>
+    <string name="app_bar_edit">Edit estate</string>
+    <string name="app_bar_search">Search estate</string>
 </resources>

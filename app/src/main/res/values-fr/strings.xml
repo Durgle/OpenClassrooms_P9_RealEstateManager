@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Real Estate Manager</string>
+    <string name="estate_list_photo_desc">Photo du bien</string>
+    <string name="estate_price">Prix</string>
+    <string name="estate_property_area">Surface</string>
+    <string name="estate_number_rooms">Nombre de pièces</string>
+    <string name="estate_number_bathrooms">Nombre de salles de bains</string>
+    <string name="estate_number_bedrooms">Nombre de chambres</string>
+    <string name="estate_location">Localisation</string>
+    <string name="estate_points_interest">Points d’intérêts</string>
+    <string name="estate_create_button">Créer le bien</string>
+    <string name="estate_edit_button">Modifier le bien</string>
+    <string name="estate_media">Média</string>
+    <string name="estate_room_picture">Photo des pièces du bien</string>
+    <string name="app_bar_add">Ajouter un bien</string>
+    <string name="app_bar_edit">Modifier un bien</string>
+    <string name="app_bar_search">Rechercher un bien</string>
+</resources>
