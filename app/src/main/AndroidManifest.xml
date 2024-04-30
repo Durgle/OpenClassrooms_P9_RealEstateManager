@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         >
         <activity
-            android:name="com.openclassrooms.realestatemanager.MainActivity"
+            android:name="com.openclassrooms.realestatemanager.ui.MainActivity"
             android:exported="true"
             >
             <intent-filter>
