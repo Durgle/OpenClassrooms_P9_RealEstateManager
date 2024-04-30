@@ -16,4 +16,7 @@
     <string name="app_bar_add">Ajouter un bien</string>
     <string name="app_bar_edit">Modifier un bien</string>
     <string name="app_bar_search">Rechercher un bien</string>
+    <string name="property_type_apartment">Apartement</string>
+    <string name="property_type_manor">Manoir</string>
+    <string name="property_type_house">Maison</string>
 </resources>

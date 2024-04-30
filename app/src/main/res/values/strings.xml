@@ -17,4 +17,9 @@
     <string name="app_bar_add">Add estate</string>
     <string name="app_bar_edit">Edit estate</string>
     <string name="app_bar_search">Search estate</string>
+    <string name="property_type_apartment">Apartment</string>
+    <string name="property_type_loft" translatable="false">Loft</string>
+    <string name="property_type_manor">Manor</string>
+    <string name="property_type_house">House</string>
+    <string name="property_type_duplex" translatable="false">Duplex</string>
 </resources>
