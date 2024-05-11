@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layout_margin"
         android:orientation="vertical"
-        tools:context=".ui.estate.EstateDetailFragment">
+        tools:context=".ui.estate.detail.EstateDetailFragment">
 
         <TextView
             style="@style/AppLightTitle"
@@ -144,19 +144,19 @@ room." />
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-<!--                <fragment-->
-<!--                    android:id="@+id/map_fragment"-->
-<!--                    android:name="com.google.android.gms.maps.MapFragment"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintDimensionRatio="1:1"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    map:cameraZoom="13"-->
-<!--                    map:liteMode="true"-->
-<!--                    map:mapType="normal" />-->
+                <fragment
+                    android:id="@+id/map_fragment"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    map:cameraZoom="13"
+                    map:liteMode="true"
+                    map:mapType="normal" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

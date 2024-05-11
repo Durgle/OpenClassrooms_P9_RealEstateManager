@@ -1,11 +1,11 @@
-package com.openclassrooms.realestatemanager.ui.estate.viewstate
+package com.openclassrooms.realestatemanager.ui.estate.list
 
 import com.openclassrooms.realestatemanager.data.models.Photo
-import com.openclassrooms.realestatemanager.data.models.PropertyType
+import com.openclassrooms.realestatemanager.data.enums.PropertyType
 
 data class EstateViewState(
     val id: Long,
-    val photo: Photo,
+    val photo: Photo?,
     val propertyType: PropertyType,
     val city: String,
     val price: String,

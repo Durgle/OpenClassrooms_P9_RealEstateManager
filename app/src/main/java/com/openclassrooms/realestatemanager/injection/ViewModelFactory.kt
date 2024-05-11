@@ -4,39 +4,44 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.openclassrooms.realestatemanager.data.repositories.EstateRepository
-import com.openclassrooms.realestatemanager.ui.estate.EstateDetailFragment.Companion.ARG_ESTATE_ID
-import com.openclassrooms.realestatemanager.ui.estate.EstateDetailViewModel
-import com.openclassrooms.realestatemanager.ui.estate.EstateViewModel
+import com.openclassrooms.realestatemanager.MainApplication
+import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
+import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateViewModel
+import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment.Companion.ARG_ESTATE_ID
+import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailViewModel
+import com.openclassrooms.realestatemanager.ui.estate.list.EstateViewModel
 
-class ViewModelFactory private constructor(
-    private val estateRepository: EstateRepository
-) : ViewModelProvider.Factory {
+class ViewModelFactory private constructor() : ViewModelProvider.Factory {
+
+    private val CreationExtras.application: MainApplication
+        get() = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as MainApplication
 
     companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
         fun getInstance(): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(EstateRepository()).also { instance = it }
+                instance ?: ViewModelFactory().also { instance = it }
             }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
 
         return when {
             modelClass.isAssignableFrom(EstateViewModel::class.java) ->
-                EstateViewModel(estateRepository) as T
+                EstateViewModel(extras.application.estateRepository) as T
 
             modelClass.isAssignableFrom(EstateDetailViewModel::class.java) -> {
                 val savedStateHandle = extras.createSavedStateHandle()
                 val estateId = savedStateHandle.get<Long>(ARG_ESTATE_ID)
-                estateId?.let { EstateDetailViewModel(estateRepository, it) } as T
+                    ?: throw IllegalArgumentException("Estate id not passed")
+                EstateDetailViewModel(extras.application.estateRepository, estateId) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }
-    }
 
+    }
 
 }

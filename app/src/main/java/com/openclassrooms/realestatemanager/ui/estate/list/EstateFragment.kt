@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui.estate
+package com.openclassrooms.realestatemanager.ui.estate.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.data.repositories.EstateRepository
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateFragment
+import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment
+import com.openclassrooms.realestatemanager.utils.Utils
 
 class EstateFragment : Fragment() {
 
@@ -31,12 +33,12 @@ class EstateFragment : Fragment() {
         val listener: EstateRecyclerViewAdapter.OnItemClickListener =
             object : EstateRecyclerViewAdapter.OnItemClickListener {
                 override fun onClick(estateId: Long) {
+                    viewModel.onSelectedEstate(estateId)
                     showDetails(estateId)
                 }
             }
         val adapter = EstateRecyclerViewAdapter(listener)
         viewModel.getEstates().observe(viewLifecycleOwner) { list -> adapter.submitList(list) }
-
         this.binding.estateList.adapter = adapter
     }
 
@@ -48,8 +50,8 @@ class EstateFragment : Fragment() {
 
     fun showDetails(estateId: Long) {
 
-        if (resources.getBoolean(R.bool.isLargeLayout)) {
-            parentFragmentManager.beginTransaction().apply {
+        if (Utils.isTablet(resources)) {
+            childFragmentManager.beginTransaction().apply {
                 replace(R.id.detail_container, EstateDetailFragment.newInstance(estateId))
                     .addToBackStack("estate_detail")
                     .commit()
@@ -61,5 +63,10 @@ class EstateFragment : Fragment() {
                     .commit()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.clearSelection()
     }
 }

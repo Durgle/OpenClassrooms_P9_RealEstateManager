@@ -1,5 +1,6 @@
-package com.openclassrooms.realestatemanager.ui.estate.viewstate
+package com.openclassrooms.realestatemanager.ui.estate.detail
 
+import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.models.Photo
 
 data class EstateDetailViewState(
@@ -9,7 +10,8 @@ data class EstateDetailViewState(
     val description: String,
     val numberOfBathrooms: Int,
     val numberOfBedrooms: Int,
-    val address: String
+    val address: String,
+    val location: LatLng?
 ) {
     val numberOfRooms: Int
         get() = numberOfBathrooms + numberOfBedrooms

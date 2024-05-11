@@ -11,4 +11,5 @@
     <dimen name="divider_height">1dp</dimen>
     <dimen name="photo_overlay_text_padding">12dp</dimen>
     <dimen name="carousel_height">148dp</dimen>
+    <dimen name="column_margin">8dp</dimen>
 </resources>

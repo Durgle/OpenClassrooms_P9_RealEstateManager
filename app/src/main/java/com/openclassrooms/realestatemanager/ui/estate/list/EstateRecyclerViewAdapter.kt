@@ -1,6 +1,5 @@
-package com.openclassrooms.realestatemanager.ui.estate
+package com.openclassrooms.realestatemanager.ui.estate.list
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.EstateListItemBinding
-import com.openclassrooms.realestatemanager.ui.estate.viewstate.EstateViewState
 
 class EstateRecyclerViewAdapter(private val listener: OnItemClickListener) :
     ListAdapter<EstateViewState, EstateRecyclerViewAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -37,19 +35,36 @@ class EstateRecyclerViewAdapter(private val listener: OnItemClickListener) :
 
         fun bind(estate: EstateViewState, listener: OnItemClickListener) {
             Glide.with(itemView)
-                .load(estate.photo.photoPath)
+                .load(estate.photo?.photoPath ?: R.drawable.no_photos)
                 .into(binding.estatePicture)
             binding.estatePrice.text = estate.price
-            binding.estateType.setText(estate.propertyType.getLabel())
+            binding.estateType.setText(estate.propertyType.labelResId)
             binding.estateLocation.text = estate.city
             binding.estateListItem.setOnClickListener {
                 listener.onClick(estate.id)
             }
 
-            if(estate.selected) {
-                binding.estateListItem.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.colorLightGray))
+            if (estate.selected) {
+                binding.estateListItem.setBackgroundColor(
+                    ContextCompat.getColor(
+                        itemView.context,
+                        R.color.colorAccent
+                    )
+                )
+                binding.estatePrice.setTextColor(
+                    ContextCompat.getColor(
+                        itemView.context,
+                        R.color.colorWhite
+                    )
+                )
             } else {
                 binding.estateListItem.setBackgroundColor(Color.TRANSPARENT)
+                binding.estatePrice.setTextColor(
+                    ContextCompat.getColor(
+                        itemView.context,
+                        R.color.colorAccent
+                    )
+                )
             }
         }
     }

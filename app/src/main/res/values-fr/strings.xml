@@ -8,8 +8,12 @@
     <string name="estate_number_bathrooms">Nombre de salles de bains</string>
     <string name="estate_number_bedrooms">Nombre de chambres</string>
     <string name="estate_location">Localisation</string>
+    <string name="estate_address">Adresse</string>
+    <string name="estate_additional_address">Complément d\'adresse</string>
+    <string name="estate_zipcode">Code Postal</string>
+    <string name="estate_city">Ville</string>
+    <string name="estate_country">Pays</string>
     <string name="estate_points_interest">Points d’intérêts</string>
-    <string name="estate_create_button">Créer le bien</string>
     <string name="estate_edit_button">Modifier le bien</string>
     <string name="estate_media">Média</string>
     <string name="estate_room_picture">Photo des pièces du bien</string>
@@ -19,4 +23,11 @@
     <string name="property_type_apartment">Apartement</string>
     <string name="property_type_manor">Manoir</string>
     <string name="property_type_house">Maison</string>
+    <string name="poi_parks_and_green_spaces">Parcs et Espaces Verts</string>
+    <string name="poi_schools_and_universities">Écoles et Universités</string>
+    <string name="poi_shops_and_malls">Magasins et Centres Commerciaux</string>
+    <string name="poi_restaurants_and_cafes">Restaurants et Cafés</string>
+    <string name="poi_public_transport">Transports en Commun</string>
+    <string name="poi_health_services">Services de Santé</string>
+    <string name="poi_community_spaces">Espaces Communautaires</string>
 </resources>

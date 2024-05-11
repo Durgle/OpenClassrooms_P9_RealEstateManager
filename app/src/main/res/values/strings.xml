@@ -9,8 +9,12 @@
     <string name="estate_number_bedrooms">Number of bedrooms</string>
     <string name="estate_description" translatable="false">Description</string>
     <string name="estate_location">Location</string>
+    <string name="estate_address">Address</string>
+    <string name="estate_additional_address">Additional address</string>
+    <string name="estate_zipcode">Zipcode</string>
+    <string name="estate_city">City</string>
+    <string name="estate_country">Country</string>
     <string name="estate_points_interest">Points of interest</string>
-    <string name="estate_create_button">Create Estate</string>
     <string name="estate_edit_button">Edit Estate</string>
     <string name="estate_media">Media</string>
     <string name="estate_room_picture">Estate room picture</string>
@@ -22,4 +26,11 @@
     <string name="property_type_manor">Manor</string>
     <string name="property_type_house">House</string>
     <string name="property_type_duplex" translatable="false">Duplex</string>
+    <string name="poi_parks_and_green_spaces">Parks and Green Spaces</string>
+    <string name="poi_schools_and_universities">Schools and Universities</string>
+    <string name="poi_shops_and_malls">Shops and Malls</string>
+    <string name="poi_restaurants_and_cafes">Restaurants and Cafés</string>
+    <string name="poi_public_transport">Public Transport</string>
+    <string name="poi_health_services">Health Services</string>
+    <string name="poi_community_spaces">Community Spaces</string>
 </resources>

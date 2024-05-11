@@ -1,24 +1,23 @@
 package com.openclassrooms.realestatemanager.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.ui.estate.EstateFragment.Companion.newInstance
+import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding
+import com.openclassrooms.realestatemanager.ui.estate.list.EstateFragment
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        if (resources.getBoolean(R.bool.isLargeLayout)) {
+        val binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding.root)
+        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.list_container, newInstance())
-                .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, newInstance())
+                .replace(R.id.main_container, EstateFragment.newInstance())
                 .commit()
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui.estate
+package com.openclassrooms.realestatemanager.ui.estate.detail
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,8 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.models.Photo
 import com.openclassrooms.realestatemanager.databinding.ImageListItemBinding
 
-class CarouselViewAdapter() : ListAdapter<Photo, CarouselViewAdapter.ViewHolder>(DIFF_CALLBACK) {
+class CarouselViewAdapter() :
+    ListAdapter<Photo, CarouselViewAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

@@ -20,6 +20,10 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <style name="AppPriceSelected" parent="AppPrice">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
     <style name="AppLightTitle" parent="AppTitle">
         <item name="android:textColor">@color/colorDarkGray</item>
     </style>

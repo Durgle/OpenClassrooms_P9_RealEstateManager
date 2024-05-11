@@ -1,10 +1,13 @@
 package com.openclassrooms.realestatemanager.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.openclassrooms.realestatemanager.R;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -71,17 +74,17 @@ public class Utils {
             @NonNull String zipCode,
             @NonNull String country
     ) {
-        if(additionalAddressLine == null) {
-            return address + System.lineSeparator() +
-                    city + System.lineSeparator() +
-                    zipCode + System.lineSeparator() +
-                    country;
+
+        if (additionalAddressLine == null) {
+            return String.format("%s%n%s%n%s%n%s", address, city, zipCode, country);
         } else {
-            return address + System.lineSeparator() +
-                    additionalAddressLine + System.lineSeparator() +
-                    city + System.lineSeparator() +
-                    zipCode + System.lineSeparator() +
-                    country;
+            return String.format(
+                    "%s%n%s%n%s%n%s%n%s", address, additionalAddressLine, city, zipCode, country
+            );
         }
+    }
+
+    public static boolean isTablet(Resources resources) {
+        return resources.getBoolean(R.bool.isLargeLayout);
     }
 }
