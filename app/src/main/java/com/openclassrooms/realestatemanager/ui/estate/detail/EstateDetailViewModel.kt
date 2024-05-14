@@ -10,8 +10,8 @@ import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryIn
 import com.openclassrooms.realestatemanager.utils.Utils
 
 class EstateDetailViewModel(
-    private val estateRepository: EstateRepositoryInterface,
-    private val estateId: Long
+    estateRepository: EstateRepositoryInterface,
+    estateId: Long
 ) : ViewModel() {
 
     private val estate: LiveData<EstateDetailViewState> =

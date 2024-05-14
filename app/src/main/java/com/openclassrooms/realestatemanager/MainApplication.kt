@@ -10,7 +10,7 @@ class MainApplication : Application() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
     private val database by lazy { RealEstateManagerDatabase.getInstance(this, applicationScope) }
-    val estateRepository by lazy {
+    val estateRepository: EstateRepositoryInterface by lazy {
         EstateRepository(
             database.estateDao(),
             database.photoDao()

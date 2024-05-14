@@ -11,9 +11,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.appbar.MaterialToolbar
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateDetailBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateFragment
 
 class EstateDetailFragment : Fragment(), OnMapReadyCallback {
 
@@ -21,7 +23,6 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
         ViewModelFactory.getInstance()
     }
     private lateinit var binding: FragmentEstateDetailBinding
-    private lateinit var map: GoogleMap
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +35,32 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+        initTopAppBar()
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         viewModel.getEstate().observe(viewLifecycleOwner) { estateDetailViewState ->
             updateUI(estateDetailViewState)
+        }
+    }
+
+    private fun initTopAppBar() {
+        if (binding.topAppBar != null) {
+            val appBar = binding.topAppBar as MaterialToolbar
+            appBar.setNavigationOnClickListener { parentFragmentManager.popBackStack() }
+            appBar.setOnMenuItemClickListener { menu ->
+                when (menu.itemId) {
+                    R.id.app_bar_edit_button -> {
+                        parentFragmentManager.beginTransaction().apply {
+                            replace(R.id.main_container, CreateEstateFragment.newInstance())
+                                .addToBackStack("estate_edit")
+                                .commit()
+                        }
+                    }
+                }
+                true
+            }
         }
     }
 
@@ -71,8 +93,13 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
 
         viewModel.getEstate().observe(viewLifecycleOwner) { estateDetailViewState ->
 
-            if(estateDetailViewState.location != null) {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(estateDetailViewState.location, 18.0f))
+            if (estateDetailViewState.location != null) {
+                googleMap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        estateDetailViewState.location,
+                        18.0f
+                    )
+                )
                 googleMap.addMarker(
                     MarkerOptions()
                         .position(estateDetailViewState.location)

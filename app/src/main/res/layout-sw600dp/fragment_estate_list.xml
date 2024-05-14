@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:menu="@menu/top_app_bar"
+            app:menu="@menu/top_app_bar_tablet"
             app:navigationIcon="@drawable/baseline_menu_24"
             app:title="@string/app_name" />
 

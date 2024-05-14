@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.openclassrooms.realestatemanager.MainApplication
-import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
 import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment.Companion.ARG_ESTATE_ID
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailViewModel
@@ -38,6 +37,13 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
                     ?: throw IllegalArgumentException("Estate id not passed")
                 EstateDetailViewModel(extras.application.estateRepository, estateId) as T
             }
+
+            modelClass.isAssignableFrom(CreateEstateViewModel::class.java) ->
+                CreateEstateViewModel(
+                    extras.application.estateRepository,
+                    extras.application.realEstateAgentRepository,
+                    extras.application.resources
+                ) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }

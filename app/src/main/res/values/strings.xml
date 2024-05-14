@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
+    <string name="estate_detail_title">Estate Detail</string>
     <string name="estate_list_photo_desc">Estate Photo</string>
     <string name="estate_type" translatable="false">Type</string>
+    <string name="estate_agent" translatable="false">Agent</string>
     <string name="estate_price">Price</string>
     <string name="estate_property_area">Surface</string>
     <string name="estate_number_rooms">Number of rooms</string>
@@ -21,6 +23,7 @@
     <string name="app_bar_add">Add estate</string>
     <string name="app_bar_edit">Edit estate</string>
     <string name="app_bar_search">Search estate</string>
+    <string name="app_bar_save">Save</string>
     <string name="property_type_apartment">Apartment</string>
     <string name="property_type_loft" translatable="false">Loft</string>
     <string name="property_type_manor">Manor</string>
@@ -29,8 +32,16 @@
     <string name="poi_parks_and_green_spaces">Parks and Green Spaces</string>
     <string name="poi_schools_and_universities">Schools and Universities</string>
     <string name="poi_shops_and_malls">Shops and Malls</string>
-    <string name="poi_restaurants_and_cafes">Restaurants and Cafés</string>
+    <string name="poi_restaurants_and_cafes">Restaurants and Coffee</string>
     <string name="poi_public_transport">Public Transport</string>
     <string name="poi_health_services">Health Services</string>
     <string name="poi_community_spaces">Community Spaces</string>
+    <string name="save_success">Saved</string>
+    <string name="save_general_error">An error occurred while saving, please try later.</string>
+    <string name="save_error">One or more fields are incorrect.</string>
+    <string name="form_error_not_number">This field must contain only numbers</string>
+    <string name="form_error_not_empty">This field is required</string>
+    <string name="form_error_superior_or_equal_to">This field must be greater than or equal to %1$d</string>
+    <string name="form_error_superior_to">This field must be greater than %1$d</string>
+    <string name="value_unknown">Unknown</string>
 </resources>

@@ -1,166 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/layout_margin">
+    android:orientation="vertical">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_margin"
-        android:orientation="vertical"
-        tools:context=".ui.estate.detail.EstateDetailFragment">
+        android:layout_height="wrap_content">
 
-        <TextView
-            style="@style/AppLightTitle"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="8dp"
-            android:text="@string/estate_media" />
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:menu="@menu/detail_app_bar"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:title="@string/estate_detail_title" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/carousel_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/carousel_height"
-            android:layout_marginTop="@dimen/text_margin"
-            android:layout_marginBottom="@dimen/large_text_margin"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
-            tools:itemCount="6"
-            tools:listitem="@layout/image_list_item" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            style="@style/AppLightTitle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="8dp"
-            android:text="@string/estate_description" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/layout_margin">
 
-        <TextView
-            android:id="@+id/estate_description"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/large_text_margin"
-            tools:text="Anchored by a vast marble gallery with sweeping staircase, the entertaining floor includes a baronial living
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_margin"
+            android:orientation="vertical"
+            tools:context=".ui.estate.detail.EstateDetailFragment">
+
+            <TextView
+                style="@style/AppLightTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="8dp"
+                android:text="@string/estate_media" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/carousel_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/carousel_height"
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_marginBottom="@dimen/large_text_margin"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
+                tools:itemCount="6"
+                tools:listitem="@layout/image_list_item" />
+
+            <TextView
+                style="@style/AppLightTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="8dp"
+                android:text="@string/estate_description" />
+
+            <TextView
+                android:id="@+id/estate_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/large_text_margin"
+                tools:text="Anchored by a vast marble gallery with sweeping staircase, the entertaining floor includes a baronial living
 room facing Park Avenue, handsome library with original paneling, and tremendous dining room; all of which
 enjoy fireplaces. The state-of-the-art St. Charles designed kitchen includes a sunny breakfast room and staff
 quarters. Upstairs, the expansive master suite overlooks Park Avenue and includes two marble baths, two
 dressing rooms, and two offices. Additionally there are three large bedrooms with en-suite baths and a media
 room." />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/estate_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/text_margin"
-            android:orientation="vertical">
-
-            <TextView
-                android:textStyle="bold"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/estate_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/text_margin"
-                android:text="@string/estate_property_area"
-                app:drawableLeftCompat="@drawable/baseline_settings_overscan_24" />
+                android:layout_marginVertical="@dimen/text_margin"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/estate_surface"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/estate_detail_value_margin"
-                android:layout_marginBottom="@dimen/text_margin"
-                tools:text="750 sq m" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_property_area"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_settings_overscan_24" />
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/text_margin"
-                android:text="@string/estate_number_rooms"
-                app:drawableLeftCompat="@drawable/baseline_home_24" />
+                <TextView
+                    android:id="@+id/estate_surface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    tools:text="750 sq m" />
 
-            <TextView
-                android:id="@+id/estate_number_of_rooms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/estate_detail_value_margin"
-                android:layout_marginBottom="@dimen/text_margin"
-                tools:text="8" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_number_rooms"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_home_24" />
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/text_margin"
-                android:text="@string/estate_number_bathrooms"
-                app:drawableLeftCompat="@drawable/baseline_bathtub_24" />
+                <TextView
+                    android:id="@+id/estate_number_of_rooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    tools:text="8" />
 
-            <TextView
-                android:id="@+id/estate_number_of_bathrooms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/estate_detail_value_margin"
-                android:layout_marginBottom="@dimen/text_margin"
-                tools:text="2" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_number_bathrooms"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_bathtub_24" />
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/text_margin"
-                android:text="@string/estate_number_bedrooms"
-                app:drawableLeftCompat="@drawable/baseline_airline_seat_individual_suite_24" />
+                <TextView
+                    android:id="@+id/estate_number_of_bathrooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    tools:text="2" />
 
-            <TextView
-                android:id="@+id/estate_number_of_bedrooms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/estate_detail_value_margin"
-                android:layout_marginBottom="@dimen/text_margin"
-                tools:text="4" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_number_bedrooms"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_airline_seat_individual_suite_24" />
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/text_margin"
-                android:text="@string/estate_location"
-                app:drawableLeftCompat="@drawable/baseline_location_pin_24" />
+                <TextView
+                    android:id="@+id/estate_number_of_bedrooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    tools:text="4" />
 
-            <TextView
-                android:id="@+id/estate_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/estate_detail_value_margin"
-                android:layout_marginBottom="@dimen/text_margin"
-                tools:text="740 Park Avenue Apt 6/7A New York Ny 10021 United States" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_location"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_location_pin_24" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/estate_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    tools:text="740 Park Avenue Apt 6/7A New York Ny 10021 United States" />
 
-                <fragment
-                    android:id="@+id/map_fragment"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    map:cameraZoom="13"
-                    map:liteMode="true"
-                    map:mapType="normal" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <fragment
+                        android:id="@+id/map_fragment"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        map:cameraZoom="13"
+                        map:liteMode="true"
+                        map:mapType="normal" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

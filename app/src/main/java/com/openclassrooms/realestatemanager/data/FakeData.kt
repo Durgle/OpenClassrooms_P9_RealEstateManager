@@ -52,7 +52,7 @@ object FakeData {
                 PhotoEntity(5, "https://source.unsplash.com/random/?RealEstate&5", "Photo 5", 3)
             )
         )
-    );
+    )
 
     fun getFakeEstates(): Flow<List<EstateWithPhotosEntity>> {
         return flow { estateList }

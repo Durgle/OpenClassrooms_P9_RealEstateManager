@@ -19,9 +19,14 @@ class EstateViewModel(estateRepository: EstateRepositoryInterface) : ViewModel()
         }.asLiveData()
 
     private fun mapToEstateViewState(estate: Estate, selectedId: Long): EstateViewState {
+        val photo = if (!estate.photos.isNullOrEmpty()) {
+            estate.photos.first()
+        } else {
+            null
+        }
         return EstateViewState(
             estate.id,
-            estate.photos?.get(0),
+            photo,
             estate.type,
             estate.city,
             Utils.formatPrice(estate.price),
@@ -38,7 +43,7 @@ class EstateViewModel(estateRepository: EstateRepositoryInterface) : ViewModel()
     }
 
     fun clearSelection() {
-        selectedEstateId.value = 0;
+        selectedEstateId.value = 0
     }
 
 }

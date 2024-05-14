@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.appbar.MaterialToolbar
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
@@ -40,6 +41,29 @@ class EstateFragment : Fragment() {
         val adapter = EstateRecyclerViewAdapter(listener)
         viewModel.getEstates().observe(viewLifecycleOwner) { list -> adapter.submitList(list) }
         this.binding.estateList.adapter = adapter
+        initTopAppBar()
+    }
+
+    private fun initTopAppBar() {
+        this.binding.topAppBar.setOnMenuItemClickListener { menu ->
+            when (menu.itemId) {
+                R.id.app_bar_add_button -> {
+                    parentFragmentManager.beginTransaction().apply {
+                        replace(R.id.main_container, CreateEstateFragment.newInstance())
+                            .addToBackStack("estate_add")
+                            .commit()
+                    }
+                }
+                R.id.app_bar_edit_button -> {
+                    parentFragmentManager.beginTransaction().apply {
+                        replace(R.id.main_container, CreateEstateFragment.newInstance())
+                            .addToBackStack("estate_edit")
+                            .commit()
+                    }
+                }
+            }
+            true
+        }
     }
 
     companion object {
