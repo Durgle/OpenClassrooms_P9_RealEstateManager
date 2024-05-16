@@ -152,6 +152,7 @@ class CreateEstateFragment : Fragment() {
                 description
             )
         }
+
         binding.estateAddressInput.afterTextChanged { address -> viewModel.onAddressChanged(address) }
         binding.estateAdditionalAddressInput.afterTextChanged { additionalAddress ->
             viewModel.onAdditionalAddressChanged(

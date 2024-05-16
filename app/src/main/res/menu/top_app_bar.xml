@@ -16,5 +16,5 @@
         android:enabled="true"
         android:icon="@drawable/baseline_search_24"
         android:title="@string/app_bar_search"
-        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+        app:showAsAction="ifRoom" />
 </menu>

@@ -7,6 +7,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
+import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -31,4 +32,20 @@ interface EstateDao {
     @Transaction
     @Query("SELECT * FROM estates")
     fun getEstatesWithPhotos(): Flow<List<EstateWithPhotosEntity>>
+
+    @Transaction
+    @Query(
+        "SELECT * FROM estates WHERE (:type IS NULL OR type IN (:type)) " +
+                "AND (:minPrice IS NULL OR price >= :minPrice) " +
+                "AND (:maxPrice IS NULL OR price <= :maxPrice) " +
+                "AND (:city IS NULL OR city LIKE '%' || :city || '%' )" +
+                "AND (:available IS NULL OR available = :available)"
+    )
+    fun getFilteredEstatesWithPhotos(
+        type: List<PropertyType>?,
+        minPrice: Long?,
+        maxPrice: Long?,
+        city: String?,
+        available: Boolean?
+    ): Flow<List<EstateWithPhotosEntity>>
 }

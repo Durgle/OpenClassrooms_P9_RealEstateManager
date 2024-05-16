@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.ui.estate.create
 import android.content.res.Resources
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -31,7 +30,6 @@ class CreateEstateViewModel(
 
     private val realEstateAgents: LiveData<List<RealEstateAgent>> =
         realEstateAgentRepository.getRealEstateAgents().asLiveData()
-
 
     fun save() {
         if (validateFormData()) {

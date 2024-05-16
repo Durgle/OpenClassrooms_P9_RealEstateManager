@@ -3,6 +3,11 @@ package com.openclassrooms.realestatemanager
 import android.app.Application
 import com.openclassrooms.realestatemanager.data.database.RealEstateManagerDatabase
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepository
+import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
+import com.openclassrooms.realestatemanager.data.repositories.FilterRepository
+import com.openclassrooms.realestatemanager.data.repositories.FilterRepositoryInterface
+import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepository
+import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
@@ -15,5 +20,11 @@ class MainApplication : Application() {
             database.estateDao(),
             database.photoDao()
         )
+    }
+    val realEstateAgentRepository: RealEstateAgentRepositoryInterface by lazy {
+        RealEstateAgentRepository(database.realEstateAgentDao())
+    }
+    val filterRepository: FilterRepositoryInterface by lazy {
+        FilterRepository(this)
     }
 }

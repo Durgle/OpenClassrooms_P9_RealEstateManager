@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.appbar.MaterialToolbar
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateFragment
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment
+import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateFragment
 import com.openclassrooms.realestatemanager.utils.Utils
 
 class EstateFragment : Fragment() {
@@ -54,6 +54,15 @@ class EstateFragment : Fragment() {
                             .commit()
                     }
                 }
+
+                R.id.app_bar_search_button -> {
+                    parentFragmentManager.beginTransaction().apply {
+                        replace(R.id.main_container, FilterEstateFragment.newInstance())
+                            .addToBackStack("estate_filter")
+                            .commit()
+                    }
+                }
+
                 R.id.app_bar_edit_button -> {
                     parentFragmentManager.beginTransaction().apply {
                         replace(R.id.main_container, CreateEstateFragment.newInstance())

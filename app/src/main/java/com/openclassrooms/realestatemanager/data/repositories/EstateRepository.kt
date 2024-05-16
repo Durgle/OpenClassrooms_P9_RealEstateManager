@@ -6,6 +6,7 @@ import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
+import com.openclassrooms.realestatemanager.data.models.EstateFilter
 import com.openclassrooms.realestatemanager.data.models.Photo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -60,6 +61,20 @@ class EstateRepository(private val estateDao: EstateDao, private val photoDao: P
 
     override fun getEstates(): Flow<List<Estate>> {
         return estateDao.getEstatesWithPhotos().map { estatesWithPhotosList ->
+            estatesWithPhotosList.map { estateWithPhotos ->
+                mapToEstate(estateWithPhotos)
+            }
+        }
+    }
+
+    override fun getEstatesFiltered(filters: EstateFilter): Flow<List<Estate>> {
+        return estateDao.getFilteredEstatesWithPhotos(
+            filters.type,
+            filters.minPrice,
+            filters.maxPrice,
+            filters.city,
+            filters.available
+        ).map { estatesWithPhotosList ->
             estatesWithPhotosList.map { estateWithPhotos ->
                 mapToEstate(estateWithPhotos)
             }

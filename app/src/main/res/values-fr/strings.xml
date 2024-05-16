@@ -40,4 +40,13 @@
     <string name="form_error_superior_or_equal_to">Ce champ doit être supérieur ou égal à %1$d</string>
     <string name="form_error_superior_to">Ce champ doit être supérieur à %1$d</string>
     <string name="value_unknown">Inconnu</string>
+    <string name="app_bar_clear_filter">Supprimer les filtres</string>
+    <string name="estate_filter_title">Filtrer les biens</string>
+    <string name="filter_cleared">Filtres supprimés</string>
+    <string name="estate_available">Disponible</string>
+    <string name="yes">Tous</string>
+    <string name="no">Non</string>
+    <string name="all">Oui</string>
+    <string name="apply_filter">Appliquer les filtres</string>
+    <string name="filter_applied_success">Filtres appliqués</string>
 </resources>

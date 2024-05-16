@@ -8,6 +8,7 @@ import com.openclassrooms.realestatemanager.MainApplication
 import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment.Companion.ARG_ESTATE_ID
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailViewModel
+import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estate.list.EstateViewModel
 
 class ViewModelFactory private constructor() : ViewModelProvider.Factory {
@@ -29,7 +30,10 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
 
         return when {
             modelClass.isAssignableFrom(EstateViewModel::class.java) ->
-                EstateViewModel(extras.application.estateRepository) as T
+                EstateViewModel(
+                    extras.application.estateRepository,
+                    extras.application.filterRepository
+                ) as T
 
             modelClass.isAssignableFrom(EstateDetailViewModel::class.java) -> {
                 val savedStateHandle = extras.createSavedStateHandle()
@@ -44,6 +48,9 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
                     extras.application.realEstateAgentRepository,
                     extras.application.resources
                 ) as T
+
+            modelClass.isAssignableFrom(FilterEstateViewModel::class.java) ->
+                FilterEstateViewModel(extras.application.filterRepository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }

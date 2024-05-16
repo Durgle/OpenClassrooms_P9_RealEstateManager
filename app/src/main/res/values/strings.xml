@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
     <string name="estate_detail_title">Estate Detail</string>
+    <string name="estate_filter_title">Estate Filter</string>
     <string name="estate_list_photo_desc">Estate Photo</string>
     <string name="estate_type" translatable="false">Type</string>
     <string name="estate_agent" translatable="false">Agent</string>
     <string name="estate_price">Price</string>
+    <string name="estate_available">Available</string>
     <string name="estate_property_area">Surface</string>
     <string name="estate_number_rooms">Number of rooms</string>
     <string name="estate_number_bathrooms">Number of bathrooms</string>
@@ -24,6 +26,8 @@
     <string name="app_bar_edit">Edit estate</string>
     <string name="app_bar_search">Search estate</string>
     <string name="app_bar_save">Save</string>
+    <string name="apply_filter">Apply filters</string>
+    <string name="app_bar_clear_filter">Clear Filter</string>
     <string name="property_type_apartment">Apartment</string>
     <string name="property_type_loft" translatable="false">Loft</string>
     <string name="property_type_manor">Manor</string>
@@ -37,6 +41,8 @@
     <string name="poi_health_services">Health Services</string>
     <string name="poi_community_spaces">Community Spaces</string>
     <string name="save_success">Saved</string>
+    <string name="filter_applied_success">Filters applied</string>
+    <string name="filter_cleared">Filters Cleared</string>
     <string name="save_general_error">An error occurred while saving, please try later.</string>
     <string name="save_error">One or more fields are incorrect.</string>
     <string name="form_error_not_number">This field must contain only numbers</string>
@@ -44,4 +50,7 @@
     <string name="form_error_superior_or_equal_to">This field must be greater than or equal to %1$d</string>
     <string name="form_error_superior_to">This field must be greater than %1$d</string>
     <string name="value_unknown">Unknown</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="all">All</string>
 </resources>

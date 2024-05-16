@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:menu="@menu/upsert_app_bar"
+            app:menu="@menu/save_app_bar"
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -55,8 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_price"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_price_input"
@@ -72,8 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_property_area"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_surface_input"
@@ -89,8 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_number_bathrooms"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_number_bathrooms_input"
@@ -106,8 +106,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_number_bedrooms"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_number_bedrooms_input"
@@ -123,8 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_description"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_description_input"
@@ -140,8 +140,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_address"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_address_input"
@@ -157,8 +157,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_additional_address"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_additional_address_input"
@@ -174,8 +174,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_zipcode"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_zipcode_input"
@@ -191,8 +191,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_city"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_city_input"
@@ -208,8 +208,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/text_margin"
                 android:hint="@string/estate_country"
-                app:errorEnabled="true"
-                app:endIconMode="clear_text">
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/estate_country_input"

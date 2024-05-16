@@ -31,7 +31,7 @@ class EstateDetailViewModel(
             return EstateDetailViewState(
                 estate.id,
                 Utils.formatPropertyArea(estate.propertyArea),
-                estate.photos?: listOf(),
+                estate.photos.orEmpty(),
                 estate.description ?: "",
                 estate.numberOfBathrooms,
                 estate.numberOfBedrooms,

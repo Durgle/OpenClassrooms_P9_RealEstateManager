@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/filter_top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:menu="@menu/filter_app_bar"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:title="@string/estate_filter_title" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/type_filter_chip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/estate_price" />
+
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/price_filter_range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/estate_price"
+                android:stepSize="10000"
+                android:valueFrom="0"
+                android:valueTo="5000000"
+                app:values="@array/default_slider_values" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/city_filter_layout"
+                style="?attr/textInputOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/text_margin"
+                android:hint="@string/estate_city"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/city_filter_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/estate_available" />
+
+            <RadioGroup
+                android:id="@+id/available_filter_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/available_filter_all">
+
+                <RadioButton
+                    android:id="@+id/available_filter_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/all" />
+
+                <RadioButton
+                    android:id="@+id/available_filter_yes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/available_filter_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/no" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
