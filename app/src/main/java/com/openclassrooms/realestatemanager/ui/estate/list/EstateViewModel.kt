@@ -17,7 +17,7 @@ class EstateViewModel(
     filterRepository: FilterRepositoryInterface
 ) : ViewModel() {
 
-    private val selectedEstateId = MutableStateFlow(0L)
+    private val selectedEstateId = MutableStateFlow(-1L)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val estates: LiveData<List<EstateViewState>> =
@@ -56,7 +56,11 @@ class EstateViewModel(
     }
 
     fun clearSelection() {
-        selectedEstateId.value = 0
+        selectedEstateId.value = -1
+    }
+
+    fun getSelectedEstate(): Long {
+        return selectedEstateId.value
     }
 
 }

@@ -8,6 +8,7 @@ import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPho
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
 import com.openclassrooms.realestatemanager.data.models.EstateFilter
 import com.openclassrooms.realestatemanager.data.models.Photo
+import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -34,7 +35,7 @@ class EstateRepository(private val estateDao: EstateDao, private val photoDao: P
                 available = estate.available,
                 entryDate = System.currentTimeMillis(),
                 saleDate = null,
-                realEstateAgentId = estate.realEstateAgentId
+                realEstateAgentId = estate.realEstateAgent.id
             )
         )
         if (estate.photos != null) {
@@ -108,7 +109,10 @@ class EstateRepository(private val estateDao: EstateDao, private val photoDao: P
             estateWithPhotos.estate.available,
             estateWithPhotos.estate.entryDate,
             estateWithPhotos.estate.saleDate,
-            estateWithPhotos.estate.realEstateAgentId
+            RealEstateAgent(
+                estateWithPhotos.agent.id,
+                estateWithPhotos.agent.displayName
+            )
         )
     }
 

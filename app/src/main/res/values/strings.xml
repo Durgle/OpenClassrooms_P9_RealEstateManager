@@ -53,4 +53,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="all">All</string>
+    <string name="error_select_estate">Please, select an estate to edit</string>
 </resources>

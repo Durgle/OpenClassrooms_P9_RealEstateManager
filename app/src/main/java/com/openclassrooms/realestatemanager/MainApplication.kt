@@ -6,6 +6,8 @@ import com.openclassrooms.realestatemanager.data.repositories.EstateRepository
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
 import com.openclassrooms.realestatemanager.data.repositories.FilterRepository
 import com.openclassrooms.realestatemanager.data.repositories.FilterRepositoryInterface
+import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepository
+import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepositoryInterface
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepository
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 import kotlinx.coroutines.CoroutineScope
@@ -26,5 +28,8 @@ class MainApplication : Application() {
     }
     val filterRepository: FilterRepositoryInterface by lazy {
         FilterRepository(this)
+    }
+    val geocoderRepository: GeocoderRepositoryInterface by lazy {
+        GeocoderRepository(this)
     }
 }

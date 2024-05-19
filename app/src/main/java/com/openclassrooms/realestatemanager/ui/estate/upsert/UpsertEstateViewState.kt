@@ -1,7 +1,6 @@
-package com.openclassrooms.realestatemanager.ui.estate.create
+package com.openclassrooms.realestatemanager.ui.estate.upsert
 
-
-data class CreateEstateErrorsViewState(
+data class UpsertEstateViewState(
     val errorType: String = "",
     val errorPrice: String = "",
     val errorSurface: String = "",
@@ -14,6 +13,5 @@ data class CreateEstateErrorsViewState(
     val errorCity: String = "",
     val errorCountry: String = "",
     val errorAgent: String = "",
-    val errorPointOfInterest: String = ""
 )
 

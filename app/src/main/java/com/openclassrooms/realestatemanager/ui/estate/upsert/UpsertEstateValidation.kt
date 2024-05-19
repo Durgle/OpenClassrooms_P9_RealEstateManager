@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui.estate.create
+package com.openclassrooms.realestatemanager.ui.estate.upsert
 
 import android.content.res.Resources
 import androidx.core.text.isDigitsOnly
@@ -6,7 +6,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
 
-class CreateEstateValidation {
+class UpsertEstateValidation {
     companion object {
         fun validateType(resources: Resources, type: PropertyType?): ValidationResult {
             return if (type != null) {

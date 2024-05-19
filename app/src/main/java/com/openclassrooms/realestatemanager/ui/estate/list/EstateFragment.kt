@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
-import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateFragment
+import com.openclassrooms.realestatemanager.ui.estate.upsert.UpsertEstateFragment
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment
 import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateFragment
 import com.openclassrooms.realestatemanager.utils.Utils
@@ -49,7 +51,7 @@ class EstateFragment : Fragment() {
             when (menu.itemId) {
                 R.id.app_bar_add_button -> {
                     parentFragmentManager.beginTransaction().apply {
-                        replace(R.id.main_container, CreateEstateFragment.newInstance())
+                        replace(R.id.main_container, UpsertEstateFragment.newInstance())
                             .addToBackStack("estate_add")
                             .commit()
                     }
@@ -64,10 +66,23 @@ class EstateFragment : Fragment() {
                 }
 
                 R.id.app_bar_edit_button -> {
-                    parentFragmentManager.beginTransaction().apply {
-                        replace(R.id.main_container, CreateEstateFragment.newInstance())
-                            .addToBackStack("estate_edit")
-                            .commit()
+                    val selectedId = viewModel.getSelectedEstate()
+                    if (selectedId == -1L) {
+                        Snackbar.make(
+                            requireView(),
+                            R.string.error_select_estate,
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .show()
+                    } else {
+                        parentFragmentManager.beginTransaction().apply {
+                            replace(
+                                R.id.main_container,
+                                UpsertEstateFragment.newInstance(selectedId)
+                            )
+                                .addToBackStack("estate_edit")
+                                .commit()
+                        }
                     }
                 }
             }
@@ -100,6 +115,16 @@ class EstateFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        clearDetailFragment()
         viewModel.clearSelection()
+    }
+
+    private fun clearDetailFragment() {
+        val fragment = childFragmentManager.findFragmentById(R.id.detail_container)
+        fragment?.let {
+            childFragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).remove(it)
+                .commitAllowingStateLoss()
+        }
     }
 }

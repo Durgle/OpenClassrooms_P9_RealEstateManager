@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.openclassrooms.realestatemanager.MainApplication
-import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateViewModel
+import com.openclassrooms.realestatemanager.ui.estate.upsert.UpsertEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment.Companion.ARG_ESTATE_ID
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateViewModel
@@ -42,12 +42,17 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
                 EstateDetailViewModel(extras.application.estateRepository, estateId) as T
             }
 
-            modelClass.isAssignableFrom(CreateEstateViewModel::class.java) ->
-                CreateEstateViewModel(
+            modelClass.isAssignableFrom(UpsertEstateViewModel::class.java) -> {
+                val savedStateHandle = extras.createSavedStateHandle()
+                val estateId = savedStateHandle.get<Long>(ARG_ESTATE_ID)
+                UpsertEstateViewModel(
                     extras.application.estateRepository,
                     extras.application.realEstateAgentRepository,
-                    extras.application.resources
+                    extras.application.geocoderRepository,
+                    extras.application.resources,
+                    estateId
                 ) as T
+            }
 
             modelClass.isAssignableFrom(FilterEstateViewModel::class.java) ->
                 FilterEstateViewModel(extras.application.filterRepository) as T

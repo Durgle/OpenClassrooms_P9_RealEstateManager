@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.data
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
+import com.openclassrooms.realestatemanager.data.database.entities.RealEstateAgentEntity
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -24,7 +25,8 @@ object FakeData {
                 PhotoEntity(1, "https://source.unsplash.com/random/?RealEstate&1", "Photo 1", 1),
                 PhotoEntity(2, "https://source.unsplash.com/random/?RealEstate&2", "Photo 2", 1),
                 PhotoEntity(3, "https://source.unsplash.com/random/?RealEstate&3", "Photo 3", 1)
-            )
+            ),
+            RealEstateAgentEntity(1, "Agent 1")
         ),
         EstateWithPhotosEntity(
             EstateEntity(
@@ -37,7 +39,8 @@ object FakeData {
                 Date().time, null, 2
             ), listOf(
                 PhotoEntity(4, "https://source.unsplash.com/random/?RealEstate&4", "Photo 4", 2)
-            )
+            ),
+            RealEstateAgentEntity(1, "Agent 2")
         ),
         EstateWithPhotosEntity(
             EstateEntity(
@@ -50,7 +53,8 @@ object FakeData {
                 Date().time, null, 1
             ), listOf(
                 PhotoEntity(5, "https://source.unsplash.com/random/?RealEstate&5", "Photo 5", 3)
-            )
+            ),
+            RealEstateAgentEntity(1, "Agent 1")
         )
     )
 

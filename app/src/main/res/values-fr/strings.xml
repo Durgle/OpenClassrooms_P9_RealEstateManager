@@ -49,4 +49,5 @@
     <string name="all">Oui</string>
     <string name="apply_filter">Appliquer les filtres</string>
     <string name="filter_applied_success">Filtres appliqués</string>
+    <string name="error_select_estate">Veuillez sélectionner un bien pour pouvoir l\'éditer.</string>
 </resources>

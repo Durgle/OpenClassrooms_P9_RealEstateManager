@@ -9,5 +9,10 @@ data class EstateWithPhotosEntity(
         parentColumn = "id",
         entityColumn = "estateId"
     )
-    val photos: List<PhotoEntity>?
+    val photos: List<PhotoEntity>?,
+    @Relation(
+        parentColumn = "realEstateAgentId",
+        entityColumn = "id"
+    )
+    val agent: RealEstateAgentEntity
 )

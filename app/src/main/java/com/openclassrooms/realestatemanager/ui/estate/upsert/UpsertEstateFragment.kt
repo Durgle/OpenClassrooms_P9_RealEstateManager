@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui.estate.create
+package com.openclassrooms.realestatemanager.ui.estate.upsert
 
 import android.content.Context
 import android.os.Bundle
@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.enums.PointOfInterest
@@ -22,12 +22,11 @@ import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.utils.afterTextChanged
 
 
-class CreateEstateFragment : Fragment() {
+class UpsertEstateFragment : Fragment() {
 
-    private val viewModel: CreateEstateViewModel by viewModels {
+    private val viewModel: UpsertEstateViewModel by viewModels {
         ViewModelFactory.getInstance()
     }
-
     private lateinit var binding: FragmentCreateEstateBinding
 
     override fun onCreateView(
@@ -48,19 +47,46 @@ class CreateEstateFragment : Fragment() {
         initListeners()
 
         viewModel.getErrorsViewState().observe(viewLifecycleOwner) { viewState ->
-
             renderErrors(viewState)
+        }
+        viewModel.getCurrentData().observe(viewLifecycleOwner) { currentData ->
+
+            if (currentData != null) {
+                if (currentData.type != null) {
+                    binding.estateTypeInput.setText(currentData.type.name, false)
+                }
+                binding.estatePriceInput.setText(currentData.price)
+                binding.estateSurfaceInput.setText(currentData.surface)
+                binding.estateNumberBathroomsInput.setText(currentData.numberOfBathroom)
+                binding.estateNumberBedroomsInput.setText(currentData.numberOfBedroom)
+                binding.estateDescriptionInput.setText(currentData.description)
+                binding.estateAddressInput.setText(currentData.address)
+                binding.estateAdditionalAddressInput.setText(currentData.additionalAddress)
+                binding.estateZipcodeInput.setText(currentData.zipcode)
+                binding.estateCityInput.setText(currentData.city)
+                binding.estateCountryInput.setText(currentData.country)
+                if (currentData.agent != null) {
+                    binding.estateAgentInput.setText(currentData.agent.displayName, false)
+                }
+                currentData.pointsOfInterest.forEach { pointOfInterest ->
+                    binding.estatePointsInterestChip.check(
+                        pointOfInterest.id
+                    )
+                }
+                binding.estateAvailableSwitch.isChecked = currentData.available
+            }
+
         }
 
         viewModel.snackBar.observe(viewLifecycleOwner) { event ->
 
             when (event) {
-                is CreateEstateViewModel.Event.SaveSuccess -> {
+                is UpsertEstateViewModel.Event.SaveSuccess -> {
                     Snackbar.make(view, R.string.save_success, Snackbar.LENGTH_SHORT).show()
                     parentFragmentManager.popBackStack()
                 }
 
-                is CreateEstateViewModel.Event.Error -> {
+                is UpsertEstateViewModel.Event.Error -> {
                     Snackbar.make(
                         view,
                         event.message.ifEmpty { getString(R.string.save_error) },
@@ -71,7 +97,7 @@ class CreateEstateFragment : Fragment() {
         }
     }
 
-    private fun renderErrors(viewState: CreateEstateErrorsViewState) {
+    private fun renderErrors(viewState: UpsertEstateViewState) {
         binding.estateTypeLayout.error = viewState.errorType
         binding.estatePriceLayout.error = viewState.errorPrice
         binding.estateSurfaceLayout.error = viewState.errorSurface
@@ -96,10 +122,16 @@ class CreateEstateFragment : Fragment() {
             }
             true
         }
+
+        if (requireArguments().getLong(ARG_ESTATE_ID, -1) == -1L) {
+            binding.upsertTopAppBar.setTitle(R.string.app_bar_add)
+        } else {
+            binding.upsertTopAppBar.setTitle(R.string.app_bar_edit)
+        }
     }
 
     private fun initPointsOfInterestChip() {
-        val pointOfInterestChip = binding.estatePointsInterestChip as ChipGroup
+        val pointOfInterestChip = binding.estatePointsInterestChip
 
         PointOfInterest.entries.forEach { pointOfInterestEnum ->
             val chip = Chip(requireContext())
@@ -138,35 +170,38 @@ class CreateEstateFragment : Fragment() {
         binding.estatePriceInput.afterTextChanged { price -> viewModel.onPriceChanged(price) }
         binding.estateSurfaceInput.afterTextChanged { surface -> viewModel.onSurfaceChanged(surface) }
         binding.estateNumberBathroomsInput.afterTextChanged { numberBathrooms ->
-            viewModel.onNumberOfBathroomChanged(
-                numberBathrooms
-            )
+            viewModel.onNumberOfBathroomChanged(numberBathrooms)
         }
         binding.estateNumberBedroomsInput.afterTextChanged { numberBedrooms ->
-            viewModel.onNumberOfBedroomChanged(
-                numberBedrooms
-            )
+            viewModel.onNumberOfBedroomChanged(numberBedrooms)
         }
         binding.estateDescriptionInput.afterTextChanged { description ->
-            viewModel.onDescriptionChanged(
-                description
-            )
+            viewModel.onDescriptionChanged(description)
         }
 
         binding.estateAddressInput.afterTextChanged { address -> viewModel.onAddressChanged(address) }
         binding.estateAdditionalAddressInput.afterTextChanged { additionalAddress ->
-            viewModel.onAdditionalAddressChanged(
-                additionalAddress
-            )
+            viewModel.onAdditionalAddressChanged(additionalAddress)
         }
         binding.estateZipcodeInput.afterTextChanged { zipcode -> viewModel.onZipcodeChanged(zipcode) }
         binding.estateCityInput.afterTextChanged { city -> viewModel.onCityChanged(city) }
         binding.estateCountryInput.afterTextChanged { country -> viewModel.onCountryChanged(country) }
+        binding.estateAvailableSwitch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onAvailableChange(isChecked)
+        }
     }
 
     companion object {
-        fun newInstance(): CreateEstateFragment {
-            return CreateEstateFragment()
+        const val ARG_ESTATE_ID = "estateId"
+
+        fun newInstance(estateId: Long? = null): UpsertEstateFragment {
+            val fragment = UpsertEstateFragment()
+            val args = Bundle()
+            if (estateId != null) {
+                args.putLong(ARG_ESTATE_ID, estateId)
+            }
+            fragment.arguments = args
+            return fragment
         }
     }
 

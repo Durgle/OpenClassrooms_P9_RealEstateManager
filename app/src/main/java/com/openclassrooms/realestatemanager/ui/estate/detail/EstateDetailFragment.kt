@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -15,7 +16,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateDetailBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
-import com.openclassrooms.realestatemanager.ui.estate.create.CreateEstateFragment
+import com.openclassrooms.realestatemanager.ui.estate.upsert.UpsertEstateFragment
 
 class EstateDetailFragment : Fragment(), OnMapReadyCallback {
 
@@ -53,7 +54,12 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
                 when (menu.itemId) {
                     R.id.app_bar_edit_button -> {
                         parentFragmentManager.beginTransaction().apply {
-                            replace(R.id.main_container, CreateEstateFragment.newInstance())
+                            replace(
+                                R.id.main_container,
+                                UpsertEstateFragment.newInstance(
+                                    requireArguments().getLong(ARG_ESTATE_ID)
+                                )
+                            )
                                 .addToBackStack("estate_edit")
                                 .commit()
                         }
