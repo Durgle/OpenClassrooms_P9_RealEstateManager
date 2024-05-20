@@ -8,9 +8,7 @@ import androidx.room.Update
 import androidx.room.Upsert
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
-import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
-import com.openclassrooms.realestatemanager.data.models.Photo
 import kotlinx.coroutines.flow.Flow
 
 @Dao

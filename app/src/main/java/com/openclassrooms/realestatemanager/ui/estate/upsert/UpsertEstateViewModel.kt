@@ -19,10 +19,7 @@ import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepository
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 import com.openclassrooms.realestatemanager.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 

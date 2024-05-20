@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.data.models.Photo
 import com.openclassrooms.realestatemanager.databinding.UpsertPhotoItemBinding
 
 class PhotoAdapter(
