@@ -53,4 +53,5 @@
     <string name="form_add_photo">Ajouter des photos :</string>
     <string name="form_add_from_camera">Caméra</string>
     <string name="form_add_from_galley">Galerie</string>
+    <string name="delete">Supprimer</string>
 </resources>

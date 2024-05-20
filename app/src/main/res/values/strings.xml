@@ -57,4 +57,5 @@
     <string name="form_add_photo">Add pictures :</string>
     <string name="form_add_from_camera">Camera</string>
     <string name="form_add_from_galley">Gallery</string>
+    <string name="delete">Delete</string>
 </resources>
