@@ -98,7 +98,7 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
 
         viewModel.getEstate().observe(viewLifecycleOwner) { estateDetailViewState ->
-
+            googleMap.clear();
             if (estateDetailViewState.location != null) {
                 googleMap.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
