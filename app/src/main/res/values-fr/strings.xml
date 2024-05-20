@@ -50,4 +50,7 @@
     <string name="apply_filter">Appliquer les filtres</string>
     <string name="filter_applied_success">Filtres appliqués</string>
     <string name="error_select_estate">Veuillez sélectionner un bien pour pouvoir l\'éditer.</string>
+    <string name="form_add_photo">Ajouter des photos :</string>
+    <string name="form_add_from_camera">Caméra</string>
+    <string name="form_add_from_galley">Galerie</string>
 </resources>

@@ -5,9 +5,12 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import androidx.room.Upsert
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
+import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
+import com.openclassrooms.realestatemanager.data.models.Photo
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,6 +21,9 @@ interface EstateDao {
 
     @Update
     suspend fun updateEstate(estate: EstateEntity)
+
+    @Upsert(entity = EstateEntity::class)
+    suspend fun upsertEstate(estate: EstateEntity): Long
 
     @Query("SELECT * FROM estates")
     fun getAllEstates(): Flow<List<EstateEntity>>

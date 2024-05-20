@@ -54,4 +54,7 @@
     <string name="no">No</string>
     <string name="all">All</string>
     <string name="error_select_estate">Please, select an estate to edit</string>
+    <string name="form_add_photo">Add pictures :</string>
+    <string name="form_add_from_camera">Camera</string>
+    <string name="form_add_from_galley">Gallery</string>
 </resources>

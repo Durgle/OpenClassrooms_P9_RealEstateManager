@@ -22,9 +22,9 @@ object FakeData {
                 -104.88624551681441, null, true,
                 Date().time, null, 1
             ), listOf(
-                PhotoEntity(1, "https://source.unsplash.com/random/?RealEstate&1", "Photo 1", 1),
-                PhotoEntity(2, "https://source.unsplash.com/random/?RealEstate&2", "Photo 2", 1),
-                PhotoEntity(3, "https://source.unsplash.com/random/?RealEstate&3", "Photo 3", 1)
+                PhotoEntity("https://source.unsplash.com/random/?RealEstate&1", "Photo 1", 1),
+                PhotoEntity("https://source.unsplash.com/random/?RealEstate&2", "Photo 2", 1),
+                PhotoEntity("https://source.unsplash.com/random/?RealEstate&3", "Photo 3", 1)
             ),
             RealEstateAgentEntity(1, "Agent 1")
         ),
@@ -38,7 +38,7 @@ object FakeData {
                 -105.03180154232744, null, true,
                 Date().time, null, 2
             ), listOf(
-                PhotoEntity(4, "https://source.unsplash.com/random/?RealEstate&4", "Photo 4", 2)
+                PhotoEntity("https://source.unsplash.com/random/?RealEstate&4", "Photo 4", 2)
             ),
             RealEstateAgentEntity(1, "Agent 2")
         ),
@@ -52,7 +52,7 @@ object FakeData {
                 -105.02557896690276, null, true,
                 Date().time, null, 1
             ), listOf(
-                PhotoEntity(5, "https://source.unsplash.com/random/?RealEstate&5", "Photo 5", 3)
+                PhotoEntity("https://source.unsplash.com/random/?RealEstate&5", "Photo 5", 3)
             ),
             RealEstateAgentEntity(1, "Agent 1")
         )

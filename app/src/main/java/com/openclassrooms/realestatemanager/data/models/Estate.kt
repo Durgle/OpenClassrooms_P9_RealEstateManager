@@ -4,7 +4,7 @@ import com.openclassrooms.realestatemanager.data.enums.PointOfInterest
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
 
 data class Estate(
-    val id: Long,
+    val id: Long = 0,
     val type: PropertyType,
     val price: Long,
     val propertyArea: Long,

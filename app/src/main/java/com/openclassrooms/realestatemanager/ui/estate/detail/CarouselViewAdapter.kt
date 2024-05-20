@@ -30,7 +30,7 @@ class CarouselViewAdapter() :
 
         fun bind(photo: Photo) {
             Glide.with(itemView)
-                .load(photo.photoPath)
+                .load(photo.uri)
                 .into(binding.carouselImage)
 
             binding.carouselDescription.text = photo.description
@@ -45,7 +45,7 @@ class CarouselViewAdapter() :
                     oldPhoto: Photo,
                     newPhoto: Photo
                 ): Boolean {
-                    return oldPhoto.id == newPhoto.id
+                    return oldPhoto.uri == newPhoto.uri
                 }
 
                 override fun areContentsTheSame(

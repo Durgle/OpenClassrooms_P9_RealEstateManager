@@ -2,20 +2,21 @@ package com.openclassrooms.realestatemanager.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "photos",
     foreignKeys = [
-        ForeignKey(entity = EstateEntity::class,
+        ForeignKey(
+            entity = EstateEntity::class,
             parentColumns = ["id"],
             childColumns = ["estateId"],
-            onDelete = ForeignKey.CASCADE)
-    ]
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    primaryKeys = ["uri", "estateId"]
 )
 data class PhotoEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val photoPath: String,
+    val uri: String,
     val description: String,
     val estateId: Long
 )

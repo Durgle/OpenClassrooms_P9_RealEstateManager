@@ -17,7 +17,7 @@ class UpsertEstateValidation {
         }
 
         fun validatePrice(resources: Resources, price: String): ValidationResult {
-            return if (price.isEmpty()) {
+            return if (price.isBlank()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
             } else if (!price.isDigitsOnly()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_number))
@@ -29,7 +29,7 @@ class UpsertEstateValidation {
         }
 
         fun validateSurface(resources: Resources, surface: String): ValidationResult {
-            return if (surface.isEmpty()) {
+            return if (surface.isBlank()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
             } else if (!surface.isDigitsOnly()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_number))
@@ -41,7 +41,7 @@ class UpsertEstateValidation {
         }
 
         fun validateNbOfBathroom(resources: Resources, nbOfBathroom: String): ValidationResult {
-            return if (nbOfBathroom.isEmpty()) {
+            return if (nbOfBathroom.isBlank()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
             } else if (!nbOfBathroom.isDigitsOnly()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_number))
@@ -58,7 +58,7 @@ class UpsertEstateValidation {
         }
 
         fun validateNbOfBedroom(resources: Resources, nbOfBedroom: String): ValidationResult {
-            return if (nbOfBedroom.isEmpty()) {
+            return if (nbOfBedroom.isBlank()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
             } else if (!nbOfBedroom.isDigitsOnly()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_number))
@@ -72,7 +72,7 @@ class UpsertEstateValidation {
         }
 
         fun validateAddress(resources: Resources, address: String): ValidationResult {
-            return if (address.isEmpty()) {
+            return if (address.isBlank()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
             } else {
                 ValidationResult.Valid
@@ -80,7 +80,7 @@ class UpsertEstateValidation {
         }
 
         fun validateZipcode(resources: Resources, zipcode: String): ValidationResult {
-            return if (zipcode.isEmpty()) {
+            return if (zipcode.isBlank()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
             } else {
                 ValidationResult.Valid
@@ -88,7 +88,7 @@ class UpsertEstateValidation {
         }
 
         fun validateCity(resources: Resources, city: String): ValidationResult {
-            return if (city.isEmpty()) {
+            return if (city.isBlank()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
             } else {
                 ValidationResult.Valid
@@ -96,7 +96,7 @@ class UpsertEstateValidation {
         }
 
         fun validateCountry(resources: Resources, country: String): ValidationResult {
-            return if (country.isEmpty()) {
+            return if (country.isBlank()) {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
             } else {
                 ValidationResult.Valid
@@ -108,6 +108,14 @@ class UpsertEstateValidation {
                 ValidationResult.Valid
             } else {
                 ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
+            }
+        }
+
+        fun validatePhotoDesc(resources: Resources, description: String): ValidationResult {
+            return if (description.isBlank()) {
+                ValidationResult.Invalid(resources.getString(R.string.form_error_not_empty))
+            } else {
+                ValidationResult.Valid
             }
         }
     }

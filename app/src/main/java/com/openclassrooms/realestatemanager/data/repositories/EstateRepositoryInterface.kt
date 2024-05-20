@@ -6,9 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface EstateRepositoryInterface {
 
-    suspend fun insertEstate(estate: Estate): Long
-
-    suspend fun updateEstate(estate: Estate)
+    suspend fun upsertEstate(estate: Estate)
 
     fun getEstate(estateId: Long): Flow<Estate>
 

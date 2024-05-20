@@ -1,7 +1,7 @@
 package com.openclassrooms.realestatemanager.data.models
 
 data class Photo(
-    val id: Long = 0,
-    val photoPath: String,
+    val uri: String,
     val description: String,
+    val estateId: Long = 0
 )

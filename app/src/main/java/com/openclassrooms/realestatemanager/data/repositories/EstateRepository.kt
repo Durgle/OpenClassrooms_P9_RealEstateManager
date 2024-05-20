@@ -15,43 +15,47 @@ import kotlinx.coroutines.flow.map
 class EstateRepository(private val estateDao: EstateDao, private val photoDao: PhotoDao) :
     EstateRepositoryInterface {
 
-    override suspend fun insertEstate(estate: Estate): Long {
-        val estateSavedId = estateDao.insertEstate(
-            EstateEntity(
-                type = estate.type,
-                price = estate.price,
-                propertyArea = estate.propertyArea,
-                numberOfBathrooms = estate.numberOfBathrooms,
-                numberOfBedrooms = estate.numberOfBedrooms,
-                description = estate.description,
-                address = estate.address,
-                additionalAddressLine = estate.additionalAddressLine,
-                city = estate.city,
-                zipCode = estate.zipCode,
-                country = estate.country,
-                latitude = estate.latitude,
-                longitude = estate.longitude,
-                pointsOfInterest = estate.pointsOfInterest,
-                available = estate.available,
-                entryDate = System.currentTimeMillis(),
-                saleDate = null,
-                realEstateAgentId = estate.realEstateAgent.id
-            )
-        )
-        if (estate.photos != null) {
-            photoDao.insertPhotos(estate.photos.map { photoDomain ->
-                PhotoEntity(
-                    photoPath = photoDomain.photoPath,
-                    description = photoDomain.description,
-                    estateId = estateSavedId
-                )
-            })
-        }
-        return estateSavedId
-    }
+    override suspend fun upsertEstate(estate: Estate) {
 
-    override suspend fun updateEstate(estate: Estate) {
-        TODO("Not yet implemented")
+        val estateEntity = EstateEntity(
+            id = estate.id,
+            type = estate.type,
+            price = estate.price,
+            propertyArea = estate.propertyArea,
+            numberOfBathrooms = estate.numberOfBathrooms,
+            numberOfBedrooms = estate.numberOfBedrooms,
+            description = estate.description,
+            address = estate.address,
+            additionalAddressLine = estate.additionalAddressLine,
+            city = estate.city,
+            zipCode = estate.zipCode,
+            country = estate.country,
+            latitude = estate.latitude,
+            longitude = estate.longitude,
+            pointsOfInterest = estate.pointsOfInterest,
+            available = estate.available,
+            entryDate = estate.entryDate,
+            saleDate = estate.saleDate,
+            realEstateAgentId = estate.realEstateAgent.id
+        )
+
+        val estateId = if(estate.id == 0L){
+            estateDao.insertEstate(estateEntity)
+        } else {
+            estateDao.updateEstate(estateEntity)
+            estateEntity.id
+        }
+
+        if (estate.photos != null) {
+            photoDao.upsertPhotos(
+                estate.photos.map { photo ->
+                    PhotoEntity(
+                        uri = photo.uri,
+                        description = photo.description,
+                        estateId = estateId
+                    )
+                })
+        }
     }
 
     override fun getEstate(estateId: Long): Flow<Estate> {
@@ -93,9 +97,9 @@ class EstateRepository(private val estateDao: EstateDao, private val photoDao: P
             estateWithPhotos.estate.description,
             estateWithPhotos.photos?.map { photo ->
                 Photo(
-                    photo.id,
-                    photo.photoPath,
-                    photo.description
+                    photo.uri,
+                    photo.description,
+                    photo.estateId
                 )
             },
             estateWithPhotos.estate.address,

@@ -134,62 +134,62 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
             photoDao.insertPhotos(
                 listOf(
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&1",
+                        uri = "https://source.unsplash.com/random/?House&1",
                         description = "Building Entrance",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&2",
+                        uri = "https://source.unsplash.com/random/?House&2",
                         description = "Building Exterior",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&3",
+                        uri = "https://source.unsplash.com/random/?House&3",
                         description = "Living Room",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&4",
+                        uri = "https://source.unsplash.com/random/?House&4",
                         description = "Dining Room",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&5",
+                        uri = "https://source.unsplash.com/random/?House&5",
                         description = "Kitchen",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&6",
+                        uri = "https://source.unsplash.com/random/?House&6",
                         description = "Dining Room",
                         estateId = estate2
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&7",
+                        uri = "https://source.unsplash.com/random/?House&7",
                         description = "Living Room",
                         estateId = estate2
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&8",
+                        uri = "https://source.unsplash.com/random/?House&8",
                         description = "Bedroom",
                         estateId = estate2
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&9",
+                        uri = "https://source.unsplash.com/random/?House&9",
                         description = "Building Entrance",
                         estateId = estate3
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&10",
+                        uri = "https://source.unsplash.com/random/?House&10",
                         description = "Living Room",
                         estateId = estate3
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&11",
+                        uri = "https://source.unsplash.com/random/?House&11",
                         description = "Bedroom",
                         estateId = estate3
                     ),
                     PhotoEntity(
-                        photoPath = "https://source.unsplash.com/random/?House&12",
+                        uri = "https://source.unsplash.com/random/?House&12",
                         description = "Kitchen",
                         estateId = estate3
                     )
