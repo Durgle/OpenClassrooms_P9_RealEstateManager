@@ -18,7 +18,7 @@ import com.openclassrooms.realestatemanager.data.enums.PropertyType
 )
 data class EstateEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = -1L,
+    val id: Long = 0,
     val type: PropertyType,
     val price: Long,
     val propertyArea: Long,
