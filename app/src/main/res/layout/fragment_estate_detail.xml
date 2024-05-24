@@ -84,6 +84,23 @@ room." />
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_status"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_info_outline_24" />
+
+                <TextView
+                    android:id="@+id/estate_available"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    tools:text="Available"
+                    android:drawablePadding="4dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
                     android:text="@string/estate_property_area"
                     android:textStyle="bold"
                     app:drawableLeftCompat="@drawable/baseline_settings_overscan_24" />
@@ -159,6 +176,23 @@ room." />
                     android:layout_marginStart="@dimen/estate_detail_value_margin"
                     android:layout_marginBottom="@dimen/text_margin"
                     tools:text="740 Park Avenue Apt 6/7A New York Ny 10021 United States" />
+
+                <TextView
+                    android:id="@+id/estate_points_interest_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_points_interest"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_interests_24" />
+
+                <TextView
+                    android:id="@+id/estate_points_interest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    tools:text="- Parks and Green Spaces\n- Shops and Malls" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

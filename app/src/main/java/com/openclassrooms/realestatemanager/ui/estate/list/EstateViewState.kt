@@ -9,5 +9,6 @@ data class EstateViewState(
     val propertyType: PropertyType,
     val city: String,
     val price: String,
+    val available: Boolean,
     val selected: Boolean
 )

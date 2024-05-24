@@ -66,6 +66,13 @@ class EstateRecyclerViewAdapter(private val listener: OnItemClickListener) :
                     )
                 )
             }
+            binding.estateAvailability.setColorFilter(
+                ContextCompat.getColor(
+                    itemView.context,
+                    if (estate.available) R.color.colorAvailable else R.color.colorNotAvailable
+                )
+            )
+
         }
     }
 

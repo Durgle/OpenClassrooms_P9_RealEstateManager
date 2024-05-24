@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import com.google.android.gms.maps.model.LatLng
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
 import com.openclassrooms.realestatemanager.utils.Utils
@@ -42,7 +43,9 @@ class EstateDetailViewModel(
                     estate.zipCode,
                     estate.country
                 ),
-                latLng
+                latLng,
+                if (estate.available) R.string.estate_available else R.string.estate_sold,
+                estate.pointsOfInterest ?: emptyList()
             )
         }
     }

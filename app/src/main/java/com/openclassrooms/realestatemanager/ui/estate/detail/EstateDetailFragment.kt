@@ -17,6 +17,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateDetailBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.ui.estate.upsert.UpsertEstateFragment
+import com.openclassrooms.realestatemanager.utils.Utils
 
 class EstateDetailFragment : Fragment(), OnMapReadyCallback {
 
@@ -81,6 +82,16 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
         binding.estateAddress.text = estateDetailViewState.address
         adapter.submitList(estateDetailViewState.medias)
         binding.carouselRecyclerView.adapter = adapter
+        binding.estateAvailable.setText(estateDetailViewState.availability)
+        if(estateDetailViewState.pointOfInterest.isEmpty()) {
+            binding.estatePointsInterestTitle.visibility = View.GONE
+            binding.estatePointsInterest.visibility = View.GONE
+        } else {
+            binding.estatePointsInterestTitle.visibility = View.VISIBLE
+            binding.estatePointsInterest.visibility = View.VISIBLE
+        }
+        binding.estatePointsInterest.text =
+            Utils.formatPointOfInterests(resources, estateDetailViewState.pointOfInterest)
     }
 
     companion object {

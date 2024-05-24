@@ -68,11 +68,28 @@ room." />
                 android:orientation="vertical">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_status"
                     android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_info_outline_24" />
+
+                <TextView
+                    android:id="@+id/estate_available"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:drawablePadding="4dp"
+                    tools:text="Available" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/text_margin"
                     android:text="@string/estate_property_area"
+                    android:textStyle="bold"
                     app:drawableLeftCompat="@drawable/baseline_settings_overscan_24" />
 
                 <TextView
@@ -84,11 +101,11 @@ room." />
                     tools:text="750 sq m" />
 
                 <TextView
-                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/text_margin"
                     android:text="@string/estate_number_rooms"
+                    android:textStyle="bold"
                     app:drawableLeftCompat="@drawable/baseline_home_24" />
 
                 <TextView
@@ -100,11 +117,11 @@ room." />
                     tools:text="8" />
 
                 <TextView
-                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/text_margin"
                     android:text="@string/estate_number_bathrooms"
+                    android:textStyle="bold"
                     app:drawableLeftCompat="@drawable/baseline_bathtub_24" />
 
                 <TextView
@@ -116,11 +133,11 @@ room." />
                     tools:text="2" />
 
                 <TextView
-                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/text_margin"
                     android:text="@string/estate_number_bedrooms"
+                    android:textStyle="bold"
                     app:drawableLeftCompat="@drawable/baseline_airline_seat_individual_suite_24" />
 
                 <TextView
@@ -140,11 +157,11 @@ room." />
                 android:orientation="vertical">
 
                 <TextView
-                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/text_margin"
                     android:text="@string/estate_location"
+                    android:textStyle="bold"
                     app:drawableLeftCompat="@drawable/baseline_location_pin_24" />
 
                 <TextView
@@ -154,6 +171,23 @@ room." />
                     android:layout_marginStart="@dimen/estate_detail_value_margin"
                     android:layout_marginBottom="@dimen/text_margin"
                     tools:text="740 Park Avenue Apt 6/7A New York Ny 10021 United States" />
+
+                <TextView
+                    android:id="@+id/estate_points_interest_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/text_margin"
+                    android:text="@string/estate_points_interest"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_interests_24" />
+
+                <TextView
+                    android:id="@+id/estate_points_interest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_value_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    tools:text="- Parks and Green Spaces\n- Shops and Malls" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

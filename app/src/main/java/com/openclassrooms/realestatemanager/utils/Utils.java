@@ -8,11 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.data.enums.PointOfInterest;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -82,6 +84,18 @@ public class Utils {
                     "%s%n%s%n%s%n%s%n%s", address, additionalAddressLine, city, zipCode, country
             );
         }
+    }
+
+    @NonNull
+    public static String formatPointOfInterests(Resources resources, @NonNull List<PointOfInterest> pointOfInterests) {
+
+        StringBuilder concatenatedPointOfInterest = new StringBuilder();
+        for (PointOfInterest pointOfInterest : pointOfInterests) {
+            concatenatedPointOfInterest.append("- ")
+                    .append(resources.getString(pointOfInterest.getLabelResId()))
+                    .append(System.lineSeparator());
+        }
+        return concatenatedPointOfInterest.toString().trim();
     }
 
     public static boolean isTablet(Resources resources) {

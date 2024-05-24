@@ -43,7 +43,9 @@ class EstateViewModel(
             estate.type,
             estate.city,
             Utils.formatPrice(estate.price),
-            selectedId == estate.id
+            estate.available,
+            selectedId == estate.id,
+
         )
     }
 
