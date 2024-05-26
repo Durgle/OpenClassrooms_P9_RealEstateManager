@@ -82,7 +82,7 @@ class UpsertEstateViewModel(
                         geocoderRepository.getCoordinates(_viewState.value.getCompleteAddress())
                     }
                     estateRepository.upsertEstate(createEstateObject(_viewState.value, address))
-                    snackBar.value = Event.SaveSuccess
+                    snackBar.value = Event.SaveSuccess(estateId == null)
                 } catch (error: Throwable) {
                     Log.e("UpsertEstateViewModel", error.message ?: "")
                     snackBar.value = Event.Error(resources.getString(R.string.save_general_error))
@@ -335,7 +335,7 @@ class UpsertEstateViewModel(
     }
 
     sealed interface Event {
-        data object SaveSuccess : Event
+        data class SaveSuccess(val newEstate: Boolean) : Event
         data class Error(val message: String) : Event
     }
 

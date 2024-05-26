@@ -25,6 +25,8 @@ import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
 import com.openclassrooms.realestatemanager.databinding.FragmentCreateEstateBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.utils.Utils
+import com.openclassrooms.realestatemanager.utils.WorkerUtils
 import com.openclassrooms.realestatemanager.utils.afterTextChanged
 import java.io.File
 
@@ -42,6 +44,7 @@ class UpsertEstateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         this.binding = FragmentCreateEstateBinding.inflate(inflater, container, false)
+        Utils.requestNotificationPermission(context, activity)
         return this.binding.root
     }
 
@@ -55,7 +58,7 @@ class UpsertEstateFragment : Fragment() {
         }
 
     private val galleryPictureCallback =
-        registerForActivityResult(PickVisualMedia()) { uri  ->
+        registerForActivityResult(PickVisualMedia()) { uri ->
             if (uri != null) {
                 viewModel.addPhoto(uri)
             }
@@ -86,7 +89,7 @@ class UpsertEstateFragment : Fragment() {
         binding.buttonCamera.setOnClickListener {
             currentPhotoUri = FileProvider.getUriForFile(
                 requireContext(),
-                BuildConfig.APPLICATION_ID + ".provider",
+                BuildConfig.APPLICATION_ID + ".provider.file",
                 File.createTempFile(
                     "JPEG_",
                     ".jpg",
@@ -107,6 +110,7 @@ class UpsertEstateFragment : Fragment() {
 
             when (event) {
                 is UpsertEstateViewModel.Event.SaveSuccess -> {
+                    WorkerUtils.scheduleEstateNotification(requireContext())
                     Snackbar.make(view, R.string.save_success, Snackbar.LENGTH_SHORT).show()
                     parentFragmentManager.popBackStack()
                 }

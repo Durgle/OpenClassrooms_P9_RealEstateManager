@@ -1,11 +1,16 @@
 package com.openclassrooms.realestatemanager.utils;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.data.enums.PointOfInterest;
@@ -56,6 +61,16 @@ public class Utils {
     public static Boolean isInternetAvailable(Context context) {
         WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         return wifi.isWifiEnabled();
+    }
+
+    public static void requestNotificationPermission(Context context, Activity activity) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    activity,
+                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                    0
+            );
+        }
     }
 
     @NonNull

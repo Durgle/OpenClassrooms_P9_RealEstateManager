@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".MainApplication"
@@ -28,12 +29,12 @@
 
         <provider
             android:name=".provider.EstateContentProvider"
-            android:authorities="com.openclassrooms.realestatemanager.provider"
+            android:authorities="${applicationId}.provider.estate"
             android:exported="true"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="${applicationId}.provider.file"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
