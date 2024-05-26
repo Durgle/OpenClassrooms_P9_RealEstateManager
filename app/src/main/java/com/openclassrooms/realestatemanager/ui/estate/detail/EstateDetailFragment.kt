@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -109,7 +108,7 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
 
         viewModel.getEstate().observe(viewLifecycleOwner) { estateDetailViewState ->
-            googleMap.clear();
+            googleMap.clear()
             if (estateDetailViewState.location != null) {
                 googleMap.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(

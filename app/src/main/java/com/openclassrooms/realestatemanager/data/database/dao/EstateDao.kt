@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.data.database.dao
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -25,6 +26,9 @@ interface EstateDao {
 
     @Query("SELECT * FROM estates")
     fun getAllEstates(): Flow<List<EstateEntity>>
+
+    @Query("SELECT * FROM estates WHERE  id = :estateId")
+    fun getEstateByIdWithCursor(estateId: Long): Cursor
 
     @Query("SELECT * FROM estates WHERE id = :estateId")
     fun getEstateById(estateId: Long): Flow<EstateEntity>

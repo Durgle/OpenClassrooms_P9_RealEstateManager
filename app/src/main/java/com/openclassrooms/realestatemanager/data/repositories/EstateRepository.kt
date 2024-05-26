@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.data.repositories
 
+import android.database.Cursor
 import com.openclassrooms.realestatemanager.data.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.data.database.dao.PhotoDao
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
@@ -84,6 +85,10 @@ class EstateRepository(private val estateDao: EstateDao, private val photoDao: P
                 mapToEstate(estateWithPhotos)
             }
         }
+    }
+
+    override fun getEstateByIdWithCursor(estateId: Long): Cursor {
+        return estateDao.getEstateByIdWithCursor(estateId)
     }
 
     private fun mapToEstate(estateWithPhotos: EstateWithPhotosEntity): Estate {

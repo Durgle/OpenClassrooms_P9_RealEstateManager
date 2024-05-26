@@ -13,6 +13,7 @@ import com.openclassrooms.realestatemanager.data.enums.PointOfInterest;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -96,6 +97,18 @@ public class Utils {
                     .append(System.lineSeparator());
         }
         return concatenatedPointOfInterest.toString().trim();
+    }
+
+    @Nullable
+    public static List<PointOfInterest> parsePointOfInterests(String data) {
+
+        if (data.isEmpty()) return null;
+        String[] pointOfInterests = data.split(",");
+        List<PointOfInterest> list = new ArrayList<>();
+        for (String value : pointOfInterests) {
+            list.add(PointOfInterest.valueOf(value));
+        }
+        return list;
     }
 
     public static boolean isTablet(Resources resources) {
