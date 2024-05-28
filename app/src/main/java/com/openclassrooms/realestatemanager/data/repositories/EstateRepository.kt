@@ -10,10 +10,15 @@ import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
 import com.openclassrooms.realestatemanager.data.models.EstateFilter
 import com.openclassrooms.realestatemanager.data.models.Photo
 import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
+import com.openclassrooms.realestatemanager.worker.WorkManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class EstateRepository(private val estateDao: EstateDao, private val photoDao: PhotoDao) :
+class EstateRepository(
+    private val estateDao: EstateDao,
+    private val photoDao: PhotoDao,
+    private val workManager: WorkManager
+) :
     EstateRepositoryInterface {
 
     override suspend fun upsertEstate(estate: Estate) {
@@ -40,7 +45,7 @@ class EstateRepository(private val estateDao: EstateDao, private val photoDao: P
             realEstateAgentId = estate.realEstateAgent.id
         )
 
-        val estateId = if(estate.id == 0L){
+        val estateId = if (estate.id == 0L) {
             estateDao.insertEstate(estateEntity)
         } else {
             estateDao.updateEstate(estateEntity)
@@ -56,6 +61,10 @@ class EstateRepository(private val estateDao: EstateDao, private val photoDao: P
                         estateId = estateId
                     )
                 })
+        }
+
+        if (estate.id == 0L) {
+            workManager.scheduleEstateNotification()
         }
     }
 

@@ -26,7 +26,6 @@ import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
 import com.openclassrooms.realestatemanager.databinding.FragmentCreateEstateBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.utils.Utils
-import com.openclassrooms.realestatemanager.utils.WorkerUtils
 import com.openclassrooms.realestatemanager.utils.afterTextChanged
 import java.io.File
 
@@ -110,7 +109,6 @@ class UpsertEstateFragment : Fragment() {
 
             when (event) {
                 is UpsertEstateViewModel.Event.SaveSuccess -> {
-                    WorkerUtils.scheduleEstateNotification(requireContext())
                     Snackbar.make(view, R.string.save_success, Snackbar.LENGTH_SHORT).show()
                     parentFragmentManager.popBackStack()
                 }

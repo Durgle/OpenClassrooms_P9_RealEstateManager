@@ -10,6 +10,7 @@ import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepository
 import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepositoryInterface
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepository
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
+import com.openclassrooms.realestatemanager.worker.WorkManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
@@ -17,10 +18,15 @@ class MainApplication : Application() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
     private val database by lazy { RealEstateManagerDatabase.getInstance(this, applicationScope) }
+    private val workManager: WorkManager by lazy {
+        WorkManager(applicationContext)
+    }
+
     val estateRepository: EstateRepositoryInterface by lazy {
         EstateRepository(
             database.estateDao(),
-            database.photoDao()
+            database.photoDao(),
+            workManager
         )
     }
     val realEstateAgentRepository: RealEstateAgentRepositoryInterface by lazy {
