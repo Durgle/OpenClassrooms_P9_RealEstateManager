@@ -10,6 +10,7 @@ import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragmen
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estate.list.EstateViewModel
+import com.openclassrooms.realestatemanager.ui.estate.map.MapViewModel
 
 class ViewModelFactory private constructor() : ViewModelProvider.Factory {
 
@@ -34,6 +35,9 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
                     extras.application.estateRepository,
                     extras.application.filterRepository
                 ) as T
+
+            modelClass.isAssignableFrom(MapViewModel::class.java) ->
+                MapViewModel(extras.application.estateRepository) as T
 
             modelClass.isAssignableFrom(EstateDetailViewModel::class.java) -> {
                 val savedStateHandle = extras.createSavedStateHandle()

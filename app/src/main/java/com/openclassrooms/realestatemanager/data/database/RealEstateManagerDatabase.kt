@@ -202,13 +202,14 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
         // --- SINGLETON ---
         @Volatile
         private var INSTANCE: RealEstateManagerDatabase? = null
+        private var DATABASE_FILE_NAME: String = "real_estate_manager_database.db"
 
         // --- INSTANCE ---
         fun getInstance(context: Context, scope: CoroutineScope): RealEstateManagerDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = databaseBuilder(
                     context.applicationContext,
-                    RealEstateManagerDatabase::class.java, "real_estate_manager_database.db"
+                    RealEstateManagerDatabase::class.java, DATABASE_FILE_NAME
                 )
                     .addCallback(DatabaseCallback(scope))
                     .build()
