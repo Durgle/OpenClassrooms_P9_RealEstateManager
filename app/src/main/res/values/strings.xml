@@ -63,4 +63,6 @@
     <string name="delete">Delete</string>
     <string name="notification_estate_added">New estate added</string>
     <string name="notification_estate_added_content">The estate has been successfully added</string>
+    <string name="tab_name_list">Estate list</string>
+    <string name="tab_name_map">Estate map</string>
 </resources>

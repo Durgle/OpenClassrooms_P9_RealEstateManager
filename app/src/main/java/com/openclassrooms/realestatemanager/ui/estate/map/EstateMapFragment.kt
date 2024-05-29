@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,10 +15,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateMapBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
-import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment
+import com.openclassrooms.realestatemanager.ui.estate.OnEstateSelectedListener
 import com.openclassrooms.realestatemanager.utils.Utils
 
-class EstateMapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class EstateMapFragment(private val listener: OnEstateSelectedListener) : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private val viewModel: MapViewModel by viewModels {
         ViewModelFactory.getInstance()
@@ -68,43 +67,21 @@ class EstateMapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
     override fun onMarkerClick(marker: Marker): Boolean {
         val estateId = marker.tag as? Long
         estateId?.let { id ->
-            viewModel.onSelectedEstate(estateId)
-            showDetails(id)
+            viewModel.onSelectedEstate(id)
+            listener.onSelection(id)
         }
         return false
     }
 
-    private fun showDetails(estateId: Long) {
-
-        if (Utils.isTablet(resources)) {
-            childFragmentManager.beginTransaction().apply {
-                replace(R.id.detail_container, EstateDetailFragment.newInstance(estateId))
-                    .addToBackStack("estate_detail")
-                    .commit()
-            }
-        } else {
-            parentFragmentManager.beginTransaction().apply {
-                replace(R.id.main_container, EstateDetailFragment.newInstance(estateId))
-                    .addToBackStack("estate_detail")
-                    .commit()
-            }
-        }
-    }
-
     companion object {
-        fun newInstance(): EstateMapFragment {
-            return EstateMapFragment()
+        fun newInstance(listener: OnEstateSelectedListener): EstateMapFragment {
+            return EstateMapFragment(listener)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        val fragment = childFragmentManager.findFragmentById(R.id.detail_container)
-        fragment?.let {
-            childFragmentManager.beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).remove(it)
-                .commitAllowingStateLoss()
-        }
+        listener.clearSelection()
         viewModel.clearSelection()
     }
 

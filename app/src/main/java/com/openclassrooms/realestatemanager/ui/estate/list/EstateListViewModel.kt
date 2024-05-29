@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 
-class EstateViewModel(
+class EstateListViewModel(
     estateRepository: EstateRepositoryInterface,
     filterRepository: FilterRepositoryInterface
 ) : ViewModel() {
@@ -59,10 +59,6 @@ class EstateViewModel(
 
     fun clearSelection() {
         selectedEstateId.value = -1
-    }
-
-    fun getSelectedEstate(): Long {
-        return selectedEstateId.value
     }
 
 }

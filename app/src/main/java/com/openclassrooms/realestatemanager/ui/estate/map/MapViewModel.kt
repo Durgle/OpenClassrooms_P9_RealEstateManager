@@ -6,11 +6,8 @@ import androidx.lifecycle.asLiveData
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
-import com.openclassrooms.realestatemanager.ui.estate.list.EstateViewState
-import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 
 class MapViewModel(estateRepository: EstateRepositoryInterface) : ViewModel() {
 

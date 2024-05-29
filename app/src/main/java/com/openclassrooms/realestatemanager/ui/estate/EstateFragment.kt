@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui.estate.list
+package com.openclassrooms.realestatemanager.ui.estate
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,42 +8,50 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
+import com.openclassrooms.realestatemanager.databinding.FragmentEstateBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.ui.estate.upsert.UpsertEstateFragment
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment
 import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateFragment
 import com.openclassrooms.realestatemanager.utils.Utils
 
-class EstateFragment : Fragment() {
+class EstateFragment : Fragment(), OnEstateSelectedListener {
 
     private val viewModel: EstateViewModel by viewModels {
         ViewModelFactory.getInstance()
     }
-    private lateinit var binding: FragmentEstateListBinding
+    private lateinit var binding: FragmentEstateBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        this.binding = FragmentEstateListBinding.inflate(inflater, container, false)
+        this.binding = FragmentEstateBinding.inflate(inflater, container, false)
         return this.binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val listener: EstateRecyclerViewAdapter.OnItemClickListener =
-            object : EstateRecyclerViewAdapter.OnItemClickListener {
-                override fun onClick(estateId: Long) {
-                    viewModel.onSelectedEstate(estateId)
-                    showDetails(estateId)
+        initTopAppBar()
+
+        val adapter = EstateViewPagerAdapter(this)
+        binding.estateViewPager.adapter = adapter
+        binding.estateViewPager.isUserInputEnabled = false
+
+        TabLayoutMediator(binding.estateTabLayout, binding.estateViewPager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.setText(R.string.tab_name_list)
+                    tab.setIcon(R.drawable.baseline_menu_24)
+                }
+                1 -> {
+                    tab.setText(R.string.tab_name_map)
+                    tab.setIcon(R.drawable.baseline_map_24)
                 }
             }
-        val adapter = EstateRecyclerViewAdapter(listener)
-        viewModel.getEstates().observe(viewLifecycleOwner) { list -> adapter.submitList(list) }
-        this.binding.estateList.adapter = adapter
-        initTopAppBar()
+        }.attach()
     }
 
     private fun initTopAppBar() {
@@ -96,7 +104,7 @@ class EstateFragment : Fragment() {
         }
     }
 
-    fun showDetails(estateId: Long) {
+    private fun showDetails(estateId: Long) {
 
         if (Utils.isTablet(resources)) {
             childFragmentManager.beginTransaction().apply {
@@ -115,11 +123,16 @@ class EstateFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        clearDetailFragment()
-        viewModel.clearSelection()
+        clearSelection()
     }
 
-    private fun clearDetailFragment() {
+    override fun onSelection(estateId: Long) {
+        viewModel.onSelectedEstate(estateId)
+        showDetails(estateId)
+    }
+
+    override fun clearSelection() {
+        viewModel.clearSelection()
         val fragment = childFragmentManager.findFragmentById(R.id.detail_container)
         fragment?.let {
             childFragmentManager.beginTransaction()

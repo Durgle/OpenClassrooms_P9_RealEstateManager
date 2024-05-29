@@ -59,4 +59,6 @@
     <string name="estate_availability">Diponibilité</string>
     <string name="notification_estate_added">Nouveau bien ajouté</string>
     <string name="notification_estate_added_content">Le bien a été ajouté avec succès</string>
+    <string name="tab_name_list">Liste des biens</string>
+    <string name="tab_name_map">Carte des biens</string>
 </resources>

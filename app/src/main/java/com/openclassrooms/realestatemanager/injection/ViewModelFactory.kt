@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.openclassrooms.realestatemanager.MainApplication
+import com.openclassrooms.realestatemanager.ui.estate.EstateViewModel
 import com.openclassrooms.realestatemanager.ui.estate.upsert.UpsertEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragment.Companion.ARG_ESTATE_ID
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateViewModel
-import com.openclassrooms.realestatemanager.ui.estate.list.EstateViewModel
+import com.openclassrooms.realestatemanager.ui.estate.list.EstateListViewModel
 import com.openclassrooms.realestatemanager.ui.estate.map.MapViewModel
 
 class ViewModelFactory private constructor() : ViewModelProvider.Factory {
@@ -30,11 +31,14 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
 
         return when {
-            modelClass.isAssignableFrom(EstateViewModel::class.java) ->
-                EstateViewModel(
+            modelClass.isAssignableFrom(EstateListViewModel::class.java) ->
+                EstateListViewModel(
                     extras.application.estateRepository,
                     extras.application.filterRepository
                 ) as T
+
+            modelClass.isAssignableFrom(EstateViewModel::class.java) ->
+                EstateViewModel() as T
 
             modelClass.isAssignableFrom(MapViewModel::class.java) ->
                 MapViewModel(extras.application.estateRepository) as T

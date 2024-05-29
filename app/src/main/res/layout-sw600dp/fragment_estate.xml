@@ -25,27 +25,25 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/estate_list_container"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/estate_tab_layout"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/detail_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.3">
+            app:layout_constraintWidth_percent="0.3"
+            />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/estate_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                app:layoutManager="LinearLayoutManager"
-                tools:itemCount="10"
-                tools:listitem="@layout/estate_list_item" />
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/estate_view_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/detail_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/estate_tab_layout"
+            app:layout_constraintWidth_percent="0.3"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/detail_container"
@@ -54,7 +52,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/estate_list_container"
+            app:layout_constraintStart_toEndOf="@id/estate_view_pager"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.7"
             tools:layout="@layout/fragment_estate_detail" />
