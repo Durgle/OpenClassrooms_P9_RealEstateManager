@@ -61,8 +61,9 @@ class UpsertEstateViewModel(
                             estate.saleDate,
                             estate.photos?.map { photo ->
                                 PhotoViewState(
-                                    photo.uri,
-                                    photo.description
+                                    uri = photo.uri,
+                                    description = photo.description,
+                                    new = false
                                 )
                             } ?: emptyList()
                         )
@@ -81,7 +82,12 @@ class UpsertEstateViewModel(
                     val address = withContext(Dispatchers.IO) {
                         geocoderRepository.getCoordinates(_viewState.value.getCompleteAddress())
                     }
-                    estateRepository.upsertEstate(createEstateObject(_viewState.value, address))
+                    val data = _viewState.value.currentData
+
+                    estateRepository.upsertEstate(
+                        createEstateObject(data, address),
+                        data.photoRemoved
+                    )
                     snackBar.value = Event.SaveSuccess
                 } catch (error: Throwable) {
                     Log.e("UpsertEstateViewModel", error.message ?: "")
@@ -93,33 +99,37 @@ class UpsertEstateViewModel(
         }
     }
 
-    private fun createEstateObject(data: UpsertEstateViewState, address: Address?): Estate {
-        val currentData = data.currentData
+    private fun createPhotoObject(photo: PhotoViewState, estateId: Long?): Photo {
+        return Photo(photo.uri, photo.description, estateId ?: 0)
+    }
+
+    private fun createEstateObject(data: CurrentDataViewState, address: Address?): Estate {
         val saleDate =
-            if (currentData.available) null else currentData.saleDate ?: System.currentTimeMillis()
+            if (data.available) null else data.saleDate ?: System.currentTimeMillis()
+
         return Estate(
             estateId ?: 0,
-            currentData.type!!,
-            currentData.price.toLong(),
-            currentData.surface.toLong(),
-            currentData.numberOfBathroom.toInt(),
-            currentData.numberOfBedroom.toInt(),
-            currentData.description,
-            currentData.photo.map { photoViewState ->
+            data.type!!,
+            data.price.toLong(),
+            data.surface.toLong(),
+            data.numberOfBathroom.toInt(),
+            data.numberOfBedroom.toInt(),
+            data.description,
+            data.photo.map { photoViewState ->
                 Photo(photoViewState.uri, photoViewState.description, estateId ?: 0)
             },
-            currentData.address,
-            currentData.additionalAddress,
-            currentData.city,
-            currentData.zipcode,
-            currentData.country,
+            data.address,
+            data.additionalAddress,
+            data.city,
+            data.zipcode,
+            data.country,
             address?.latitude,
             address?.longitude,
-            currentData.pointsOfInterest,
-            currentData.available,
-            currentData.entryDate ?: System.currentTimeMillis(),
+            data.pointsOfInterest,
+            data.available,
+            data.entryDate ?: System.currentTimeMillis(),
             saleDate,
-            currentData.agent!!
+            data.agent!!
         )
     }
 
@@ -315,9 +325,18 @@ class UpsertEstateViewModel(
 
     fun removePhoto(photo: PhotoViewState) {
         val photos = _viewState.value.currentData.photo.toMutableList()
+        val photosRemoved = _viewState.value.currentData.photoRemoved.toMutableList()
+
+        if (!photo.new) {
+            photosRemoved.add(photo.uri)
+        }
         photos.remove(photo)
+
         _viewState.value = _viewState.value.copy(
-            currentData = _viewState.value.currentData.copy(photo = photos)
+            currentData = _viewState.value.currentData.copy(
+                photo = photos,
+                photoRemoved = photosRemoved
+            )
         )
     }
 
@@ -326,7 +345,8 @@ class UpsertEstateViewModel(
         photos.add(
             PhotoViewState(
                 uri = uri.toString(),
-                error = resources.getString(R.string.form_error_not_empty)
+                error = resources.getString(R.string.form_error_not_empty),
+                new = true
             )
         )
         _viewState.value = _viewState.value.copy(

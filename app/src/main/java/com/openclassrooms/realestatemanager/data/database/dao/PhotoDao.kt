@@ -25,4 +25,7 @@ interface PhotoDao {
 
     @Query("DELETE FROM photos WHERE uri = :uri AND estateId = :estateId")
     suspend fun deletePhoto(uri: String, estateId: Long)
+
+    @Query("DELETE FROM photos WHERE uri IN (:uriList) AND estateId = :estateId")
+    suspend fun deletePhotos(uriList: List<String>, estateId: Long)
 }

@@ -38,12 +38,14 @@ data class CurrentDataViewState(
     val entryDate: Long? = null,
     val saleDate: Long? = null,
     val photo: List<PhotoViewState> = emptyList(),
+    val photoRemoved: List<String> = emptyList()
 )
 
 data class PhotoViewState(
     val uri: String,
     val description: String = "",
-    val error: String = ""
+    val error: String = "",
+    val new: Boolean
 )
 
 data class ErrorViewState(

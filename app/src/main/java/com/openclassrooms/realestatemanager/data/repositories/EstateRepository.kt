@@ -21,7 +21,7 @@ class EstateRepository(
 ) :
     EstateRepositoryInterface {
 
-    override suspend fun upsertEstate(estate: Estate) {
+    override suspend fun upsertEstate(estate: Estate, photoRemoved: List<String>?) {
 
         val estateEntity = EstateEntity(
             id = estate.id,
@@ -61,6 +61,10 @@ class EstateRepository(
                         estateId = estateId
                     )
                 })
+        }
+
+        if (!photoRemoved.isNullOrEmpty() && estate.id != 0L) {
+            photoDao.deletePhotos(photoRemoved, estateId = estateId)
         }
 
         if (estate.id == 0L) {

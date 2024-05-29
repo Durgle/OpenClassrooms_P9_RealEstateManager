@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface EstateRepositoryInterface {
 
-    suspend fun upsertEstate(estate: Estate)
+    suspend fun upsertEstate(estate: Estate, photoRemoved: List<String>? = null)
 
     fun getEstate(estateId: Long): Flow<Estate>
 
