@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.data.repositories
 
-import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
@@ -8,14 +7,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import java.util.Locale
 
-class GeocoderRepository(private val context: Context) : GeocoderRepositoryInterface {
+/**
+ * Repository used to retrieve geographic coordinates from an address
+ *
+ * @param geocoder The Geocoder
+ */
+class GeocoderRepository(private val geocoder: Geocoder) : GeocoderRepositoryInterface {
 
+    /**
+     * Retrieves the geographic coordinates for a given address.
+     *
+     * @param address The address
+     * @return The [Address] object containing the geographic coordinates
+     */
     override suspend fun getCoordinates(address: String): Address? {
         return withContext(Dispatchers.IO) {
             try {
-                val geocoder = Geocoder(context, Locale.getDefault())
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     suspendCancellableCoroutine { continuation ->
                         geocoder.getFromLocationName(address, 1) { addresses ->

@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager
 
 import android.app.Application
+import android.location.Geocoder
 import com.openclassrooms.realestatemanager.data.database.RealEstateManagerDatabase
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepository
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
@@ -13,6 +14,7 @@ import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRep
 import com.openclassrooms.realestatemanager.worker.WorkManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import java.util.Locale
 
 class MainApplication : Application() {
 
@@ -36,6 +38,6 @@ class MainApplication : Application() {
         FilterRepository(this)
     }
     val geocoderRepository: GeocoderRepositoryInterface by lazy {
-        GeocoderRepository(this)
+        GeocoderRepository(Geocoder(this, Locale.getDefault()))
     }
 }

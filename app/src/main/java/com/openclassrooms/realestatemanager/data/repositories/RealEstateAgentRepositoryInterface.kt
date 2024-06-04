@@ -5,9 +5,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface RealEstateAgentRepositoryInterface {
 
-    suspend fun insertRealEstateAgent(realEstateAgent: RealEstateAgent): Long
-
-    fun getRealEstateAgent(realEstateAgentId: Long): Flow<RealEstateAgent>
-
+    /**
+     * Retrieves the list of real estate agents
+     *
+     * @return A [Flow] emitting the list of [RealEstateAgent]
+     */
     fun getRealEstateAgents(): Flow<List<RealEstateAgent>>
 }

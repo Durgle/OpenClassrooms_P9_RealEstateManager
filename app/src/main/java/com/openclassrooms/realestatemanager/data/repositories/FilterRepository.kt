@@ -7,6 +7,11 @@ import com.openclassrooms.realestatemanager.data.models.EstateFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
+/**
+ * Repository responsible for managing estate filters
+ *
+ * @param context The application context
+ */
 class FilterRepository(private val context: Context) : FilterRepositoryInterface {
 
     private val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -18,6 +23,11 @@ class FilterRepository(private val context: Context) : FilterRepositoryInterface
             }
         }
 
+    /**
+     * Saves the estate filters to shared preferences
+     *
+     * @param filters The [EstateFilter] to save
+     */
     override fun saveEstateFilters(filters: EstateFilter) {
         val editor = sharedPreferences.edit()
         val jsonFilters = Gson().toJson(filters)
@@ -25,16 +35,30 @@ class FilterRepository(private val context: Context) : FilterRepositoryInterface
         editor.apply()
     }
 
+    /**
+     * Retrieves the estate filters from shared preferences as a flow
+     *
+     * @return A [Flow] emitting the current [EstateFilter]
+     */
     override fun getEstateFilters(): Flow<EstateFilter> {
         return estateFiltersStateFlow
     }
 
+    /**
+     * Clears the stored estate filters from shared preferences
+     */
     override fun clearEstateFilters() {
         val editor = sharedPreferences.edit()
         editor.remove(KEY_FILTERS)
         editor.apply()
     }
 
+    /**
+     * Reads the estate filters from shared preferences
+     * If no filters are found, it returns an empty [EstateFilter] object
+     *
+     * @return The [EstateFilter]
+     */
     private fun readSharedPreference(): EstateFilter {
         val jsonFilters = sharedPreferences.getString(KEY_FILTERS, null)
         return if (jsonFilters == null) {
@@ -51,6 +75,6 @@ class FilterRepository(private val context: Context) : FilterRepositoryInterface
 
     companion object {
         private const val PREFS_NAME = "EstateFilterPrefs"
-        private const val KEY_FILTERS = "estate_filters"
+        const val KEY_FILTERS = "estate_filters"
     }
 }

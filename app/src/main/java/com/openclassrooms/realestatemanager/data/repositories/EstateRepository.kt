@@ -14,14 +14,26 @@ import com.openclassrooms.realestatemanager.worker.WorkManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+/**
+ * Repository responsible for managing estates
+ *
+ * @param estateDao The DAO for estate
+ * @param photoDao The DAO for photo
+ * @param workManager The WorkManager
+ */
 class EstateRepository(
     private val estateDao: EstateDao,
     private val photoDao: PhotoDao,
     private val workManager: WorkManager
-) :
-    EstateRepositoryInterface {
+) : EstateRepositoryInterface {
 
-    override suspend fun upsertEstate(estate: Estate, photoRemoved: List<String>?) {
+    /**
+     * Inserts or updates an estate in the database.
+     *
+     * @param estate The estate
+     * @param photoToBeRemoved A list of URIs of photos to be removed
+     */
+    override suspend fun upsertEstate(estate: Estate, photoToBeRemoved: List<String>?) {
 
         val estateEntity = EstateEntity(
             id = estate.id,
@@ -63,8 +75,8 @@ class EstateRepository(
                 })
         }
 
-        if (!photoRemoved.isNullOrEmpty() && estate.id != 0L) {
-            photoDao.deletePhotos(photoRemoved, estateId = estateId)
+        if (!photoToBeRemoved.isNullOrEmpty() && estate.id != 0L) {
+            photoDao.deletePhotos(photoToBeRemoved, estateId = estateId)
         }
 
         if (estate.id == 0L) {
@@ -72,12 +84,23 @@ class EstateRepository(
         }
     }
 
+    /**
+     * Retrieves an estate with its photos from the database as a flow
+     *
+     * @param estateId The ID of the estate
+     * @return A [Flow] emitting the [Estate] with its photos
+     */
     override fun getEstate(estateId: Long): Flow<Estate> {
         return estateDao.getEstateWithPhotos(estateId).map { estateWithPhotos ->
             mapToEstate(estateWithPhotos)
         }
     }
 
+    /**
+     * Retrieves all estates with their photos from the database as a flow
+     *
+     * @return A [Flow] emitting a list of [Estate] with their photos.
+     */
     override fun getEstates(): Flow<List<Estate>> {
         return estateDao.getEstatesWithPhotos().map { estatesWithPhotosList ->
             estatesWithPhotosList.map { estateWithPhotos ->
@@ -86,6 +109,12 @@ class EstateRepository(
         }
     }
 
+    /**
+     * Retrieves estates filtered by the given filters as a flow
+     *
+     * @param filters The filters
+     * @return A [Flow] emitting a list of filtered [Estate]
+     */
     override fun getEstatesFiltered(filters: EstateFilter): Flow<List<Estate>> {
         return estateDao.getFilteredEstatesWithPhotos(
             filters.type,
@@ -100,10 +129,22 @@ class EstateRepository(
         }
     }
 
+    /**
+     * Retrieves an estate by its ID as a cursor
+     *
+     * @param estateId The ID of the estate
+     * @return A [Cursor] pointing to the estate
+     */
     override fun getEstateByIdWithCursor(estateId: Long): Cursor {
         return estateDao.getEstateByIdWithCursor(estateId)
     }
 
+    /**
+     * Maps an [EstateWithPhotosEntity] to an [Estate]
+     *
+     * @param estateWithPhotos The entity to map
+     * @return The [Estate]
+     */
     private fun mapToEstate(estateWithPhotos: EstateWithPhotosEntity): Estate {
         return Estate(
             estateWithPhotos.estate.id,
@@ -137,6 +178,5 @@ class EstateRepository(
             )
         )
     }
-
 
 }

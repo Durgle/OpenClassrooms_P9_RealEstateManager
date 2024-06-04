@@ -99,10 +99,6 @@ class UpsertEstateViewModel(
         }
     }
 
-    private fun createPhotoObject(photo: PhotoViewState, estateId: Long?): Photo {
-        return Photo(photo.uri, photo.description, estateId ?: 0)
-    }
-
     private fun createEstateObject(data: CurrentDataViewState, address: Address?): Estate {
         val saleDate =
             if (data.available) null else data.saleDate ?: System.currentTimeMillis()

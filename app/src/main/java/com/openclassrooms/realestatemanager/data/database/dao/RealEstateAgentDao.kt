@@ -12,9 +12,6 @@ interface RealEstateAgentDao {
     @Insert
     suspend fun insertRealEstateAgent(realEstateAgent: RealEstateAgentEntity) :Long
 
-    @Query("SELECT * FROM real_estate_agents WHERE id = :realEstateAgentId")
-    fun getRealEstateAgentById(realEstateAgentId: Long): Flow<RealEstateAgentEntity>
-
     @Query("SELECT * FROM real_estate_agents")
     fun getRealEstateAgents(): Flow<List<RealEstateAgentEntity>>
 }
