@@ -70,7 +70,7 @@ class EstateRepositoryTest {
             }
             coVerify(exactly = 0) { mockPhotoDao.deletePhotos(any(), any()) }
             verify { mockWorkManager.scheduleEstateNotification() }
-            confirmVerified(mockEstateDao,mockPhotoDao,mockWorkManager)
+            confirmVerified(mockEstateDao, mockPhotoDao, mockWorkManager)
         } finally {
             Dispatchers.resetMain()
         }
@@ -99,7 +99,7 @@ class EstateRepositoryTest {
             }
             coVerify(exactly = 0) { mockPhotoDao.deletePhotos(any(), any()) }
             verify(exactly = 0) { mockWorkManager.scheduleEstateNotification() }
-            confirmVerified(mockEstateDao,mockPhotoDao,mockWorkManager)
+            confirmVerified(mockEstateDao, mockPhotoDao, mockWorkManager)
         } finally {
             Dispatchers.resetMain()
         }
@@ -113,7 +113,7 @@ class EstateRepositoryTest {
         val expectedEstateEntity =
             FakeDataTest.getFakeEstateEntity(estateId = estateId)
         val expectedPhotoEntities = FakeDataTest.getFakePhotoEntities(estateId)
-        val photoToBeRemoved = listOf("photo uri 1", "photo uri 2");
+        val photoToBeRemoved = listOf("photo uri 1", "photo uri 2")
 
         coEvery { mockEstateDao.updateEstate(any()) } just Runs
         coEvery { mockPhotoDao.upsertPhotos(any()) } just Runs
@@ -130,7 +130,7 @@ class EstateRepositoryTest {
             }
             coVerify(exactly = 1) { mockPhotoDao.deletePhotos(photoToBeRemoved, estateId) }
             verify(exactly = 0) { mockWorkManager.scheduleEstateNotification() }
-            confirmVerified(mockEstateDao,mockPhotoDao,mockWorkManager)
+            confirmVerified(mockEstateDao, mockPhotoDao, mockWorkManager)
         } finally {
             Dispatchers.resetMain()
         }
@@ -151,7 +151,7 @@ class EstateRepositoryTest {
             val estate = estateRepository.getEstate(estateId).first()
 
             assertEquals(expectedEstate, estate)
-            verify(exactly = 1) {mockEstateDao.getEstateWithPhotos(estateId)}
+            verify(exactly = 1) { mockEstateDao.getEstateWithPhotos(estateId) }
             confirmVerified(mockEstateDao)
         } finally {
             Dispatchers.resetMain()
@@ -171,7 +171,7 @@ class EstateRepositoryTest {
             val estates = estateRepository.getEstates().first()
 
             assertEquals(expectedEstates, estates)
-            verify(exactly = 1) {mockEstateDao.getEstatesWithPhotos()}
+            verify(exactly = 1) { mockEstateDao.getEstatesWithPhotos() }
             confirmVerified(mockEstateDao)
         } finally {
             Dispatchers.resetMain()

@@ -4,12 +4,7 @@ import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
 import com.openclassrooms.realestatemanager.data.database.entities.RealEstateAgentEntity
-import com.openclassrooms.realestatemanager.data.enums.PointOfInterest
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
-import com.openclassrooms.realestatemanager.data.models.Estate
-import com.openclassrooms.realestatemanager.data.models.EstateFilter
-import com.openclassrooms.realestatemanager.data.models.Photo
-import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.Date

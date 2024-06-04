@@ -98,7 +98,6 @@ class FakeDataTest {
         }
 
         fun getFakeEstateWithPhotosEntities(): List<EstateWithPhotosEntity> {
-            val date = System.currentTimeMillis()
             return listOf(
                 getFakeEstateWithPhotosEntity(1L),
                 getFakeEstateWithPhotosEntity(2L),

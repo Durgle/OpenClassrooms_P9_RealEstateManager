@@ -11,9 +11,9 @@ interface EstateRepositoryInterface {
      * Inserts or updates an estate in the database.
      *
      * @param estate The estate
-     * @param photoRemoved A list of URIs of photos to be removed
+     * @param photoToBeRemoved A list of URIs of photos to be removed
      */
-    suspend fun upsertEstate(estate: Estate, photoRemoved: List<String>? = null)
+    suspend fun upsertEstate(estate: Estate, photoToBeRemoved: List<String>? = null)
 
     /**
      * Retrieves an estate with its photos from the database as a flow

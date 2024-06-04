@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.repositories
 
-import com.openclassrooms.realestatemanager.data.FakeData
 import com.openclassrooms.realestatemanager.data.database.dao.RealEstateAgentDao
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepository
 import com.openclassrooms.realestatemanager.utils.FakeDataTest

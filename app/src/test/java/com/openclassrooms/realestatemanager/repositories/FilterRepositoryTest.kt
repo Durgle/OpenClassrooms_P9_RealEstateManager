@@ -27,7 +27,6 @@ class FilterRepositoryTest {
     private lateinit var mockContext: Context
     private lateinit var mockSharedPreferences: SharedPreferences
     private lateinit var mockEditor: SharedPreferences.Editor
-    private lateinit var filterRepository: FilterRepository
     private val testScheduler = TestCoroutineScheduler()
     private val testDispatcher = UnconfinedTestDispatcher(testScheduler)
 
