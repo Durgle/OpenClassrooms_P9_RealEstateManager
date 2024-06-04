@@ -50,10 +50,18 @@ class EstateRepositoryTest {
 
     @Test
     fun upsertEstateWithNonExistentEstate() = runTest(testDispatcher) {
-        val estate = FakeDataTest.getFakeEstate()
         val estateIdSaved = 1L
-        val expectedEstateEntity = FakeDataTest.getFakeEstateEntity()
-        val expectedPhotoEntities = FakeDataTest.getFakePhotoEntities(estateIdSaved)
+        val expectedEstateEntity = FakeDataTest.getFakeEstateEntity(estateId = 0L)
+        val expectedPhotoEntities = listOf(
+            FakeDataTest.getFakePhotoEntity(uri = "Photo 1", estateId = estateIdSaved),
+            FakeDataTest.getFakePhotoEntity(uri = "Photo 2", estateId = estateIdSaved)
+        )
+        val estate = FakeDataTest.getFakeEstate(
+            estateId = 0L, photos = listOf(
+                FakeDataTest.getFakePhoto(uri = "Photo 1", estateId = 0L),
+                FakeDataTest.getFakePhoto(uri = "Photo 2", estateId = 0L),
+            )
+        )
 
         coEvery { mockEstateDao.insertEstate(any()) } returns estateIdSaved
         coEvery { mockPhotoDao.upsertPhotos(any()) } just Runs
@@ -79,10 +87,18 @@ class EstateRepositoryTest {
     @Test
     fun upsertEstateWithExistentEstate() = runTest(testDispatcher) {
         val estateId = 1L
-        val estate = FakeDataTest.getFakeEstate(estateId = estateId)
+        val estate = FakeDataTest.getFakeEstate(
+            estateId = estateId, photos = listOf(
+                FakeDataTest.getFakePhoto(uri = "Photo 1", estateId = estateId),
+                FakeDataTest.getFakePhoto(uri = "Photo 2", estateId = estateId),
+            )
+        )
         val expectedEstateEntity =
             FakeDataTest.getFakeEstateEntity(estateId = estateId)
-        val expectedPhotoEntities = FakeDataTest.getFakePhotoEntities(estateId)
+        val expectedPhotoEntities = listOf(
+            FakeDataTest.getFakePhotoEntity(uri = "Photo 1", estateId = estateId),
+            FakeDataTest.getFakePhotoEntity(uri = "Photo 2", estateId = estateId)
+        )
 
         coEvery { mockEstateDao.updateEstate(any()) } just Runs
         coEvery { mockPhotoDao.upsertPhotos(any()) } just Runs
@@ -109,10 +125,18 @@ class EstateRepositoryTest {
     fun upsertEstateWithPhotoToBeRemoved() = runTest(testDispatcher) {
 
         val estateId = 1L
-        val estate = FakeDataTest.getFakeEstate(estateId = estateId)
+        val estate = FakeDataTest.getFakeEstate(
+            estateId = estateId, photos = listOf(
+                FakeDataTest.getFakePhoto(uri = "Photo 1", estateId = estateId),
+                FakeDataTest.getFakePhoto(uri = "Photo 2", estateId = estateId),
+            )
+        )
         val expectedEstateEntity =
             FakeDataTest.getFakeEstateEntity(estateId = estateId)
-        val expectedPhotoEntities = FakeDataTest.getFakePhotoEntities(estateId)
+        val expectedPhotoEntities = listOf(
+            FakeDataTest.getFakePhotoEntity(uri = "Photo 1", estateId = estateId),
+            FakeDataTest.getFakePhotoEntity(uri = "Photo 2", estateId = estateId)
+        )
         val photoToBeRemoved = listOf("photo uri 1", "photo uri 2")
 
         coEvery { mockEstateDao.updateEstate(any()) } just Runs
@@ -139,8 +163,16 @@ class EstateRepositoryTest {
     @Test
     fun getEstate() = runTest(testDispatcher) {
         val estateId = 1L
-        val estateWithPhotosEntity = FakeDataTest.getFakeEstateWithPhotosEntity(estateId)
-        val expectedEstate = FakeDataTest.getFakeEstate(estateId)
+        val estateWithPhotosEntity = FakeDataTest.getFakeEstateWithPhotosEntity(
+            estateId = estateId, photos = listOf(
+                FakeDataTest.getFakePhotoEntity("Photos 1", estateId)
+            )
+        )
+        val expectedEstate = FakeDataTest.getFakeEstate(
+            estateId = estateId, photos = listOf(
+                FakeDataTest.getFakePhoto("Photos 1", estateId)
+            )
+        )
 
         coEvery { mockEstateDao.getEstateWithPhotos(estateId) } returns flowOf(
             estateWithPhotosEntity
@@ -161,8 +193,24 @@ class EstateRepositoryTest {
     @Test
     fun getEstates() = runTest(testDispatcher) {
 
-        val estateWithPhotosEntities = FakeDataTest.getFakeEstateWithPhotosEntities()
-        val expectedEstates = FakeDataTest.getFakeEstates()
+        val estateWithPhotosEntities = listOf(
+            FakeDataTest.getFakeEstateWithPhotosEntity(estateId = 1L),
+            FakeDataTest.getFakeEstateWithPhotosEntity(
+                estateId = 2L, photos = listOf(
+                    FakeDataTest.getFakePhotoEntity("Photo 1", 2L)
+                )
+            ),
+            FakeDataTest.getFakeEstateWithPhotosEntity(estateId = 3L),
+        )
+        val expectedEstates = listOf(
+            FakeDataTest.getFakeEstate(estateId = 1L),
+            FakeDataTest.getFakeEstate(
+                estateId = 2L, photos = listOf(
+                    FakeDataTest.getFakePhoto("Photo 1", 2L)
+                )
+            ),
+            FakeDataTest.getFakeEstate(estateId = 3L),
+        )
 
         coEvery { mockEstateDao.getEstatesWithPhotos() } returns flowOf(estateWithPhotosEntities)
 
@@ -196,8 +244,16 @@ class EstateRepositoryTest {
         val filters = EstateFilter(
             type = listOf(PropertyType.HOUSE),
         )
-        val estateWithPhotosEntities = FakeDataTest.getFakeEstateWithPhotosEntities()
-        val expectedEstates = FakeDataTest.getFakeEstates()
+        val estateWithPhotosEntities = listOf(
+            FakeDataTest.getFakeEstateWithPhotosEntity(1L),
+            FakeDataTest.getFakeEstateWithPhotosEntity(2L),
+            FakeDataTest.getFakeEstateWithPhotosEntity(3L),
+        )
+        val expectedEstates = listOf(
+            FakeDataTest.getFakeEstate(1L),
+            FakeDataTest.getFakeEstate(2L),
+            FakeDataTest.getFakeEstate(3L),
+        )
 
         coEvery {
             mockEstateDao.getFilteredEstatesWithPhotos(

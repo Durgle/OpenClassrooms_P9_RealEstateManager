@@ -52,7 +52,7 @@ class FilterEstateFragment : Fragment() {
                 is FilterEstateViewModel.Event.Error -> {
                     Snackbar.make(
                         view,
-                        event.message.ifEmpty { getString(R.string.save_error) },
+                        event.message.ifEmpty { getString(R.string.save_general_error) },
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }

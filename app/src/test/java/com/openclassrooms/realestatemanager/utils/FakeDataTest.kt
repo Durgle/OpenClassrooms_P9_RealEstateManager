@@ -1,5 +1,7 @@
 package com.openclassrooms.realestatemanager.utils
 
+import androidx.annotation.StringRes
+import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
@@ -9,10 +11,15 @@ import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.Photo
 import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
+import com.openclassrooms.realestatemanager.ui.estate.map.EstateMapViewState
 
 class FakeDataTest {
 
     companion object {
+
+        private fun getFakeRealEstateAgentEntity(): RealEstateAgentEntity {
+            return RealEstateAgentEntity(1, "Agent 1")
+        }
 
         fun getFakeRealEstateAgentEntities(): List<RealEstateAgentEntity> {
             return listOf(
@@ -30,39 +37,62 @@ class FakeDataTest {
             )
         }
 
-        fun getFakeEstate(estateId: Long = 0L): Estate {
+        fun getFakeEstate(
+            estateId: Long,
+            type: PropertyType = PropertyType.HOUSE,
+            price: Long = 10000,
+            latitude: Double? = 40.7128,
+            longitude: Double? = -74.0060,
+            available: Boolean = true,
+            photos: List<Photo> = emptyList()
+        ): Estate {
             return Estate(
                 id = estateId,
-                type = PropertyType.HOUSE,
-                price = 100000,
+                type = type,
+                price = price,
                 propertyArea = 120,
                 numberOfBathrooms = 2,
                 numberOfBedrooms = 3,
                 description = "A beautiful house",
-                photos = listOf(Photo("uri1", "Living Room", estateId)),
+                photos = photos,
                 address = "123 Main St",
                 additionalAddressLine = null,
                 city = "New York",
                 zipCode = "10001",
                 country = "United State",
-                latitude = 40.7128,
-                longitude = -74.0060,
+                latitude = latitude,
+                longitude = longitude,
                 pointsOfInterest = listOf(
                     PointOfInterest.HEALTH_SERVICES,
                     PointOfInterest.RESTAURANTS_AND_CAFES
                 ),
-                available = true,
+                available = available,
                 entryDate = 1717281435264,
                 saleDate = null,
                 realEstateAgent = RealEstateAgent(1L, "Agent 1")
             )
         }
 
-        fun getFakeEstateEntity(estateId: Long = 0L): EstateEntity {
+        fun getFakeEstateMapViewState(
+            estateId: Long,
+            @StringRes type: Int = PropertyType.HOUSE.labelResId,
+            location: LatLng? = null,
+            selected: Boolean = false
+        ): EstateMapViewState {
+            return EstateMapViewState(estateId, type, location, selected)
+        }
+
+        fun getFakeEstateEntity(
+            estateId: Long,
+            type: PropertyType = PropertyType.HOUSE,
+            price: Long = 10000,
+            latitude: Double? = 40.7128,
+            longitude: Double? = -74.0060
+        ): EstateEntity {
             return EstateEntity(
                 id = estateId,
-                type = PropertyType.HOUSE,
-                price = 100000,
+                type = type,
+                price = price,
                 propertyArea = 120,
                 numberOfBathrooms = 2,
                 numberOfBedrooms = 3,
@@ -72,8 +102,8 @@ class FakeDataTest {
                 city = "New York",
                 zipCode = "10001",
                 country = "United State",
-                latitude = 40.7128,
-                longitude = -74.0060,
+                latitude = latitude,
+                longitude = longitude,
                 pointsOfInterest = listOf(
                     PointOfInterest.HEALTH_SERVICES,
                     PointOfInterest.RESTAURANTS_AND_CAFES
@@ -85,32 +115,27 @@ class FakeDataTest {
             )
         }
 
-        fun getFakePhotoEntities(estateId: Long = 0L): List<PhotoEntity> {
-            return listOf(PhotoEntity("uri1", "Living Room", estateId))
-        }
-
-        fun getFakeEstateWithPhotosEntity(estateId: Long = 0L): EstateWithPhotosEntity {
+        fun getFakeEstateWithPhotosEntity(
+            estateId: Long,
+            type: PropertyType = PropertyType.HOUSE,
+            price: Long = 10000,
+            latitude: Double? = 40.7128,
+            longitude: Double? = -74.0060,
+            photos: List<PhotoEntity> = emptyList()
+        ): EstateWithPhotosEntity {
             return EstateWithPhotosEntity(
-                estate = getFakeEstateEntity(estateId),
-                photos = getFakePhotoEntities(estateId),
-                agent = RealEstateAgentEntity(1L, "Agent 1")
+                estate = getFakeEstateEntity(estateId, type, price, latitude, longitude),
+                photos = photos,
+                agent = getFakeRealEstateAgentEntity()
             )
         }
 
-        fun getFakeEstateWithPhotosEntities(): List<EstateWithPhotosEntity> {
-            return listOf(
-                getFakeEstateWithPhotosEntity(1L),
-                getFakeEstateWithPhotosEntity(2L),
-                getFakeEstateWithPhotosEntity(3L)
-            )
+        fun getFakePhotoEntity(uri: String, estateId: Long): PhotoEntity {
+            return PhotoEntity(uri, "Living Room", estateId)
         }
 
-        fun getFakeEstates(): List<Estate> {
-            return listOf(
-                getFakeEstate(1L),
-                getFakeEstate(2L),
-                getFakeEstate(3L)
-            )
+        fun getFakePhoto(uri: String, estateId: Long): Photo {
+            return Photo(uri, "Living Room", estateId)
         }
     }
 

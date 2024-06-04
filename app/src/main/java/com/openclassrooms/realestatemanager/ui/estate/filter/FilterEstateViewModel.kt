@@ -33,19 +33,25 @@ class FilterEstateViewModel(
     }
 
     fun save() {
+
         viewModelScope.launch {
             val filters = _filterForm.value
-            filterRepository.saveEstateFilters(
-                EstateFilter(
-                    filters.type.ifEmpty { null },
-                    filters.minPrice.toLongOrNull(),
-                    filters.maxPrice.toLongOrNull(),
-                    filters.city.ifEmpty { null },
-                    filters.available
+            try {
+                filterRepository.saveEstateFilters(
+                    EstateFilter(
+                        filters.type.ifEmpty { null },
+                        filters.minPrice.toLongOrNull(),
+                        filters.maxPrice.toLongOrNull(),
+                        filters.city.ifEmpty { null },
+                        filters.available
+                    )
                 )
-            )
-            snackBar.value = Event.SaveSuccess
+                snackBar.value = Event.SaveSuccess
+            } catch (error: Throwable) {
+                snackBar.value = Event.Error("")
+            }
         }
+
     }
 
     fun onPriceChanged(minPrice: String, maxPrice: String) {
