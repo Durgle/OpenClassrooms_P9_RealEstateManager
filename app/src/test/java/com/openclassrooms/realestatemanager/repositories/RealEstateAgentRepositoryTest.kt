@@ -17,7 +17,6 @@ class RealEstateAgentRepositoryTest {
     private lateinit var mockDao: RealEstateAgentDao
     private lateinit var realEstateAgentRepository: RealEstateAgentRepository
 
-
     @Before
     fun setUp() {
         mockDao = mockk()

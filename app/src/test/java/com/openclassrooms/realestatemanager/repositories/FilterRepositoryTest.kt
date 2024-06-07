@@ -21,14 +21,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class FilterRepositoryTest {
 
     private lateinit var mockContext: Context
     private lateinit var mockSharedPreferences: SharedPreferences
     private lateinit var mockEditor: SharedPreferences.Editor
-    private val testScheduler = TestCoroutineScheduler()
-    private val testDispatcher = UnconfinedTestDispatcher(testScheduler)
 
     @Before
     fun setUp() {
@@ -78,7 +75,7 @@ class FilterRepositoryTest {
     }
 
     @Test
-    fun getEstateFiltersWithFiltersSaved() = runTest(testDispatcher){
+    fun getEstateFiltersWithFiltersSaved() = runTest {
 
         val expectedFilters = EstateFilter(
             type = listOf(PropertyType.HOUSE, PropertyType.LOFT),
@@ -95,7 +92,7 @@ class FilterRepositoryTest {
     }
 
     @Test
-    fun getEstateFiltersWithoutFiltersSaved() = runTest(testDispatcher){
+    fun getEstateFiltersWithoutFiltersSaved() = runTest {
 
         val expectedResult = EstateFilter()
         every { mockEditor.putString(any(), any()) } returns mockEditor

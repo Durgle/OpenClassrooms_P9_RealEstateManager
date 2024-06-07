@@ -13,6 +13,7 @@ import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRep
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 import com.openclassrooms.realestatemanager.worker.WorkManager
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import java.util.Locale
 
@@ -38,6 +39,6 @@ class MainApplication : Application() {
         FilterRepository(this)
     }
     val geocoderRepository: GeocoderRepositoryInterface by lazy {
-        GeocoderRepository(Geocoder(this, Locale.getDefault()))
+        GeocoderRepository(Geocoder(this, Locale.getDefault()), Dispatchers.IO)
     }
 }

@@ -5,13 +5,10 @@ import android.location.Geocoder
 import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepository
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -31,60 +28,41 @@ class GeocoderRepositoryTest {
     @Before
     fun setUp() {
         mockGeocoder = mockk()
-        geocoderRepository = GeocoderRepository(mockGeocoder)
+        geocoderRepository = GeocoderRepository(mockGeocoder, testDispatcher)
     }
 
     @Test
     fun getCoordinatesWithValidLocationName() =
-        runTest(testDispatcher) {
-            Dispatchers.setMain(testDispatcher)
+        runTest {
+            val mockAddress = mockk<Address>()
+            @Suppress("DEPRECATION")
+            every { mockGeocoder.getFromLocationName(any(), any()) } returns listOf(mockAddress)
 
-            try {
-                val mockAddress = mockk<Address>()
-                @Suppress("DEPRECATION")
-                every { mockGeocoder.getFromLocationName(any(), any()) } returns listOf(mockAddress)
+            val address = geocoderRepository.getCoordinates(addressString)
 
-                val address = geocoderRepository.getCoordinates(addressString)
-
-                assertEquals(mockAddress, address)
-            } finally {
-                Dispatchers.resetMain()
-            }
+            assertEquals(mockAddress, address)
         }
 
     @Test
     fun getCoordinatesWithInvalidLocationName() =
-        runTest(testDispatcher) {
-            Dispatchers.setMain(testDispatcher)
+        runTest {
+            @Suppress("DEPRECATION")
+            every { mockGeocoder.getFromLocationName(any(), any()) } returns listOf(null)
 
-            try {
-                @Suppress("DEPRECATION")
-                every { mockGeocoder.getFromLocationName(any(), any()) } returns listOf(null)
+            val address = geocoderRepository.getCoordinates(addressString)
 
-                val address = geocoderRepository.getCoordinates(addressString)
-
-                assertNull(address)
-            } finally {
-                Dispatchers.resetMain()
-            }
+            assertNull(address)
         }
 
     @Test
     fun getCoordinatesWithIOException() =
-        runTest(testDispatcher) {
+        runTest {
+            @Suppress("DEPRECATION")
+            every { mockGeocoder.getFromLocationName(any(), any()) } throws IOException()
 
-            Dispatchers.setMain(testDispatcher)
+            val address = geocoderRepository.getCoordinates("address causing IOException")
 
-            try {
-                @Suppress("DEPRECATION")
-                every { mockGeocoder.getFromLocationName(any(), any()) } throws IOException()
-
-                val address = geocoderRepository.getCoordinates("address causing IOException")
-
-                assertNull(address)
-            } finally {
-                Dispatchers.resetMain()
-            }
+            assertNull(address)
         }
 
 }

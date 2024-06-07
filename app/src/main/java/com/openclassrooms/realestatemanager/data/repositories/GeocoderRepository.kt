@@ -3,7 +3,7 @@ package com.openclassrooms.realestatemanager.data.repositories
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -13,7 +13,10 @@ import java.io.IOException
  *
  * @param geocoder The Geocoder
  */
-class GeocoderRepository(private val geocoder: Geocoder) : GeocoderRepositoryInterface {
+class GeocoderRepository(
+    private val geocoder: Geocoder,
+    private val dispatcher: CoroutineDispatcher
+) : GeocoderRepositoryInterface {
 
     /**
      * Retrieves the geographic coordinates for a given address.
@@ -22,7 +25,7 @@ class GeocoderRepository(private val geocoder: Geocoder) : GeocoderRepositoryInt
      * @return The [Address] object containing the geographic coordinates
      */
     override suspend fun getCoordinates(address: String): Address? {
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatcher) {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     suspendCancellableCoroutine { continuation ->
