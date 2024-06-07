@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.estate.list
 
+import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.models.Photo
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
 
@@ -10,5 +11,6 @@ data class EstateViewState(
     val city: String,
     val price: String,
     val available: Boolean,
-    val selected: Boolean
+    val selected: Boolean,
+    val location: LatLng?
 )

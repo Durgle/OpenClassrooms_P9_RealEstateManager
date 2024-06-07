@@ -74,7 +74,7 @@ class EstateFragment : Fragment(), OnEstateSelectedListener {
                 }
 
                 R.id.app_bar_edit_button -> {
-                    val selectedId = viewModel.getSelectedEstate()
+                    val selectedId = viewModel.getSelectedEstateId()
                     if (selectedId == -1L) {
                         Snackbar.make(
                             requireView(),
@@ -131,7 +131,7 @@ class EstateFragment : Fragment(), OnEstateSelectedListener {
         showDetails(estateId)
     }
 
-    override fun clearSelection() {
+    private fun clearSelection() {
         viewModel.clearSelection()
         val fragment = childFragmentManager.findFragmentById(R.id.detail_container)
         fragment?.let {

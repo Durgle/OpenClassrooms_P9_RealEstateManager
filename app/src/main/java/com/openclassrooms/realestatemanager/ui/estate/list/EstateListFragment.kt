@@ -30,7 +30,6 @@ class EstateListFragment(private val listener: OnEstateSelectedListener) : Fragm
         val listener: EstateRecyclerViewAdapter.OnItemClickListener =
             object : EstateRecyclerViewAdapter.OnItemClickListener {
                 override fun onClick(estateId: Long) {
-                    viewModel.onSelectedEstate(estateId)
                     listener.onSelection(estateId)
                 }
             }
@@ -43,12 +42,6 @@ class EstateListFragment(private val listener: OnEstateSelectedListener) : Fragm
         fun newInstance(listener: OnEstateSelectedListener): EstateListFragment {
             return EstateListFragment(listener)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        listener.clearSelection()
-        viewModel.clearSelection()
     }
 
 }

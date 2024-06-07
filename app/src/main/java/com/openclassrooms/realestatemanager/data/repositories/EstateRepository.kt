@@ -12,6 +12,7 @@ import com.openclassrooms.realestatemanager.data.models.Photo
 import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
 import com.openclassrooms.realestatemanager.worker.WorkManager
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 
 /**
@@ -26,6 +27,42 @@ class EstateRepository(
     private val photoDao: PhotoDao,
     private val workManager: WorkManager
 ) : EstateRepositoryInterface {
+
+    private val selectedEstateId = MutableStateFlow(0L)
+
+    /**
+     * Updates the selected estate ID
+     *
+     * @param estateId The ID of the selected estate
+     */
+    override fun onSelectedEstate(estateId: Long) {
+        selectedEstateId.value = estateId
+    }
+
+    /**
+     * Clear the selected estate ID
+     */
+    override fun clearSelectedEstate() {
+        selectedEstateId.value = 0L
+    }
+
+    /**
+     * Retrieves the selected estate ID as flow
+     *
+     * @return A [Flow] that emits the selected estate ID
+     */
+    override fun getSelectedEstate(): Flow<Long> {
+        return selectedEstateId
+    }
+
+    /**
+     * Retrieves the selected estate ID
+     *
+     * @return The selected estate ID
+     */
+    override fun getSelectedEstateId(): Long {
+        return selectedEstateId.value
+    }
 
     /**
      * Inserts or updates an estate in the database.

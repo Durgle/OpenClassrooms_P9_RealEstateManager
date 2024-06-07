@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.utils
 
-import androidx.annotation.StringRes
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
@@ -11,7 +10,7 @@ import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.Photo
 import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
-import com.openclassrooms.realestatemanager.ui.estate.map.EstateMapViewState
+import com.openclassrooms.realestatemanager.ui.estate.list.EstateViewState
 
 class FakeDataTest {
 
@@ -73,13 +72,23 @@ class FakeDataTest {
             )
         }
 
-        fun getFakeEstateMapViewState(
+        fun getFakeEstateViewState(
             estateId: Long,
-            @StringRes type: Int = PropertyType.HOUSE.labelResId,
+            type: PropertyType = PropertyType.HOUSE,
+            price: String = "10000",
             location: LatLng? = null,
             selected: Boolean = false
-        ): EstateMapViewState {
-            return EstateMapViewState(estateId, type, location, selected)
+        ): EstateViewState {
+            return EstateViewState(
+                id = estateId,
+                photo = getFakePhoto("Photo 1",estateId),
+                propertyType = type,
+                city = "New York",
+                price = price,
+                available = true,
+                location = location,
+                selected = selected
+            )
         }
 
         fun getFakeEstateEntity(

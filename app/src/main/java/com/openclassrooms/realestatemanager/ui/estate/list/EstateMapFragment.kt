@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.ui.estate.map
+package com.openclassrooms.realestatemanager.ui.estate.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,7 @@ import com.openclassrooms.realestatemanager.utils.Utils
 
 class EstateMapFragment(private val listener: OnEstateSelectedListener) : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
-    private val viewModel: MapViewModel by viewModels {
+    private val viewModel: EstateListViewModel by viewModels {
         ViewModelFactory.getInstance()
     }
     private lateinit var binding: FragmentEstateMapBinding
@@ -49,11 +49,12 @@ class EstateMapFragment(private val listener: OnEstateSelectedListener) : Fragme
         }
     }
 
-    private fun addMarker(estate: EstateMapViewState, googleMap: GoogleMap) {
+    private fun addMarker(estate: EstateViewState, googleMap: GoogleMap) {
 
         if (estate.location != null) {
             val markerOptions = MarkerOptions()
-            markerOptions.position(estate.location).title(resources.getString(estate.type))
+            markerOptions.position(estate.location)
+                .title(resources.getString(estate.propertyType.labelResId))
             if (estate.selected) {
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
             }
@@ -67,7 +68,6 @@ class EstateMapFragment(private val listener: OnEstateSelectedListener) : Fragme
     override fun onMarkerClick(marker: Marker): Boolean {
         val estateId = marker.tag as? Long
         estateId?.let { id ->
-            viewModel.onSelectedEstate(id)
             listener.onSelection(id)
         }
         return false
@@ -77,12 +77,6 @@ class EstateMapFragment(private val listener: OnEstateSelectedListener) : Fragme
         fun newInstance(listener: OnEstateSelectedListener): EstateMapFragment {
             return EstateMapFragment(listener)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        listener.clearSelection()
-        viewModel.clearSelection()
     }
 
 }

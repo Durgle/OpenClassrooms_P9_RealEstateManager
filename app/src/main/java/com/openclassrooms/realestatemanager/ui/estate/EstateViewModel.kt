@@ -1,22 +1,20 @@
 package com.openclassrooms.realestatemanager.ui.estate
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
 
-class EstateViewModel() : ViewModel() {
-
-    private val selectedEstateId = MutableStateFlow(-1L)
+class EstateViewModel(private val estateRepository: EstateRepositoryInterface) : ViewModel() {
 
     fun onSelectedEstate(estateId: Long) {
-        selectedEstateId.value = estateId
+        estateRepository.onSelectedEstate(estateId)
     }
 
     fun clearSelection() {
-        selectedEstateId.value = -1
+        estateRepository.clearSelectedEstate()
     }
 
-    fun getSelectedEstate(): Long {
-        return selectedEstateId.value
+    fun getSelectedEstateId(): Long {
+        return estateRepository.getSelectedEstateId()
     }
 
 }

@@ -4,8 +4,35 @@ import android.database.Cursor
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateFilter
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 interface EstateRepositoryInterface {
+
+    /**
+     * Updates the selected estate ID
+     *
+     * @param estateId The ID of the selected estate
+     */
+    fun onSelectedEstate(estateId: Long)
+
+    /**
+     * Clear the selected estate ID
+     */
+    fun clearSelectedEstate()
+
+    /**
+     * Retrieves the selected estate ID as flow
+     *
+     * @return A [Flow] that emits the selected estate ID
+     */
+    fun getSelectedEstate(): Flow<Long>
+
+    /**
+     * Retrieves the selected estate ID
+     *
+     * @return The selected estate ID
+     */
+    fun getSelectedEstateId(): Long
 
     /**
      * Inserts or updates an estate in the database.
