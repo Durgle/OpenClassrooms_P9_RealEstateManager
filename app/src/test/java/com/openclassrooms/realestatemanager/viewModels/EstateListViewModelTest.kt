@@ -1,7 +1,8 @@
 package com.openclassrooms.realestatemanager.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.google.android.gms.maps.model.LatLng
+import com.openclassrooms.realestatemanager.data.enums.PropertyType
+import com.openclassrooms.realestatemanager.data.models.EstateFilter
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepository
 import com.openclassrooms.realestatemanager.data.repositories.FilterRepository
 import com.openclassrooms.realestatemanager.ui.estate.list.EstateListViewModel
@@ -35,16 +36,22 @@ class EstateListViewModelTest {
     private val testScheduler = TestCoroutineScheduler()
     private val testDispatcher = UnconfinedTestDispatcher(testScheduler)
     private val fakeEstates = listOf(
-        FakeDataTest.getFakeEstate(estateId = 1L, latitude = 10.00, longitude = 15.15335),
-        FakeDataTest.getFakeEstate(estateId = 2L, latitude = 20.00, longitude = 25.15335),
-        FakeDataTest.getFakeEstate(estateId = 3L, latitude = 30.00, longitude = 35.15335),
+        FakeDataTest.getFakeEstate(estateId = 1L, price = 15000, type = PropertyType.HOUSE, available = false, latitude = null, longitude = null),
+        FakeDataTest.getFakeEstate(estateId = 2L, price = 25000, type = PropertyType.HOUSE, available = true, latitude = null, longitude = null),
+        FakeDataTest.getFakeEstate(estateId = 3L, price = 35000, type = PropertyType.LOFT, available = true, latitude = null, longitude = null),
+        FakeDataTest.getFakeEstate(estateId = 4L, price = 7000, type = PropertyType.LOFT, available = true, latitude = null, longitude = null),
+        FakeDataTest.getFakeEstate(estateId = 5L, price = 9000, type = PropertyType.HOUSE, available = false, latitude = null, longitude = null)
     )
+    private val fakeEstatesFiltered = listOf(
+        FakeDataTest.getFakeEstate(estateId = 2L, price = 25000, type = PropertyType.HOUSE, available = true, latitude = null, longitude = null)
+    )
+    private val estateFilter =
+        EstateFilter(type = listOf(PropertyType.HOUSE), minPrice = 15000, available = true)
+    private val selectedEstateId = 5L
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        every { mockEstateRepository.getEstates() } returns flowOf(fakeEstates)
-        estateListViewModel = EstateListViewModel(mockEstateRepository, mockFilterRepository)
     }
 
     @After
@@ -55,10 +62,36 @@ class EstateListViewModelTest {
     @Test
     fun getEstates() = runTest(testDispatcher) {
 
+        every { mockEstateRepository.getEstates() } returns flowOf(fakeEstates)
+        every { mockEstateRepository.getSelectedEstate() } returns flowOf(selectedEstateId)
+        every { mockFilterRepository.getEstateFilters() } returns flowOf(EstateFilter())
+        estateListViewModel = EstateListViewModel(mockEstateRepository, mockFilterRepository)
+
         val expectedEstateMapViewState = listOf(
-            FakeDataTest.getFakeEstateViewState(estateId = 1L, location = LatLng(10.00, 15.15335)),
-            FakeDataTest.getFakeEstateViewState(estateId = 2L, location = LatLng(20.00, 25.15335)),
-            FakeDataTest.getFakeEstateViewState(estateId = 3L, location = LatLng(30.00, 35.15335))
+            FakeDataTest.getFakeEstateViewState(estateId = 1L, price = "$15,000", type = PropertyType.HOUSE, available = false),
+            FakeDataTest.getFakeEstateViewState(estateId = 2L, price = "$25,000", type = PropertyType.HOUSE, available = true),
+            FakeDataTest.getFakeEstateViewState(estateId = 3L, price = "$35,000", type = PropertyType.LOFT, available = true),
+            FakeDataTest.getFakeEstateViewState(estateId = 4L, price = "$7,000", type = PropertyType.LOFT, available = true),
+            FakeDataTest.getFakeEstateViewState(estateId = 5L, price = "$9,000", type = PropertyType.HOUSE, available = false, selected = true),
+        )
+
+        val estatesLiveData = estateListViewModel.getEstates()
+        val estates = LiveDataTestUtil.getOrAwaitValue(estatesLiveData)
+
+        assertEquals(expectedEstateMapViewState, estates)
+    }
+
+    @Test
+    fun getEstatesWithFilter() = runTest(testDispatcher) {
+
+        every { mockEstateRepository.getEstates() } returns flowOf(fakeEstates)
+        every { mockEstateRepository.getSelectedEstate() } returns flowOf(selectedEstateId)
+        every { mockEstateRepository.getEstatesFiltered(estateFilter) } returns flowOf(fakeEstatesFiltered)
+        every { mockFilterRepository.getEstateFilters() } returns flowOf(estateFilter)
+        estateListViewModel = EstateListViewModel(mockEstateRepository, mockFilterRepository)
+
+        val expectedEstateMapViewState = listOf(
+            FakeDataTest.getFakeEstateViewState(estateId = 2L, price = "$25,000", type = PropertyType.HOUSE, available = true)
         )
 
         val estatesLiveData = estateListViewModel.getEstates()

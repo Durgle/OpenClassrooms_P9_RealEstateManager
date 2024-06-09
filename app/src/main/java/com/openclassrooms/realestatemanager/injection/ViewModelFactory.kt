@@ -11,6 +11,7 @@ import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailFragmen
 import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estate.list.EstateListViewModel
+import kotlinx.coroutines.Dispatchers
 
 class ViewModelFactory private constructor() : ViewModelProvider.Factory {
 
@@ -54,7 +55,8 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
                     extras.application.realEstateAgentRepository,
                     extras.application.geocoderRepository,
                     extras.application.resources,
-                    estateId
+                    estateId,
+                    Dispatchers.IO
                 ) as T
             }
 

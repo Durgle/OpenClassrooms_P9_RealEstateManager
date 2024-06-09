@@ -15,6 +15,7 @@ import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.data.database.entities.RealEstateAgentEntity
+import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -80,7 +81,7 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
                     longitude = -105.02557896690276,
                     pointsOfInterest = null,
                     available = true,
-                    entryDate = System.currentTimeMillis(),
+                    entryDate = Utils.getNow(),
                     saleDate = null,
                     realEstateAgentId = agent1
                 )
@@ -103,7 +104,7 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
                     longitude = -105.03180154232744,
                     pointsOfInterest = null,
                     available = true,
-                    entryDate = System.currentTimeMillis(),
+                    entryDate = Utils.getNow(),
                     saleDate = null,
                     realEstateAgentId = agent2
                 )
@@ -125,7 +126,7 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
                     longitude = -104.88624551681441,
                     pointsOfInterest = null,
                     available = true,
-                    entryDate = System.currentTimeMillis(),
+                    entryDate = Utils.getNow(),
                     saleDate = null,
                     realEstateAgentId = agent1
                 )

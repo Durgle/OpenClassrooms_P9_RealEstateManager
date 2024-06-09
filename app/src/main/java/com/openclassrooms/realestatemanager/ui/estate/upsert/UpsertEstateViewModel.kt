@@ -18,7 +18,8 @@ import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryIn
 import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepositoryInterface
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 import com.openclassrooms.realestatemanager.utils.SingleLiveEvent
-import kotlinx.coroutines.Dispatchers
+import com.openclassrooms.realestatemanager.utils.Utils
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,7 +29,8 @@ class UpsertEstateViewModel(
     private val realEstateAgentRepository: RealEstateAgentRepositoryInterface,
     private val geocoderRepository: GeocoderRepositoryInterface,
     private val resources: Resources,
-    private val estateId: Long?
+    private val estateId: Long?,
+    private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _viewState = MutableStateFlow(UpsertEstateViewState())
@@ -79,7 +81,7 @@ class UpsertEstateViewModel(
         if (validateFormData()) {
             viewModelScope.launch {
                 try {
-                    val address = withContext(Dispatchers.IO) {
+                    val address = withContext(dispatcher) {
                         geocoderRepository.getCoordinates(_viewState.value.getCompleteAddress())
                     }
                     val data = _viewState.value.currentData
@@ -101,7 +103,7 @@ class UpsertEstateViewModel(
 
     private fun createEstateObject(data: CurrentDataViewState, address: Address?): Estate {
         val saleDate =
-            if (data.available) null else data.saleDate ?: System.currentTimeMillis()
+            if (data.available) null else data.saleDate ?: Utils.getNow()
 
         return Estate(
             estateId ?: 0,
@@ -115,7 +117,7 @@ class UpsertEstateViewModel(
                 Photo(photoViewState.uri, photoViewState.description, estateId ?: 0)
             },
             data.address,
-            data.additionalAddress,
+            data.additionalAddress.ifEmpty { null },
             data.city,
             data.zipcode,
             data.country,
@@ -123,7 +125,7 @@ class UpsertEstateViewModel(
             address?.longitude,
             data.pointsOfInterest,
             data.available,
-            data.entryDate ?: System.currentTimeMillis(),
+            data.entryDate ?: Utils.getNow(),
             saleDate,
             data.agent!!
         )

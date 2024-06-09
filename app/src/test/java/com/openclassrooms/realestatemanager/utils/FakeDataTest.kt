@@ -1,6 +1,8 @@
 package com.openclassrooms.realestatemanager.utils
 
+import androidx.annotation.StringRes
 import com.google.android.gms.maps.model.LatLng
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
@@ -10,7 +12,11 @@ import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.Photo
 import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
+import com.openclassrooms.realestatemanager.ui.estate.detail.EstateDetailViewState
 import com.openclassrooms.realestatemanager.ui.estate.list.EstateViewState
+import com.openclassrooms.realestatemanager.ui.estate.upsert.CurrentDataViewState
+import com.openclassrooms.realestatemanager.ui.estate.upsert.PhotoViewState
+import com.openclassrooms.realestatemanager.ui.estate.upsert.UpsertEstateViewState
 
 class FakeDataTest {
 
@@ -28,11 +34,15 @@ class FakeDataTest {
             )
         }
 
+        fun getFakeRealEstateAgent(id: Long): RealEstateAgent {
+            return RealEstateAgent(id, "Agent $id")
+        }
+
         fun getFakeRealEstateAgents(): List<RealEstateAgent> {
             return listOf(
-                RealEstateAgent(1, "Agent 1"),
-                RealEstateAgent(2, "Agent 2"),
-                RealEstateAgent(3, "Agent 3")
+                getFakeRealEstateAgent(1),
+                getFakeRealEstateAgent(2),
+                getFakeRealEstateAgent(3)
             )
         }
 
@@ -72,20 +82,53 @@ class FakeDataTest {
             )
         }
 
+        fun getFakeEstateDetailViewState(
+            estateId: Long,
+            area: String = "120 sq m",
+            location: LatLng? = null,
+            @StringRes available: Int = R.string.estate_available,
+            photos: List<Photo> = emptyList(),
+            pointOfInterest: List<PointOfInterest> = listOf(
+                PointOfInterest.HEALTH_SERVICES,
+                PointOfInterest.RESTAURANTS_AND_CAFES
+            )
+        ): EstateDetailViewState {
+            return EstateDetailViewState(
+                id = estateId,
+                propertyArea = area,
+                medias = photos,
+                description = "A beautiful house",
+                numberOfBathrooms = 2,
+                numberOfBedrooms = 3,
+                address = Utils.formatEstateAddress(
+                    "123 Main St",
+                    null,
+                    "New York",
+                    "10001",
+                    "United State"
+                ),
+                location = location,
+                availability = available,
+                pointOfInterest = pointOfInterest
+            )
+        }
+
         fun getFakeEstateViewState(
             estateId: Long,
             type: PropertyType = PropertyType.HOUSE,
             price: String = "10000",
             location: LatLng? = null,
-            selected: Boolean = false
+            selected: Boolean = false,
+            available: Boolean = true,
+            photos: Photo? = null
         ): EstateViewState {
             return EstateViewState(
                 id = estateId,
-                photo = getFakePhoto("Photo 1",estateId),
+                photo = photos,
                 propertyType = type,
                 city = "New York",
                 price = price,
-                available = true,
+                available = available,
                 location = location,
                 selected = selected
             )
@@ -145,6 +188,41 @@ class FakeDataTest {
 
         fun getFakePhoto(uri: String, estateId: Long): Photo {
             return Photo(uri, "Living Room", estateId)
+        }
+
+        fun getFakeUpsertViewState(
+            type: PropertyType = PropertyType.HOUSE,
+            price: String = "10000",
+            available: Boolean = true,
+            photos: List<PhotoViewState> = emptyList(),
+            photoRemoved: List<String> = emptyList(),
+            agent: RealEstateAgent = RealEstateAgent(1L, "Agent 1")
+        ): UpsertEstateViewState {
+            return UpsertEstateViewState(
+                currentData = CurrentDataViewState(
+                    type = type,
+                    price = price,
+                    surface = "120",
+                    numberOfBathroom = "2",
+                    numberOfBedroom = "3",
+                    description = "A beautiful house",
+                    photo = photos,
+                    photoRemoved = photoRemoved,
+                    address = "123 Main St",
+                    additionalAddress = "",
+                    city = "New York",
+                    zipcode = "10001",
+                    country = "United State",
+                    pointsOfInterest = listOf(
+                        PointOfInterest.HEALTH_SERVICES,
+                        PointOfInterest.RESTAURANTS_AND_CAFES
+                    ),
+                    available = available,
+                    entryDate = 1717281435264,
+                    saleDate = null,
+                    agent = agent
+                )
+            )
         }
     }
 

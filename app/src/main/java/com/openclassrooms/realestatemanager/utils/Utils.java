@@ -213,4 +213,13 @@ public class Utils {
     public static boolean isTablet(Resources resources) {
         return resources.getBoolean(R.bool.isLargeLayout);
     }
+
+    /**
+     * Get the current time in milliseconds
+     *
+     * @return Current time in milliseconds
+     */
+    public static long getNow() {
+        return System.currentTimeMillis();
+    }
 }

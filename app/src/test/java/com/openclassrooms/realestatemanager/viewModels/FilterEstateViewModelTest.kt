@@ -20,6 +20,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -40,10 +41,16 @@ class FilterEstateViewModelTest {
     @Before
     fun setUp() {
         every { mockFilterRepository.clearEstateFilters() } just Runs
+        Dispatchers.setMain(testDispatcher)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
     @Test
-    fun getCurrentFilter() = runTest(testDispatcher) {
+    fun getCurrentFilter() = runTest {
 
         val expectedFilterState = FilterViewState(
             fakeEstateFilter.type.orEmpty(),
@@ -53,22 +60,18 @@ class FilterEstateViewModelTest {
             fakeEstateFilter.available
         )
 
-        Dispatchers.setMain(testDispatcher)
-        try {
-            every { mockFilterRepository.getEstateFilters() } returns flowOf(fakeEstateFilter)
-            val filterViewModel = FilterEstateViewModel(mockFilterRepository)
 
-            val filtersLiveData = filterViewModel.getCurrentFilter()
-            val filters = LiveDataTestUtil.getOrAwaitValue(filtersLiveData)
+        every { mockFilterRepository.getEstateFilters() } returns flowOf(fakeEstateFilter)
+        val filterViewModel = FilterEstateViewModel(mockFilterRepository)
 
-            assertEquals(expectedFilterState, filters)
-        } finally {
-            Dispatchers.resetMain()
-        }
+        val filtersLiveData = filterViewModel.getCurrentFilter()
+        val filters = LiveDataTestUtil.getOrAwaitValue(filtersLiveData)
+
+        assertEquals(expectedFilterState, filters)
     }
 
     @Test
-    fun clearFilters() = runTest(testDispatcher) {
+    fun clearFilters() = runTest {
 
         Dispatchers.setMain(testDispatcher)
         try {
@@ -85,50 +88,40 @@ class FilterEstateViewModelTest {
     }
 
     @Test
-    fun saveSuccess() = runTest(testDispatcher) {
+    fun saveSuccess() = runTest {
 
-        Dispatchers.setMain(testDispatcher)
-        try {
-            every { mockFilterRepository.getEstateFilters() } returns flowOf(fakeEstateFilter)
-            every { mockFilterRepository.saveEstateFilters(any()) } just Runs
-            val filterViewModel = FilterEstateViewModel(mockFilterRepository)
-            val expectedEstateFilter =
-                EstateFilter(listOf(PropertyType.HOUSE), 75000, 150000, "Paris", true)
+        every { mockFilterRepository.getEstateFilters() } returns flowOf(fakeEstateFilter)
+        every { mockFilterRepository.saveEstateFilters(any()) } just Runs
+        val filterViewModel = FilterEstateViewModel(mockFilterRepository)
+        val expectedEstateFilter =
+            EstateFilter(listOf(PropertyType.HOUSE), 75000, 150000, "Paris", true)
 
-            filterViewModel.onTypeSelected(PropertyType.HOUSE, true)
-            filterViewModel.onPriceChanged("75000", "150000")
-            filterViewModel.onAvailableChanged(true)
-            filterViewModel.onCityChanged("Paris")
-            filterViewModel.save()
+        filterViewModel.onTypeSelected(PropertyType.HOUSE, true)
+        filterViewModel.onPriceChanged("75000", "150000")
+        filterViewModel.onAvailableChanged(true)
+        filterViewModel.onCityChanged("Paris")
+        filterViewModel.save()
 
-            val snackBar = LiveDataTestUtil.getOrAwaitValue(filterViewModel.snackBar)
+        val snackBar = LiveDataTestUtil.getOrAwaitValue(filterViewModel.snackBar)
 
-            assertEquals(FilterEstateViewModel.Event.SaveSuccess, snackBar)
-            verify(exactly = 1) { mockFilterRepository.saveEstateFilters(expectedEstateFilter) }
-        } finally {
-            Dispatchers.resetMain()
-        }
+        assertEquals(FilterEstateViewModel.Event.SaveSuccess, snackBar)
+        verify(exactly = 1) { mockFilterRepository.saveEstateFilters(expectedEstateFilter) }
     }
 
     @Test
-    fun saveFailed() = runTest(testDispatcher) {
+    fun saveFailed() = runTest {
 
-        Dispatchers.setMain(testDispatcher)
-        try {
-            every { mockFilterRepository.getEstateFilters() } returns flowOf(fakeEstateFilter)
-            every { mockFilterRepository.saveEstateFilters(any()) } throws Throwable()
-            val filterViewModel = FilterEstateViewModel(mockFilterRepository)
-            val expectedEstateFilter = EstateFilter()
+        every { mockFilterRepository.getEstateFilters() } returns flowOf(fakeEstateFilter)
+        every { mockFilterRepository.saveEstateFilters(any()) } throws Throwable()
+        val filterViewModel = FilterEstateViewModel(mockFilterRepository)
+        val expectedEstateFilter = EstateFilter()
 
-            filterViewModel.save()
+        filterViewModel.save()
 
-            val snackBar = LiveDataTestUtil.getOrAwaitValue(filterViewModel.snackBar)
+        val snackBar = LiveDataTestUtil.getOrAwaitValue(filterViewModel.snackBar)
 
-            assertEquals(FilterEstateViewModel.Event.Error(""), snackBar)
-            verify(exactly = 1) { mockFilterRepository.saveEstateFilters(expectedEstateFilter) }
-        } finally {
-            Dispatchers.resetMain()
-        }
+        assertEquals(FilterEstateViewModel.Event.Error(""), snackBar)
+        verify(exactly = 1) { mockFilterRepository.saveEstateFilters(expectedEstateFilter) }
     }
 
 }

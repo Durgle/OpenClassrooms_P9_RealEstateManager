@@ -40,6 +40,29 @@ class EstateRepositoryTest {
     }
 
     @Test
+    fun selectedEstate() = runTest {
+
+        val defaultSelectedId = 0L
+        val selectedIdDefaultFlow = estateRepository.getSelectedEstate()
+        val selectedIdDefault = estateRepository.getSelectedEstateId()
+        assertEquals(defaultSelectedId, selectedIdDefaultFlow.first())
+        assertEquals(defaultSelectedId, selectedIdDefault)
+
+        val expectedSelectedId = 5L
+        estateRepository.onSelectedEstate(expectedSelectedId)
+        val selectedIdFlow = estateRepository.getSelectedEstate()
+        val selectedId = estateRepository.getSelectedEstateId()
+        assertEquals(expectedSelectedId, selectedIdFlow.first())
+        assertEquals(expectedSelectedId, selectedId)
+
+        estateRepository.clearSelectedEstate()
+        val selectedIdClearFlow = estateRepository.getSelectedEstate()
+        val selectedIdClear = estateRepository.getSelectedEstateId()
+        assertEquals(defaultSelectedId, selectedIdClearFlow.first())
+        assertEquals(defaultSelectedId, selectedIdClear)
+    }
+
+    @Test
     fun upsertEstateWithNonExistentEstate() = runTest {
         val estateIdSaved = 1L
         val expectedEstateEntity = FakeDataTest.getFakeEstateEntity(estateId = 0L)
