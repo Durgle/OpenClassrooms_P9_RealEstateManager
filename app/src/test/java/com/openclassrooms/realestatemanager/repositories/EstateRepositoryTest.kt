@@ -230,8 +230,9 @@ class EstateRepositoryTest {
 
     @Test
     fun getEstatesFiltered() = runTest {
+        val typeFilter = listOf(PropertyType.HOUSE)
         val filters = EstateFilter(
-            type = listOf(PropertyType.HOUSE),
+            type = typeFilter,
         )
         val estateWithPhotosEntities = listOf(
             FakeDataTest.getFakeEstateWithPhotosEntity(1L),
@@ -246,7 +247,7 @@ class EstateRepositoryTest {
 
         coEvery {
             mockEstateDao.getFilteredEstatesWithPhotos(
-                filters.type,
+                typeFilter,
                 filters.minPrice,
                 filters.maxPrice,
                 filters.city,
@@ -259,7 +260,7 @@ class EstateRepositoryTest {
         assertEquals(expectedEstates, estates)
         verify(exactly = 1) {
             mockEstateDao.getFilteredEstatesWithPhotos(
-                filters.type,
+                typeFilter,
                 filters.minPrice,
                 filters.maxPrice,
                 filters.city,

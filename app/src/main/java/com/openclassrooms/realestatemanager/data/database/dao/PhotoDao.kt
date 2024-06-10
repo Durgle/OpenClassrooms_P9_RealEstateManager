@@ -14,17 +14,11 @@ interface PhotoDao {
     @Insert
     suspend fun insertPhotos(photos: List<PhotoEntity>): List<Long>
 
-    @Update
-    suspend fun updatePhotos(photos: List<PhotoEntity>)
-
     @Upsert(entity = PhotoEntity::class)
     suspend fun upsertPhotos(photos: List<PhotoEntity>)
 
     @Query("SELECT * FROM photos")
     fun getAllPhotos(): Flow<List<PhotoEntity>>
-
-    @Query("DELETE FROM photos WHERE uri = :uri AND estateId = :estateId")
-    suspend fun deletePhoto(uri: String, estateId: Long)
 
     @Query("DELETE FROM photos WHERE uri IN (:uriList) AND estateId = :estateId")
     suspend fun deletePhotos(uriList: List<String>, estateId: Long)

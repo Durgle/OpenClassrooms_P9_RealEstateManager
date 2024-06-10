@@ -153,13 +153,24 @@ class EstateRepository(
      * @return A [Flow] emitting a list of filtered [Estate]
      */
     override fun getEstatesFiltered(filters: EstateFilter): Flow<List<Estate>> {
-        return estateDao.getFilteredEstatesWithPhotos(
-            filters.type,
-            filters.minPrice,
-            filters.maxPrice,
-            filters.city,
-            filters.available
-        ).map { estatesWithPhotosList ->
+        val list: Flow<List<EstateWithPhotosEntity>>
+        if (filters.type.isNullOrEmpty()) {
+            list = estateDao.getFilteredEstatesWithPhotos(
+                filters.minPrice,
+                filters.maxPrice,
+                filters.city,
+                filters.available
+            )
+        } else {
+            list = estateDao.getFilteredEstatesWithPhotos(
+                filters.type,
+                filters.minPrice,
+                filters.maxPrice,
+                filters.city,
+                filters.available
+            )
+        }
+        return list.map { estatesWithPhotosList ->
             estatesWithPhotosList.map { estateWithPhotos ->
                 mapToEstate(estateWithPhotos)
             }

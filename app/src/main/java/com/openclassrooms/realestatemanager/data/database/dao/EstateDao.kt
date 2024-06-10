@@ -21,9 +21,6 @@ interface EstateDao {
     @Update
     suspend fun updateEstate(estate: EstateEntity)
 
-    @Upsert(entity = EstateEntity::class)
-    suspend fun upsertEstate(estate: EstateEntity): Long
-
     @Query("SELECT * FROM estates")
     fun getAllEstates(): Flow<List<EstateEntity>>
 
@@ -43,14 +40,28 @@ interface EstateDao {
 
     @Transaction
     @Query(
-        "SELECT * FROM estates WHERE (:type IS NULL OR type IN (:type)) " +
+        "SELECT * FROM estates WHERE type IN (:type) " +
                 "AND (:minPrice IS NULL OR price >= :minPrice) " +
                 "AND (:maxPrice IS NULL OR price <= :maxPrice) " +
                 "AND (:city IS NULL OR city LIKE '%' || :city || '%' )" +
                 "AND (:available IS NULL OR available = :available)"
     )
     fun getFilteredEstatesWithPhotos(
-        type: List<PropertyType>?,
+        type: List<PropertyType>,
+        minPrice: Long?,
+        maxPrice: Long?,
+        city: String?,
+        available: Boolean?
+    ): Flow<List<EstateWithPhotosEntity>>
+
+    @Transaction
+    @Query(
+        "SELECT * FROM estates WHERE (:minPrice IS NULL OR price >= :minPrice) " +
+                "AND (:maxPrice IS NULL OR price <= :maxPrice) " +
+                "AND (:city IS NULL OR city LIKE '%' || :city || '%' )" +
+                "AND (:available IS NULL OR available = :available)"
+    )
+    fun getFilteredEstatesWithPhotos(
         minPrice: Long?,
         maxPrice: Long?,
         city: String?,

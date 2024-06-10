@@ -6,12 +6,12 @@ import com.openclassrooms.realestatemanager.data.enums.PointOfInterest
 class PointOfInterestConverter {
 
     @TypeConverter
-    fun fromPropertyTypeList(propertyTypeList: List<PointOfInterest>?): String {
+    fun fromPointOfInterestList(propertyTypeList: List<PointOfInterest>?): String {
         return propertyTypeList?.joinToString(separator = ",") { it.name } ?: ""
     }
 
     @TypeConverter
-    fun toPropertyTypeList(data: String): List<PointOfInterest>? {
+    fun toPointOfInterestList(data: String): List<PointOfInterest>? {
         if (data.isEmpty()) return null
         val typeNames = data.split(",")
         return typeNames.map { value -> PointOfInterest.valueOf(value) }

@@ -1,0 +1,96 @@
+package com.openclassrooms.realestatemanager.utils
+
+
+import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
+import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
+import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
+import com.openclassrooms.realestatemanager.data.database.entities.RealEstateAgentEntity
+import com.openclassrooms.realestatemanager.data.enums.PointOfInterest
+import com.openclassrooms.realestatemanager.data.enums.PropertyType
+
+class TestUtils {
+
+    companion object {
+
+        fun getFakeRealEstateAgentEntity(id: Long): RealEstateAgentEntity {
+            return RealEstateAgentEntity(id, "Agent $id")
+        }
+
+        fun getFakeEstateEntity(
+            id: Long,
+            type: PropertyType,
+            price: Long,
+            agentId: Long,
+            available: Boolean = true,
+            city: String = "New York"
+        ): EstateEntity {
+            return EstateEntity(
+                id = id,
+                type = type,
+                price = price,
+                propertyArea = 120,
+                numberOfBathrooms = 2,
+                numberOfBedrooms = 3,
+                description = "A beautiful house",
+                address = "123 Main St",
+                additionalAddressLine = null,
+                city = city,
+                zipCode = "10001",
+                country = "United State",
+                latitude = null,
+                longitude = null,
+                pointsOfInterest = listOf(
+                    PointOfInterest.HEALTH_SERVICES,
+                    PointOfInterest.RESTAURANTS_AND_CAFES
+                ),
+                available = available,
+                entryDate = 1717281435264,
+                saleDate = null,
+                realEstateAgentId = agentId
+            )
+        }
+
+        fun getFakeEstateWithPhotosEntity(
+            estateId: Long,
+            type: PropertyType,
+            price: Long,
+            photos: List<PhotoEntity>,
+            agent: RealEstateAgentEntity
+        ): EstateWithPhotosEntity {
+            return EstateWithPhotosEntity(
+                estate = getFakeEstateEntity(estateId, type, price, agent.id),
+                photos = photos,
+                agent = agent
+            )
+        }
+
+        fun getFakeEstateWithPhotosEntity(
+            estate: EstateEntity,
+            photos: List<PhotoEntity>,
+            agent: RealEstateAgentEntity
+        ): EstateWithPhotosEntity {
+            return EstateWithPhotosEntity(
+                estate = estate,
+                photos = photos,
+                agent = agent
+            )
+        }
+
+        fun getFakePhotoEntity(
+            uri: String,
+            estateId: Long,
+            description: String = "Room"
+        ): PhotoEntity {
+            return PhotoEntity(uri, description, estateId)
+        }
+
+        fun getFakePhotoList(estateId: Long): List<PhotoEntity> {
+            return listOf(
+                getFakePhotoEntity("uri1", estateId),
+                getFakePhotoEntity("uri2", estateId)
+            )
+        }
+
+    }
+
+}
