@@ -2,6 +2,8 @@ package com.openclassrooms.realestatemanager
 
 import android.app.Application
 import android.location.Geocoder
+import android.os.Looper
+import com.google.android.gms.location.LocationServices
 import com.openclassrooms.realestatemanager.data.database.RealEstateManagerDatabase
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepository
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
@@ -9,6 +11,7 @@ import com.openclassrooms.realestatemanager.data.repositories.FilterRepository
 import com.openclassrooms.realestatemanager.data.repositories.FilterRepositoryInterface
 import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepository
 import com.openclassrooms.realestatemanager.data.repositories.GeocoderRepositoryInterface
+import com.openclassrooms.realestatemanager.data.repositories.LocationRepository
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepository
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 import com.openclassrooms.realestatemanager.worker.WorkManager
@@ -40,5 +43,8 @@ class MainApplication : Application() {
     }
     val geocoderRepository: GeocoderRepositoryInterface by lazy {
         GeocoderRepository(Geocoder(this, Locale.getDefault()), Dispatchers.IO)
+    }
+    val locationRepository: LocationRepository by lazy {
+        LocationRepository(LocationServices.getFusedLocationProviderClient(this), Looper.getMainLooper())
     }
 }

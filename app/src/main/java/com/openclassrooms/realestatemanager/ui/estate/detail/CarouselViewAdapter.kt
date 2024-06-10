@@ -31,6 +31,7 @@ class CarouselViewAdapter() :
         fun bind(photo: Photo) {
             Glide.with(itemView)
                 .load(photo.uri)
+                .placeholder(R.drawable.no_photos)
                 .into(binding.carouselImage)
 
             binding.carouselDescription.text = photo.description

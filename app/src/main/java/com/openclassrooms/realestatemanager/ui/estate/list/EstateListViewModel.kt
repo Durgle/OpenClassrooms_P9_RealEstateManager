@@ -1,5 +1,7 @@
 package com.openclassrooms.realestatemanager.ui.estate.list
 
+import android.annotation.SuppressLint
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -7,6 +9,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
 import com.openclassrooms.realestatemanager.data.repositories.FilterRepositoryInterface
+import com.openclassrooms.realestatemanager.data.repositories.LocationRepository
 import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
@@ -14,7 +17,8 @@ import kotlinx.coroutines.flow.flatMapLatest
 
 class EstateListViewModel(
     private val estateRepository: EstateRepositoryInterface,
-    filterRepository: FilterRepositoryInterface
+    filterRepository: FilterRepositoryInterface,
+    private val locationRepository: LocationRepository,
 ) : ViewModel() {
 
     private val selectedEstateId = estateRepository.getSelectedEstate()
@@ -56,6 +60,19 @@ class EstateListViewModel(
 
     fun getEstates(): LiveData<List<EstateViewState>> {
         return estates
+    }
+
+    fun getCurrentLocation(): LiveData<Location> {
+        return locationRepository.locationLiveData
+    }
+
+    @SuppressLint("MissingPermission")
+    fun refreshLocation(granted: Boolean) {
+        if (granted) {
+            locationRepository.startLocationRequest();
+        } else {
+            locationRepository.stopLocationRequest();
+        }
     }
 
 }

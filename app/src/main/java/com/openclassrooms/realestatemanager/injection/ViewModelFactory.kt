@@ -34,7 +34,8 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
             modelClass.isAssignableFrom(EstateListViewModel::class.java) ->
                 EstateListViewModel(
                     extras.application.estateRepository,
-                    extras.application.filterRepository
+                    extras.application.filterRepository,
+                    extras.application.locationRepository
                 ) as T
 
             modelClass.isAssignableFrom(EstateViewModel::class.java) ->

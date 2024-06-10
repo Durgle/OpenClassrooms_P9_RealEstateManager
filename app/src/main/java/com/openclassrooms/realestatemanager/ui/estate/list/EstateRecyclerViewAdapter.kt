@@ -35,7 +35,8 @@ class EstateRecyclerViewAdapter(private val listener: OnItemClickListener) :
 
         fun bind(estate: EstateViewState, listener: OnItemClickListener) {
             Glide.with(itemView)
-                .load(estate.photo?.uri ?: R.drawable.no_photos)
+                .load(estate.photo?.uri)
+                .placeholder(R.drawable.no_photos)
                 .into(binding.estatePicture)
             binding.estatePrice.text = estate.price
             binding.estateType.setText(estate.propertyType.labelResId)
