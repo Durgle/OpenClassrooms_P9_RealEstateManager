@@ -34,6 +34,11 @@
             tools:itemCount="6"
             tools:listitem="@layout/image_list_item" />
 
+        <VideoView
+            android:id="@+id/estate_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <TextView
             style="@style/AppLightTitle"
             android:layout_width="match_parent"

@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.withTransaction
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.openclassrooms.realestatemanager.data.FakeData
 import com.openclassrooms.realestatemanager.data.database.converters.PointOfInterestConverter
 import com.openclassrooms.realestatemanager.data.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.data.database.dao.PhotoDao
@@ -83,7 +84,8 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
                     available = true,
                     entryDate = Utils.getNow(),
                     saleDate = null,
-                    realEstateAgentId = agent1
+                    realEstateAgentId = agent1,
+                    videoUri = FakeData.getFakeVideo()
                 )
             )
 
@@ -106,7 +108,8 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
                     available = true,
                     entryDate = Utils.getNow(),
                     saleDate = null,
-                    realEstateAgentId = agent2
+                    realEstateAgentId = agent2,
+                    videoUri = FakeData.getFakeVideo()
                 )
             )
             val estate3 = estateDao.insertEstate(
@@ -128,7 +131,8 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
                     available = true,
                     entryDate = Utils.getNow(),
                     saleDate = null,
-                    realEstateAgentId = agent1
+                    realEstateAgentId = agent1,
+                    videoUri = null
                 )
             )
 

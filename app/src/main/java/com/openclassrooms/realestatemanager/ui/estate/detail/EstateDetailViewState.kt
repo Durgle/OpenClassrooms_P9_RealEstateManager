@@ -15,7 +15,8 @@ data class EstateDetailViewState(
     val address: String,
     val location: LatLng?,
     @StringRes val availability: Int,
-    val pointOfInterest: List<PointOfInterest>
+    val pointOfInterest: List<PointOfInterest>,
+    val videoUri: String?
 ) {
     val numberOfRooms: Int
         get() = numberOfBathrooms + numberOfBedrooms

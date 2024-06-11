@@ -38,7 +38,8 @@ data class EstateEntity(
     val available: Boolean,
     val entryDate: Long,
     val saleDate: Long?,
-    @ColumnInfo(index = true) val realEstateAgentId: Long
+    @ColumnInfo(index = true) val realEstateAgentId: Long,
+    val videoUri: String?
 ) {
     companion object {
         fun fromContentValues(values: ContentValues): EstateEntity {
@@ -61,7 +62,8 @@ data class EstateEntity(
                 available = values.getAsBoolean("available"),
                 entryDate = values.getAsLong("entryDate"),
                 saleDate = values.getAsLong("saleDate"),
-                realEstateAgentId = values.getAsLong("realEstateAgentId")
+                realEstateAgentId = values.getAsLong("realEstateAgentId"),
+                videoUri = values.getAsString("videoUri")
             )
         }
     }

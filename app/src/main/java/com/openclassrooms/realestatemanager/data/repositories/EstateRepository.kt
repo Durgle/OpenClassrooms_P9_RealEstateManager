@@ -91,7 +91,8 @@ class EstateRepository(
             available = estate.available,
             entryDate = estate.entryDate,
             saleDate = estate.saleDate,
-            realEstateAgentId = estate.realEstateAgent.id
+            realEstateAgentId = estate.realEstateAgent.id,
+            videoUri = estate.videoUri
         )
 
         val estateId = if (estate.id == 0L) {
@@ -223,7 +224,8 @@ class EstateRepository(
             RealEstateAgent(
                 estateWithPhotos.agent.id,
                 estateWithPhotos.agent.displayName
-            )
+            ),
+            estateWithPhotos.estate.videoUri
         )
     }
 

@@ -1,9 +1,11 @@
 package com.openclassrooms.realestatemanager.ui.estate.detail
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -72,7 +74,7 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
 
     private fun updateUI(estateDetailViewState: EstateDetailViewState) {
         val adapter = CarouselViewAdapter()
-
+        initVideo(estateDetailViewState.videoUri)
         binding.estateSurface.text = estateDetailViewState.propertyArea
         binding.estateDescription.text = estateDetailViewState.description
         binding.estateNumberOfRooms.text = estateDetailViewState.numberOfRooms.toString()
@@ -82,7 +84,7 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
         adapter.submitList(estateDetailViewState.medias)
         binding.carouselRecyclerView.adapter = adapter
         binding.estateAvailable.setText(estateDetailViewState.availability)
-        if(estateDetailViewState.pointOfInterest.isEmpty()) {
+        if (estateDetailViewState.pointOfInterest.isEmpty()) {
             binding.estatePointsInterestTitle.visibility = View.GONE
             binding.estatePointsInterest.visibility = View.GONE
         } else {
@@ -91,6 +93,20 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
         }
         binding.estatePointsInterest.text =
             Utils.formatPointOfInterests(resources, estateDetailViewState.pointOfInterest)
+    }
+
+    private fun initVideo(videoUri: String?){
+        val videoPlayer = binding.estateVideo
+        if (videoUri != null) {
+            videoPlayer.setVideoURI(Uri.parse(videoUri))
+            val mediaController = MediaController(requireContext())
+            videoPlayer.setMediaController(mediaController)
+            mediaController.setAnchorView(videoPlayer)
+            videoPlayer.start()
+            videoPlayer.visibility = View.VISIBLE
+        } else {
+            videoPlayer.visibility = View.GONE
+        }
     }
 
     companion object {

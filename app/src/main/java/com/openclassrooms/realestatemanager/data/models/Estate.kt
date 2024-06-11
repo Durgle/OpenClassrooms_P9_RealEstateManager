@@ -23,5 +23,6 @@ data class Estate(
     val available: Boolean,
     val entryDate: Long,
     val saleDate: Long?,
-    val realEstateAgent: RealEstateAgent
+    val realEstateAgent: RealEstateAgent,
+    val videoUri: String?
 )

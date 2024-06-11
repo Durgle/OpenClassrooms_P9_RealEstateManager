@@ -45,7 +45,8 @@ class EstateDetailViewModel(
                 ),
                 latLng,
                 if (estate.available) R.string.estate_available else R.string.estate_sold,
-                estate.pointsOfInterest ?: emptyList()
+                estate.pointsOfInterest ?: emptyList(),
+                estate.videoUri
             )
         }
     }

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.data.FakeData
 import com.openclassrooms.realestatemanager.data.enums.PointOfInterest
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.data.models.Estate
@@ -127,7 +128,8 @@ class UpsertEstateViewModel(
             data.available,
             data.entryDate ?: Utils.getNow(),
             saleDate,
-            data.agent!!
+            data.agent!!,
+            FakeData.getFakeVideo()
         )
     }
 
