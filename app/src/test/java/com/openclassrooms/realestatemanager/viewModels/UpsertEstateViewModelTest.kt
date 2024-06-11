@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.location.Address
 import android.net.Uri
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.openclassrooms.realestatemanager.data.FakeData
 import com.openclassrooms.realestatemanager.data.enums.PointOfInterest
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.data.models.Estate
@@ -656,7 +657,8 @@ class UpsertEstateViewModelTest {
             available = available,
             entryDate = date,
             saleDate = null,
-            realEstateAgent = realEstateAgent
+            realEstateAgent = realEstateAgent,
+            videoUri = FakeData.getFakeVideo()
         )
 
         upsertEstateViewModel.onTypeChanged(propertyType)

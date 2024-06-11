@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.utils
 
 
+import com.openclassrooms.realestatemanager.data.FakeData
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
@@ -46,7 +47,8 @@ class TestUtils {
                 available = available,
                 entryDate = 1717281435264,
                 saleDate = null,
-                realEstateAgentId = agentId
+                realEstateAgentId = agentId,
+                videoUri = FakeData.getFakeVideo()
             )
         }
 

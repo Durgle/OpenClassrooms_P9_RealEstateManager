@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.utils
 import androidx.annotation.StringRes
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.data.FakeData
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
 import com.openclassrooms.realestatemanager.data.database.entities.PhotoEntity
@@ -78,7 +79,8 @@ class FakeDataTest {
                 available = available,
                 entryDate = 1717281435264,
                 saleDate = null,
-                realEstateAgent = RealEstateAgent(1L, "Agent 1")
+                realEstateAgent = RealEstateAgent(1L, "Agent 1"),
+                videoUri = FakeData.getFakeVideo()
             )
         }
 
@@ -109,7 +111,8 @@ class FakeDataTest {
                 ),
                 location = location,
                 availability = available,
-                pointOfInterest = pointOfInterest
+                pointOfInterest = pointOfInterest,
+                videoUri = FakeData.getFakeVideo()
             )
         }
 
@@ -163,7 +166,8 @@ class FakeDataTest {
                 available = true,
                 entryDate = 1717281435264,
                 saleDate = null,
-                realEstateAgentId = 1L
+                realEstateAgentId = 1L,
+                videoUri = FakeData.getFakeVideo()
             )
         }
 
