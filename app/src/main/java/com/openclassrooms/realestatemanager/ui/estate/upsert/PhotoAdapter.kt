@@ -53,6 +53,7 @@ class PhotoAdapter(
         fun bind(photo: PhotoViewState) {
             Glide.with(itemView)
                 .load(photo.uri)
+                .placeholder(R.drawable.no_photos)
                 .into(binding.estatePhotoView)
             if (photo.description != binding.estatePhotoDescInput.text.toString()) {
                 binding.estatePhotoDescInput.setText(photo.description)
