@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
+import android.widget.VideoView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,6 +27,7 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
         ViewModelFactory.getInstance()
     }
     private lateinit var binding: FragmentEstateDetailBinding
+    private lateinit var videoPlayer: VideoView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +39,7 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        videoPlayer = binding.estateVideo
         initTopAppBar()
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
@@ -45,6 +47,7 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
 
         viewModel.getEstate().observe(viewLifecycleOwner) { estateDetailViewState ->
             updateUI(estateDetailViewState)
+            initVideo(estateDetailViewState.videoUri)
         }
     }
 
@@ -74,7 +77,6 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
 
     private fun updateUI(estateDetailViewState: EstateDetailViewState) {
         val adapter = CarouselViewAdapter()
-        initVideo(estateDetailViewState.videoUri)
         binding.estateSurface.text = estateDetailViewState.propertyArea
         binding.estateDescription.text = estateDetailViewState.description
         binding.estateNumberOfRooms.text = estateDetailViewState.numberOfRooms.toString()
@@ -96,17 +98,20 @@ class EstateDetailFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initVideo(videoUri: String?){
-        val videoPlayer = binding.estateVideo
-        if (videoUri != null) {
+        if (!videoUri.isNullOrBlank()) {
             videoPlayer.setVideoURI(Uri.parse(videoUri))
             val mediaController = MediaController(requireContext())
             videoPlayer.setMediaController(mediaController)
             mediaController.setAnchorView(videoPlayer)
-            videoPlayer.start()
             videoPlayer.visibility = View.VISIBLE
         } else {
             videoPlayer.visibility = View.GONE
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        videoPlayer.stopPlayback()
     }
 
     companion object {
