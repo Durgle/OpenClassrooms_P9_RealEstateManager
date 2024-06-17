@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,7 +24,6 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateMapBinding
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.ui.estate.OnEstateSelectedListener
-import com.openclassrooms.realestatemanager.utils.Utils
 
 class EstateMapFragment(private val listener: OnEstateSelectedListener) : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -32,6 +31,14 @@ class EstateMapFragment(private val listener: OnEstateSelectedListener) : Fragme
         ViewModelFactory.getInstance()
     }
     private lateinit var binding: FragmentEstateMapBinding
+    private lateinit var googleMap: GoogleMap
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                enableCurrentLocation()
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,39 +52,40 @@ class EstateMapFragment(private val listener: OnEstateSelectedListener) : Fragme
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        if (Utils.isInternetAvailable(requireContext())) {
+        this.googleMap = googleMap
+        checkLocationPermission()
+        viewModel.getCurrentLocation().observe(viewLifecycleOwner, object : Observer<Location?> {
+            override fun onChanged(value: Location?) {
+                if (value != null) {
+                    val position = LatLng(value.latitude, value.longitude)
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 12.0f))
+                    viewModel.getCurrentLocation().removeObserver(this)
+                }
+            }
+        })
+        viewModel.getEstates().observe(viewLifecycleOwner) { estateList ->
+            googleMap.clear()
+            estateList.forEach { estate ->
+                addMarker(estate, googleMap)
+            }
+        }
+        googleMap.uiSettings.isZoomControlsEnabled = true
+        googleMap.setOnMarkerClickListener(this)
 
-            if (ContextCompat.checkSelfPermission(requireContext(),permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                googleMap.isMyLocationEnabled = true
-            } else {
-                requestPermission()
-            }
-            viewModel.getCurrentLocation().observe(viewLifecycleOwner, object : Observer<Location?> {
-                override fun onChanged(value: Location?) {
-                    if (value != null) {
-                        val position = LatLng(value.latitude, value.longitude)
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 12.0f))
-                        viewModel.getCurrentLocation().removeObserver(this)
-                    }
-                }
-            })
-            viewModel.getEstates().observe(viewLifecycleOwner) { estateList ->
-                googleMap.clear()
-                estateList.forEach { estate ->
-                    addMarker(estate, googleMap)
-                }
-            }
-            googleMap.uiSettings.isZoomControlsEnabled = true;
-            googleMap.setOnMarkerClickListener(this);
+    }
+
+    private fun checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            enableCurrentLocation()
+        } else {
+            requestPermissionLauncher.launch(permission.ACCESS_FINE_LOCATION)
         }
     }
 
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION),
-            0
-        )
+    private fun enableCurrentLocation() {
+        if (ContextCompat.checkSelfPermission(requireContext(), permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            googleMap.isMyLocationEnabled = true
+        }
     }
 
     private fun addMarker(estate: EstateViewState, googleMap: GoogleMap) {
