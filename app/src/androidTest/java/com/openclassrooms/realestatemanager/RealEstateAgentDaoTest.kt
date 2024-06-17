@@ -8,7 +8,7 @@ import com.openclassrooms.realestatemanager.data.database.dao.RealEstateAgentDao
 import com.openclassrooms.realestatemanager.database.TestDatabase
 import com.openclassrooms.realestatemanager.utils.TestUtils
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -39,7 +39,7 @@ class RealEstateAgentDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun writeAgentAndReadInList() = runBlocking {
+    fun writeAgentAndReadInList() = runTest {
         val expectedAgent1 = TestUtils.getFakeRealEstateAgentEntity(1)
         val expectedAgent2 = TestUtils.getFakeRealEstateAgentEntity(2)
 

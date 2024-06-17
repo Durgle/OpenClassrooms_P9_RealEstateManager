@@ -12,7 +12,7 @@ import com.openclassrooms.realestatemanager.data.enums.PropertyType
 import com.openclassrooms.realestatemanager.database.TestDatabase
 import com.openclassrooms.realestatemanager.utils.TestUtils
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.*
 import org.junit.After
@@ -53,7 +53,7 @@ class EstateAndPhotoDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun writeEstatesAndReadInList() = runBlocking {
+    fun writeEstatesAndReadInList() = runTest {
         realEstateAgentDao.insertRealEstateAgent(fakeAgent)
 
         val expectedEstate1 =
@@ -73,7 +73,7 @@ class EstateAndPhotoDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun writeReadAndUpdateEstate() = runBlocking {
+    fun writeReadAndUpdateEstate() = runTest {
         realEstateAgentDao.insertRealEstateAgent(fakeAgent)
 
         val newEstate =
@@ -94,7 +94,7 @@ class EstateAndPhotoDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun writeEstateAndReadWithCursor() = runBlocking {
+    fun writeEstateAndReadWithCursor() = runTest {
         realEstateAgentDao.insertRealEstateAgent(fakeAgent)
 
         val expectedEstate =
@@ -117,7 +117,7 @@ class EstateAndPhotoDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun writePhotosAndReadInList() = runBlocking {
+    fun writePhotosAndReadInList() = runTest {
         realEstateAgentDao.insertRealEstateAgent(fakeAgent)
 
         val estate =
@@ -136,7 +136,7 @@ class EstateAndPhotoDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun upsertPhoto() = runBlocking {
+    fun upsertPhoto() = runTest {
         realEstateAgentDao.insertRealEstateAgent(fakeAgent)
 
         val estate =
@@ -161,7 +161,7 @@ class EstateAndPhotoDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun deletePhoto() = runBlocking {
+    fun deletePhoto() = runTest {
         realEstateAgentDao.insertRealEstateAgent(fakeAgent)
 
         val estate =
@@ -182,7 +182,7 @@ class EstateAndPhotoDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun readEstateWithPhotos() = runBlocking {
+    fun readEstateWithPhotos() = runTest {
         realEstateAgentDao.insertRealEstateAgent(fakeAgent)
         val estate =
             TestUtils.getFakeEstateEntity(1, PropertyType.HOUSE, 15000, fakeAgent.id)
@@ -208,7 +208,7 @@ class EstateAndPhotoDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun readEstateWithPhotosFiltered() = runBlocking {
+    fun readEstateWithPhotosFiltered() = runTest {
         realEstateAgentDao.insertRealEstateAgent(fakeAgent)
         val estate1 =
             TestUtils.getFakeEstateEntity(
