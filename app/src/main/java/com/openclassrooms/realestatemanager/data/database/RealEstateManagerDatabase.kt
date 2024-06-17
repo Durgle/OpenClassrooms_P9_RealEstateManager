@@ -139,62 +139,62 @@ abstract class RealEstateManagerDatabase : RoomDatabase() {
             photoDao.insertPhotos(
                 listOf(
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&1",
+                        uri = "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=500",
                         description = "Building Entrance",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&2",
+                        uri = "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=500",
                         description = "Building Exterior",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&3",
+                        uri = "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=500",
                         description = "Living Room",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&4",
+                        uri = "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=500",
                         description = "Dining Room",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&5",
+                        uri = "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=500",
                         description = "Kitchen",
                         estateId = estate1
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&6",
+                        uri = "https://images.unsplash.com/photo-1592595896551-12b371d546d5?w=500",
                         description = "Dining Room",
                         estateId = estate2
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&7",
+                        uri = "https://images.unsplash.com/photo-1560440021-33f9b867899d?w=500",
                         description = "Living Room",
                         estateId = estate2
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&8",
+                        uri = "https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?w=500",
                         description = "Bedroom",
                         estateId = estate2
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&9",
+                        uri = "https://images.unsplash.com/photo-1494526585095-c41746248156?w=500",
                         description = "Building Entrance",
                         estateId = estate3
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&10",
+                        uri = "https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=500",
                         description = "Living Room",
                         estateId = estate3
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&11",
+                        uri = "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=500",
                         description = "Bedroom",
                         estateId = estate3
                     ),
                     PhotoEntity(
-                        uri = "https://source.unsplash.com/random/?House&12",
+                        uri = "https://images.unsplash.com/photo-1631888415289-f54436f81d8f?w=500",
                         description = "Kitchen",
                         estateId = estate3
                     )
