@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.estate.list
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,13 @@ import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBindin
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.ui.estate.OnEstateSelectedListener
 
-class EstateListFragment(private val listener: OnEstateSelectedListener) : Fragment() {
+class EstateListFragment() : Fragment() {
 
     private val viewModel: EstateListViewModel by viewModels {
         ViewModelFactory.getInstance()
     }
     private lateinit var binding: FragmentEstateListBinding
+    private lateinit var listener: OnEstateSelectedListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +41,14 @@ class EstateListFragment(private val listener: OnEstateSelectedListener) : Fragm
     }
 
     companion object {
-        fun newInstance(listener: OnEstateSelectedListener): EstateListFragment {
-            return EstateListFragment(listener)
+        fun newInstance(): EstateListFragment {
+            return EstateListFragment()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = parentFragment as OnEstateSelectedListener
     }
 
 }

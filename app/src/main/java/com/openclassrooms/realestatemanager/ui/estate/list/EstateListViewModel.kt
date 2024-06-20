@@ -1,7 +1,7 @@
 package com.openclassrooms.realestatemanager.ui.estate.list
 
-import android.annotation.SuppressLint
 import android.location.Location
+import androidx.annotation.RequiresPermission
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -66,13 +66,13 @@ class EstateListViewModel(
         return locationRepository.locationLiveData
     }
 
-    @SuppressLint("MissingPermission")
-    fun refreshLocation(granted: Boolean) {
-        if (granted) {
-            locationRepository.startLocationRequest();
-        } else {
-            locationRepository.stopLocationRequest();
-        }
+    @RequiresPermission(anyOf = ["android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_FINE_LOCATION"])
+    fun startLocation() {
+        locationRepository.startLocationRequest();
+    }
+
+    fun stopLocation() {
+        locationRepository.stopLocationRequest();
     }
 
 }

@@ -11,9 +11,9 @@ class EstateViewPagerAdapter(val fragment: EstateFragment) : FragmentStateAdapte
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> EstateListFragment.newInstance(fragment)
-            1 -> EstateMapFragment.newInstance(fragment)
-            else -> EstateListFragment.newInstance(fragment)
+            0 -> EstateListFragment.newInstance()
+            1 -> EstateMapFragment.newInstance()
+            else -> EstateListFragment.newInstance()
         }
     }
 }
