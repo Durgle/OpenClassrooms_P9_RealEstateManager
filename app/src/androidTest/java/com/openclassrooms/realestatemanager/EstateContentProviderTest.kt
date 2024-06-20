@@ -12,7 +12,6 @@ import com.openclassrooms.realestatemanager.data.database.RealEstateManagerDatab
 import com.openclassrooms.realestatemanager.provider.EstateContentProvider
 import com.openclassrooms.realestatemanager.provider.RealEstateAgentContentProvider
 import com.openclassrooms.realestatemanager.utils.TestUtils
-import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before

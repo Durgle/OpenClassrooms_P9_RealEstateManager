@@ -39,14 +39,14 @@ class EstateContentProvider : ContentProvider() {
             return cursor
         }
 
-        throw IllegalArgumentException("Failed to query row for uri $uri");
+        throw IllegalArgumentException("Failed to query row for uri $uri")
     }
 
     override fun getType(uri: Uri): String {
         return "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME"
     }
 
-    override fun insert(uri: Uri, contentValues: ContentValues?): Uri? {
+    override fun insert(uri: Uri, contentValues: ContentValues?): Uri {
         val currentContext = context
         if (currentContext != null && contentValues != null) {
            val id = estateRepository.insertFromContentValues(contentValues)

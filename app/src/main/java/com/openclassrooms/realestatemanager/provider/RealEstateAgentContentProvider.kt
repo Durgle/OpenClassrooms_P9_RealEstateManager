@@ -6,10 +6,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import com.openclassrooms.realestatemanager.MainApplication
-import com.openclassrooms.realestatemanager.data.database.dao.EstateDao
-import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.RealEstateAgentEntity
-import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 
 class RealEstateAgentContentProvider : ContentProvider() {
@@ -39,7 +36,7 @@ class RealEstateAgentContentProvider : ContentProvider() {
         return "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME"
     }
 
-    override fun insert(uri: Uri, contentValues: ContentValues?): Uri? {
+    override fun insert(uri: Uri, contentValues: ContentValues?): Uri {
         val currentContext = context
         if (currentContext != null && contentValues != null) {
            val id = realEstateAgentRepository.insertFromContentValues(contentValues)

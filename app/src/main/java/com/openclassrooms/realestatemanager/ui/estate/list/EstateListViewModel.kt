@@ -68,11 +68,11 @@ class EstateListViewModel(
 
     @RequiresPermission(anyOf = ["android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_FINE_LOCATION"])
     fun startLocation() {
-        locationRepository.startLocationRequest();
+        locationRepository.startLocationRequest()
     }
 
     fun stopLocation() {
-        locationRepository.stopLocationRequest();
+        locationRepository.stopLocationRequest()
     }
 
 }

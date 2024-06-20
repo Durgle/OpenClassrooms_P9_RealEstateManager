@@ -125,7 +125,7 @@ class EstateAndPhotoDaoTest {
         val estateIdSaved = estateDao.insertEstate(estate)
         val expectedPhoto1 = TestUtils.getFakePhotoEntity("uri/photo1.png", estateIdSaved)
         val expectedPhoto2 = TestUtils.getFakePhotoEntity("uri/photo2.png", estateIdSaved)
-        photoDao.insertPhotos(listOf(expectedPhoto1, expectedPhoto2));
+        photoDao.insertPhotos(listOf(expectedPhoto1, expectedPhoto2))
 
         val photos = photoDao.getAllPhotos().first()
 

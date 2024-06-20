@@ -107,7 +107,7 @@ class EstateMapFragment() : Fragment(),
             markerOptions.position(estate.location)
                 .title(resources.getString(estate.propertyType.labelResId))
             if (estate.selected) {
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
             }
             val marker = googleMap.addMarker(markerOptions)
             if (marker != null) {
