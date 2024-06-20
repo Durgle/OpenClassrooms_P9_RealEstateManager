@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.data.repositories
 
+import android.content.ContentValues
 import android.database.Cursor
 import com.openclassrooms.realestatemanager.data.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.data.database.dao.PhotoDao
@@ -120,6 +121,15 @@ class EstateRepository(
         if (estate.id == 0L) {
             workManager.scheduleEstateNotification()
         }
+    }
+
+    /**
+     * Inserts an estate in the database from content values.
+     *
+     * @param values The content values
+     */
+    override fun insertFromContentValues(values: ContentValues): Long {
+        return estateDao.insert(EstateEntity.fromContentValues(values))
     }
 
     /**

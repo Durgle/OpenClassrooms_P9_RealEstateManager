@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import androidx.room.Upsert
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
 import com.openclassrooms.realestatemanager.data.enums.PropertyType
@@ -17,6 +16,9 @@ interface EstateDao {
 
     @Insert
     suspend fun insertEstate(estate: EstateEntity): Long
+
+    @Insert
+    fun insert(estate: EstateEntity): Long
 
     @Update
     suspend fun updateEstate(estate: EstateEntity)

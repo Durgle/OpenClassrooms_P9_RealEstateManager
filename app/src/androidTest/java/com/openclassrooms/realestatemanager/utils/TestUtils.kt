@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.utils
 
 
+import android.content.ContentValues
 import com.openclassrooms.realestatemanager.data.FakeData
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
 import com.openclassrooms.realestatemanager.data.database.entities.EstateWithPhotosEntity
@@ -91,6 +92,38 @@ class TestUtils {
                 getFakePhotoEntity("uri1", estateId),
                 getFakePhotoEntity("uri2", estateId)
             )
+        }
+
+        fun generateEstateEntity(id:Long, agentId:Long): ContentValues {
+            val values = ContentValues()
+            values.put("id",id)
+            values.put("type",PropertyType.LOFT.name)
+            values.put("price",120000)
+            values.put("propertyArea",250)
+            values.put("numberOfBathrooms",1)
+            values.put("numberOfBedrooms",2)
+            values.put("description","description")
+            values.put("address","123 Main St")
+            values.put("additionalAddressLine","")
+            values.put("city","New York")
+            values.put("zipCode","10001")
+            values.put("country","United State")
+            values.put("latitude",1.0)
+            values.put("longitude", 2.5)
+            values.put("pointsOfInterest", PointOfInterest.RESTAURANTS_AND_CAFES.name)
+            values.put("available", true)
+            values.put("entryDate", 1532655)
+            values.put("saleDate", 0)
+            values.put("realEstateAgentId", agentId)
+            values.put("videoUri", FakeData.getFakeVideo())
+            return values
+        }
+
+        fun generateAgentEntity(id:Long): ContentValues {
+            val values = ContentValues()
+            values.put("id",id)
+            values.put("displayName","Agent 1")
+            return values
         }
 
     }

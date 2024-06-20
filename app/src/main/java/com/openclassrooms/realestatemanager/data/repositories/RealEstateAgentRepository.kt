@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.data.repositories
 
+import android.content.ContentValues
 import com.openclassrooms.realestatemanager.data.database.dao.RealEstateAgentDao
 import com.openclassrooms.realestatemanager.data.database.entities.RealEstateAgentEntity
 import com.openclassrooms.realestatemanager.data.models.RealEstateAgent
@@ -26,6 +27,10 @@ class RealEstateAgentRepository(
                 mapToRealEstateAgent(realEstateAgent)
             }
         }
+    }
+
+    override fun insertFromContentValues(values: ContentValues): Long {
+        return realEstateAgentDao.insert(RealEstateAgentEntity.fromContentValues(values))
     }
 
     /**

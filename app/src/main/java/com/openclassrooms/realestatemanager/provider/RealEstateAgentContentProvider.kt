@@ -6,17 +6,20 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import com.openclassrooms.realestatemanager.MainApplication
+import com.openclassrooms.realestatemanager.data.database.dao.EstateDao
 import com.openclassrooms.realestatemanager.data.database.entities.EstateEntity
+import com.openclassrooms.realestatemanager.data.database.entities.RealEstateAgentEntity
 import com.openclassrooms.realestatemanager.data.repositories.EstateRepositoryInterface
+import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 
-class EstateContentProvider : ContentProvider() {
+class RealEstateAgentContentProvider : ContentProvider() {
 
-    private lateinit var estateRepository: EstateRepositoryInterface
+    private lateinit var realEstateAgentRepository: RealEstateAgentRepositoryInterface
 
     override fun onCreate(): Boolean {
         context?.let { context ->
             val application = context.applicationContext as MainApplication
-            estateRepository = application.estateRepository
+            realEstateAgentRepository = application.realEstateAgentRepository
         }?: return false
         return true
     }
@@ -27,19 +30,9 @@ class EstateContentProvider : ContentProvider() {
         selection: String?,
         selectionArgs: Array<String>?,
         sortOrder: String?
-    ): Cursor {
+    ): Cursor? {
 
-        val currentContext = context
-        if (currentContext != null) {
-            val estateId = ContentUris.parseId(uri)
-
-            val cursor = estateRepository.getEstateByIdWithCursor(estateId)
-
-            cursor.setNotificationUri(currentContext.contentResolver, uri)
-            return cursor
-        }
-
-        throw IllegalArgumentException("Failed to query row for uri $uri");
+        return null
     }
 
     override fun getType(uri: Uri): String {
@@ -49,7 +42,7 @@ class EstateContentProvider : ContentProvider() {
     override fun insert(uri: Uri, contentValues: ContentValues?): Uri? {
         val currentContext = context
         if (currentContext != null && contentValues != null) {
-           val id = estateRepository.insertFromContentValues(contentValues)
+           val id = realEstateAgentRepository.insertFromContentValues(contentValues)
             if (id != 0L){
                 currentContext.contentResolver.notifyChange(uri,null)
                 return ContentUris.withAppendedId(uri,id)
@@ -74,8 +67,8 @@ class EstateContentProvider : ContentProvider() {
 
     companion object {
         @Suppress("SpellCheckingInspection")
-        const val AUTHORITY = "com.openclassrooms.realestatemanager.provider.estate"
-        val TABLE_NAME: String = EstateEntity::class.java.simpleName
+        const val AUTHORITY = "com.openclassrooms.realestatemanager.provider.realEstateAgent"
+        val TABLE_NAME: String = RealEstateAgentEntity::class.java.simpleName
         val CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + TABLE_NAME)
     }
 }

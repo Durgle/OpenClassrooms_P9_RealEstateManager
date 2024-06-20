@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.openclassrooms.realestatemanager.data.database.RealEstateManagerDatabase
 import com.openclassrooms.realestatemanager.data.database.dao.RealEstateAgentDao
-import com.openclassrooms.realestatemanager.database.TestDatabase
 import com.openclassrooms.realestatemanager.utils.TestUtils
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -20,13 +20,13 @@ import java.io.IOException
 class RealEstateAgentDaoTest {
 
     private lateinit var realEstateAgentDao: RealEstateAgentDao
-    private lateinit var db: TestDatabase
+    private lateinit var db: RealEstateManagerDatabase
 
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, TestDatabase::class.java
+            context, RealEstateManagerDatabase::class.java
         ).build()
         realEstateAgentDao = db.realEstateAgentDao()
     }

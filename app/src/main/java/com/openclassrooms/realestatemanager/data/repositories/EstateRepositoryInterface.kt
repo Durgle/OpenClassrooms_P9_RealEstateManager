@@ -1,10 +1,10 @@
 package com.openclassrooms.realestatemanager.data.repositories
 
+import android.content.ContentValues
 import android.database.Cursor
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateFilter
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 
 interface EstateRepositoryInterface {
 
@@ -41,6 +41,14 @@ interface EstateRepositoryInterface {
      * @param photoToBeRemoved A list of URIs of photos to be removed
      */
     suspend fun upsertEstate(estate: Estate, photoToBeRemoved: List<String>? = null)
+
+    /**
+     * Inserts an estate in the database from content values.
+     *
+     * @param values The content values
+     * @return Estate id
+     */
+    fun insertFromContentValues(values: ContentValues): Long
 
     /**
      * Retrieves an estate with its photos from the database as a flow
