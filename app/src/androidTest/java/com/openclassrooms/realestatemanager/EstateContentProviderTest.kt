@@ -58,7 +58,7 @@ class EstateContentProviderTest {
     }
 
     @Test
-    fun testQueryWithInsert() = runTest {
+    fun testQueryWithInsert() {
 
         val estateId = 8L
         val agentId = 4L
