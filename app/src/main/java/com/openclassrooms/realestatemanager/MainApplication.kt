@@ -20,14 +20,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import java.util.Locale
 
+/**
+ * The main application class
+ */
 class MainApplication : Application() {
 
+    /**
+     * The scope for coroutines
+     */
     private val applicationScope = CoroutineScope(SupervisorJob())
-    private val database by lazy { RealEstateManagerDatabase.getInstance(this, applicationScope) }
-    private val workManager: WorkManager by lazy {
-        WorkManager(applicationContext)
-    }
 
+    /**
+     * The database instance
+     */
+    private val database by lazy { RealEstateManagerDatabase.getInstance(this, applicationScope) }
+
+    /**
+     * The WorkManager instance
+     */
+    private val workManager: WorkManager by lazy { WorkManager(applicationContext) }
+
+    /**
+     * The estate repository
+     */
     val estateRepository: EstateRepositoryInterface by lazy {
         EstateRepository(
             database.estateDao(),
@@ -35,16 +50,33 @@ class MainApplication : Application() {
             workManager
         )
     }
+
+    /**
+     * The real estate agent repository
+     */
     val realEstateAgentRepository: RealEstateAgentRepositoryInterface by lazy {
         RealEstateAgentRepository(database.realEstateAgentDao())
     }
-    val filterRepository: FilterRepositoryInterface by lazy {
-        FilterRepository(this)
-    }
+
+    /**
+     * The filter repository
+     */
+    val filterRepository: FilterRepositoryInterface by lazy { FilterRepository(this) }
+
+    /**
+     * The geocoder repository
+     */
     val geocoderRepository: GeocoderRepositoryInterface by lazy {
         GeocoderRepository(Geocoder(this, Locale.getDefault()), Dispatchers.IO)
     }
+
+    /**
+     * The location repository
+     */
     val locationRepository: LocationRepository by lazy {
-        LocationRepository(LocationServices.getFusedLocationProviderClient(this), Looper.getMainLooper())
+        LocationRepository(
+            LocationServices.getFusedLocationProviderClient(this),
+            Looper.getMainLooper()
+        )
     }
 }

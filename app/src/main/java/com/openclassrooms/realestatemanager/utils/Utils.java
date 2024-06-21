@@ -29,6 +29,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Utility class containing static helper methods
+ */
 public class Utils {
 
     /**

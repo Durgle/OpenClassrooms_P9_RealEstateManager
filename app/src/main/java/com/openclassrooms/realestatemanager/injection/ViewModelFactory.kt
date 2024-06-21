@@ -13,20 +13,35 @@ import com.openclassrooms.realestatemanager.ui.estate.filter.FilterEstateViewMod
 import com.openclassrooms.realestatemanager.ui.estate.list.EstateListViewModel
 import kotlinx.coroutines.Dispatchers
 
+/**
+ * Factory for creating ViewModels with dependencies
+ */
 class ViewModelFactory private constructor() : ViewModelProvider.Factory {
 
+    /**
+     * Extension property to retrieve the [MainApplication] instance from [CreationExtras]
+     */
     private val CreationExtras.application: MainApplication
         get() = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as MainApplication
 
     companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
+
         fun getInstance(): ViewModelFactory =
             instance ?: synchronized(this) {
                 instance ?: ViewModelFactory().also { instance = it }
             }
     }
 
+    /**
+     * Creates a new instance of the given class
+     *
+     * @param modelClass The class of the ViewModel to create
+     * @param extras Additional information for the creation
+     * @return A newly created ViewModel
+     * @throws IllegalArgumentException if the `modelClass` is unknown
+     */
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
 

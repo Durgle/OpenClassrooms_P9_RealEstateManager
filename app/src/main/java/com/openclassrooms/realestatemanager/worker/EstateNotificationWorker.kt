@@ -13,10 +13,20 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.openclassrooms.realestatemanager.R
 
-
+/**
+ * A Worker that creates a notification when an estate is added
+ *
+ * @param context The context
+ * @param workerParams The parameters for the Worker
+ */
 class EstateNotificationWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
 
+    /**
+     * The main method of the Worker that is executed in the background
+     *
+     * @return The result of the work
+     */
     override fun doWork(): Result {
 
         val notificationManager = NotificationManagerCompat.from(applicationContext)

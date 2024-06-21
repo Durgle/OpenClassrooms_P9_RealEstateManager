@@ -9,15 +9,26 @@ import com.openclassrooms.realestatemanager.MainApplication
 import com.openclassrooms.realestatemanager.data.database.entities.RealEstateAgentEntity
 import com.openclassrooms.realestatemanager.data.repositories.RealEstateAgentRepositoryInterface
 
+/**
+ * ContentProvider for accessing real estate agent data
+ */
 class RealEstateAgentContentProvider : ContentProvider() {
 
+    /**
+     * The real estate agent repository
+     */
     private lateinit var realEstateAgentRepository: RealEstateAgentRepositoryInterface
 
+    /**
+     * Initializes the ContentProvider and retrieves the real estate agent repository
+     *
+     * @return true if the provider was successfully loaded, false otherwise
+     */
     override fun onCreate(): Boolean {
         context?.let { context ->
             val application = context.applicationContext as MainApplication
             realEstateAgentRepository = application.realEstateAgentRepository
-        }?: return false
+        } ?: return false
         return true
     }
 
@@ -36,13 +47,20 @@ class RealEstateAgentContentProvider : ContentProvider() {
         return "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME"
     }
 
+    /**
+     * Inserts a new row into the real estate agent repository
+     *
+     * @param uri The content URI
+     * @param contentValues The values to insert
+     * @return The URI of the newly inserted row
+     */
     override fun insert(uri: Uri, contentValues: ContentValues?): Uri {
         val currentContext = context
         if (currentContext != null && contentValues != null) {
-           val id = realEstateAgentRepository.insertFromContentValues(contentValues)
-            if (id != 0L){
-                currentContext.contentResolver.notifyChange(uri,null)
-                return ContentUris.withAppendedId(uri,id)
+            val id = realEstateAgentRepository.insertFromContentValues(contentValues)
+            if (id != 0L) {
+                currentContext.contentResolver.notifyChange(uri, null)
+                return ContentUris.withAppendedId(uri, id)
             }
         }
 
@@ -66,6 +84,6 @@ class RealEstateAgentContentProvider : ContentProvider() {
         @Suppress("SpellCheckingInspection")
         const val AUTHORITY = "com.openclassrooms.realestatemanager.provider.realEstateAgent"
         val TABLE_NAME: String = RealEstateAgentEntity::class.java.simpleName
-        val CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + TABLE_NAME)
+        val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
     }
 }
